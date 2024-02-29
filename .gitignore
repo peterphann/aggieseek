@@ -29,6 +29,6 @@ dist-ssr
 .devcontainer/*
 
 # Server files and environment variables
-env
 .env
-.flaskenv
+server/.flaskenv
+server/env
