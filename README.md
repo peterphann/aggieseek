@@ -1,6 +1,6 @@
 # AggieSeek
 <img src="https://i.imgur.com/jW0kJB2.png"></img>
 
-AggieSeek is a web application that automatically tracks and notifies students upon course openings at Texas A&M University.
+AggieSeek is a web application that automatically tracks and notifies students upon course openings at Texas A&M University. Create a new account and be the first to enroll in your courses today!
 
 **Visit our website at www.aggieseek.net!**
