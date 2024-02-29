@@ -3,14 +3,13 @@ import pyrebase
 from flask_cors import CORS, cross_origin
 
 # API key and other parameters from Firebase
-config = {}
-
-firebase = pyrebase.initialize_app(config)
-auth = firebase.auth()
+config = {
+  
+}
 
 app = Flask(__name__)
 
-# @app.route('/api/data', methods=['POST'])
+# @app.route('/api/data', methods=['GET'])
 # @cross_origin(origin='*')
 # def user():
 #   return {
