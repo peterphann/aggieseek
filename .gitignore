@@ -33,3 +33,4 @@ dist-ssr
 server/.flaskenv
 server/env
 env/
+.venv
