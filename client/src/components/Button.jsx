@@ -1,6 +1,6 @@
 const Button = ({ text }) => {
   return (
-    <button className="bg-white">
+    <button className="bg-white text-black">
       {text}
     </button>
   );
