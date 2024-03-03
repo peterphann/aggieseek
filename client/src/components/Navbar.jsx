@@ -66,7 +66,7 @@ export default function Navbar() {
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
                       <img
-                        className="h-8 w-8 rounded-full"
+                        className="h-10 w-10 rounded-full"
                         src="https://reveille.tamu.edu/assets/img/socialtwitter.jpg"
                         alt=""
                       />
