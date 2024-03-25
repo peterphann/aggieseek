@@ -35,7 +35,7 @@ const Signin = () => {
       })
       .catch((error) => {
         const errorCode = error.code
-        setMessage(errorCode)
+        setMessage(errorMessages[errorCode])
       })
   }
 
