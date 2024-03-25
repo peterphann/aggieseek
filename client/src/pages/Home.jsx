@@ -7,7 +7,7 @@ import './Home.css'
 const Home = () => {
 
   return (
-    <div>
+    <div className = "min-h-[84vh] radial-bg">
       <div className="mt-20 text-center">
         <div className="flex justify-center">
           <h1 className="text-6xl font-bold text-white my-3">Welcome to</h1>
@@ -34,10 +34,6 @@ const Home = () => {
         <Link to="/signin">
           <Button>Get started</Button>
         </Link>
-      </div>
-
-      <div className="text-sm text-white underline opacity-40 py-4 fixed bottom-0 left-0 w-full text-center">
-        <Link to="/about">About Us</Link>
       </div>
     </div>
 

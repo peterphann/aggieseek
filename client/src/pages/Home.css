@@ -1,3 +1,6 @@
 html, body {
   min-height: 100%
 }
+.radial-bg {
+  background: radial-gradient(ellipse 700px 500px at 25% 75%, #FFFFFF, #8D0509 80%);
+}

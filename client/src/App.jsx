@@ -7,10 +7,10 @@ import Navbar from './components/Navbar'
 import NavbarGuest from './components/NavbarGuest'
 import Dashboard from './pages/Dashboard'
 import About from './pages/About'
-import { useUser } from './hooks/useUser'
+//import { useUser } from './hooks/useUser'
 
 function App() {
-  const key = useUser();
+  const key = true;
 
   return (
     <BrowserRouter>
