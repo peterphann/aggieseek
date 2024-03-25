@@ -9,7 +9,8 @@ const errorMessages = {
   "auth/invalid-email": "The email you entered is invalid.",
   "auth/missing-password": "Please enter a password.",
   "auth/invalid-credential": "The password you entered is incorrect.",
-  "auth/too-many-requests": "You have attempted to log in too many times. Please wait before trying again."
+  "auth/too-many-requests": "You have attempted to log in too many times. Please wait before trying again.",
+  "auth/user-disabled": "The account you're trying to access is disabled."
 }
 
 const Signin = () => {
