@@ -1,20 +1,13 @@
-import Button from "../components/Button";
-import NavbarGuest from "../components/NavbarGuest";
-import Navbar from "../components/Navbar"
+import Button from "../components/Button"
+import { Link } from 'react-router-dom'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import logo from '../assets/logo-white.png'
 import './Home.css'
 
 const Home = () => {
 
-  function getStarted() {
-    alert("Get Started!")
-  }
-
   return (
     <div>
-      <Navbar></Navbar>
-
       <div className="mt-20 text-center">
         <div className="flex justify-center">
           <h1 className="text-6xl font-bold text-white my-3">Welcome to</h1>
@@ -38,7 +31,13 @@ const Home = () => {
       </div>
 
       <div className="text-center">
-        <Button onClick={() => getStarted()}>Get started</Button>
+        <Link to="/signin">
+          <Button>Get started</Button>
+        </Link>
+      </div>
+
+      <div className="text-sm text-white underline opacity-40 py-4 fixed bottom-0 left-0 w-full text-center">
+        <Link to="/about">About Us</Link>
       </div>
     </div>
 
