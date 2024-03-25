@@ -14,16 +14,16 @@ const Home = () => {
           <img src={logo} alt="AggieSeek" className="object-contain w-80 mx-4" />
         </div>
         <h2 className="text-xl font-medium">Get your desired classes hassle free</h2>
-        <div className="flex-row my-3">
-          <div className="inline-block mx-3">
+        <div className="flex justify-center my-3">
+          <div className="mx-3">
             <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
             No 8ams
           </div>
-          <div className="inline-block mx-3">
+          <div className="mx-3">
             <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
             Notify you upon course openings
           </div>
-          <div className="inline-block mx-3">
+          <div className="mx-3">
             <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
             Get Fridays off early
           </div>
