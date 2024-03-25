@@ -5,8 +5,7 @@ import logo from '../assets/logo-white.png'
 import anonymous from '../assets/profile.webp'
 
 const navigation = [
-  { name: 'Home', href: '#', current: true },
-  { name: 'Dashboard', href: '#', current: false },
+  { name: 'Home', href: '#', current: true }
 ]
 
 function classNames(...classes) {
@@ -97,17 +96,7 @@ export default function NavbarGuest() {
                             href="#"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Log Out
+                            Sign In
                           </a>
                         )}
                       </Menu.Item>
