@@ -5,15 +5,15 @@ import logo from '../assets/logo-white.png'
 import anonymous from '../assets/profile.webp'
 
 const navigation = [
-  { name: 'Home', href: '#', current: true },
-  { name: 'Dashboard', href: '#', current: false },
+  { name: 'Home', href: '/home', current: true },
+  { name: 'Dashboard', href: '/dashboard', current: false },
 ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function NavbarGuest() {
+export default function Navbar() {
   return (
     <Disclosure as="nav" className="bg-zinc-800 shadow-lg">
       {({ open }) => (
