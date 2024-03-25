@@ -1,12 +1,16 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import logo from '../assets/logo-white.png'
+import Logo from './Logo'
 import anonymous from '../assets/profile.webp'
+import { Link } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { auth } from '../firebase'
 
 const navigation = [
-  { name: 'Home', href: '/home', current: true },
-  { name: 'Dashboard', href: '/dashboard', current: false },
+  { name: 'Home', href: '/', private: false},
+  { name: 'Dashboard', href: '/dashboard', private: true},
+  { name: 'Settings', href: '/settings', private: true}
 ]
 
 function classNames(...classes) {
@@ -14,6 +18,21 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+  const currentPage = useLocation().pathname
+  const [isUser, setIsUser] = useState(null)
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      setIsUser(user)
+    })
+
+    return unsubscribe
+  }, [])
+
+  const signOut = () => {
+    auth.signOut()
+  }
+
   return (
     <Disclosure as="nav" className="bg-zinc-800 shadow-lg">
       {({ open }) => (
@@ -34,26 +53,24 @@ export default function Navbar() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="h-8 w-9/12 object-contain cursor-pointer"
-                    src={logo}
-                    alt="AggieSeek"
-                  />
+                  <Link to="/">
+                    <Logo className="transition-all ease-in-out duration-100 h-8 w-9/12 object-contain cursor-pointer hover:opacity-80"></Logo>
+                    </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
+                    {navigation.filter((item) => (!item.private || isUser)).map((item) => (
+                      <Link
+                      key={item.name}
+                      to={item.href}
+                      className={classNames(
+                        (currentPage == item.href) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        'rounded-md px-3 py-2 text-sm font-medium'
+                      )}
+                      aria-current={(currentPage == item.href) ? 'page' : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -91,26 +108,39 @@ export default function Navbar() {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
+                      {!isUser && <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <Link
+                            to="/signin"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Settings
-                          </a>
+                            Sign In
+                          </Link>
                         )}
-                      </Menu.Item>
-                      <Menu.Item>
+                      </Menu.Item>}
+
+                      {isUser && <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <Link
+                            to="/profile"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Log Out
-                          </a>
+                            Profile
+                          </Link>
                         )}
-                      </Menu.Item>
+                      </Menu.Item>}
+
+                      {isUser && <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            to="/"
+                            onClick={() => signOut()}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            Sign Out
+                          </Link>
+                        )}
+                      </Menu.Item>}
                     </Menu.Items>
                   </Transition>
                 </Menu>
@@ -126,10 +156,10 @@ export default function Navbar() {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    (currentPage == item.href) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                     'block rounded-md px-3 py-2 text-base font-medium'
                   )}
-                  aria-current={item.current ? 'page' : undefined}
+                  aria-current={(currentPage == item.href) ? 'page' : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
