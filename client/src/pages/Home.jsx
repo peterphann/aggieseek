@@ -1,5 +1,6 @@
 import Button from "../components/Button";
 import NavbarGuest from "../components/NavbarGuest";
+import Navbar from "../components/Navbar"
 import { CheckIcon } from '@heroicons/react/24/outline'
 import logo from '../assets/logo-white.png'
 import './Home.css'
@@ -12,7 +13,7 @@ const Home = () => {
 
   return (
     <div>
-      <NavbarGuest></NavbarGuest>
+      <Navbar></Navbar>
 
       <div className="mt-20 text-center">
         <div className="flex justify-center">

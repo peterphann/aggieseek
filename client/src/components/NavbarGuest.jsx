@@ -5,8 +5,7 @@ import logo from '../assets/logo-white.png'
 import anonymous from '../assets/profile.webp'
 
 const navigation = [
-  { name: 'Home', href: '#', current: true },
-  { name: 'Dashboard', href: '#', current: false }
+  { name: 'Home', href: '#', current: true }
 ]
 
 function classNames(...classes) {
