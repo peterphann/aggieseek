@@ -8,8 +8,16 @@
   font-weight: 400;
 
   color-scheme: light dark;
+<<<<<<< Updated upstream
   color: rgba(255, 255, 255, 0.87);
   background-color: #8D0509;
+=======
+  /* color: rgba(255, 255, 255, 0.87); */
+  /* background-color: #8D0509; */
+  background-color: #8D0509;
+  //background: linear-gradient(45deg, #500000, #aa0a10);
+  //background-color: #500000;
+>>>>>>> Stashed changes
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

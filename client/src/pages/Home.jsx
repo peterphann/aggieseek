@@ -3,11 +3,16 @@ import Navbar from "../components/Navbar";
 
 const Home = () => {
   return (
-    <>
+    <div>
       <Navbar></Navbar>
 
-      <Button text="Hello"></Button>
-    </>
+      <div className="text-center">
+        <Link to="/signin">
+          <Button>Get started</Button>
+        </Link>
+      </div>
+
+    </div>
 
   );
 }
