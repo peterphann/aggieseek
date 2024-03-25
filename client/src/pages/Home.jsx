@@ -1,17 +1,17 @@
 import Button from "../components/Button"
+import Logo from "../components/Logo"
 import { Link } from 'react-router-dom'
 import { CheckIcon } from '@heroicons/react/24/outline'
-import logo from '../assets/logo-white.png'
 import './Home.css'
+import { auth } from "../firebase"
 
 const Home = () => {
-
   return (
     <div>
       <div className="mt-20 text-center">
         <div className="flex justify-center">
           <h1 className="text-6xl font-bold text-white my-3">Welcome to</h1>
-          <img src={logo} alt="AggieSeek" className="object-contain w-80 mx-4" />
+          <Logo className="object-contain w-80 mx-4"></Logo>
         </div>
         <h2 className="text-xl font-medium">Get your desired classes hassle free</h2>
         <div className="flex justify-center my-3">
@@ -36,9 +36,6 @@ const Home = () => {
         </Link>
       </div>
 
-      <div className="text-sm text-white underline opacity-40 py-4 fixed bottom-0 left-0 w-full text-center">
-        <Link to="/about">About Us</Link>
-      </div>
     </div>
 
   );
