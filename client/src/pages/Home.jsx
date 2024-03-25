@@ -15,15 +15,15 @@ const Home = () => {
         </div>
         <h2 className="text-xl font-medium">Get your desired classes hassle free</h2>
         <div className="flex justify-center my-3">
-          <div className="mx-3">
+          <div className="transform-translate ease-in-out duration-200 mx-3 cursor-default hover:-translate-y-1">
             <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
             No 8ams
           </div>
-          <div className="mx-3">
+          <div className="transform-translate ease-in-out duration-200 mx-3 cursor-default hover:-translate-y-1">
             <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
             Notify you upon course openings
           </div>
-          <div className="mx-3">
+          <div className="transform-translate ease-in-out duration-200 mx-3 cursor-default hover:-translate-y-1">
             <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
             Get Fridays off early
           </div>
