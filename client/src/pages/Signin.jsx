@@ -41,8 +41,8 @@ const Signin = () => {
 
   return (
     <div className="justify-center flex mt-20">
-      <div className="flex-col items-center bg-white px-16 py-10 rounded-lg shadow-md">
-        <h1 className="text-center font-bold text-black text-3xl">Login</h1>
+      <div className="flex-col items-center bg-white px-10 py-10 rounded-lg shadow-md">
+        <h1 className="text-center font-bold text-black text-3xl mx-32">Login</h1>
         <h2 className="text-center text-black text-sm font-medium">Don't have an account? <Link to="/signup" className="text-blue-700 hover:underline">Sign Up</Link></h2>
 
         <form onSubmit={(e) => handleSignin(e)}>

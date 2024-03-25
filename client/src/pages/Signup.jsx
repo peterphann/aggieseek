@@ -7,7 +7,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth"
 const errorMessages = {
   "auth/invalid-email": "The email you entered is invalid.",
   "auth/missing-password": "Please enter a password.",
-  "auth/email-already-in-use": "The email you entered is already in use."
+  "auth/email-already-in-use": "The email you entered is already in use.",
+  "auth/weak-password": "Your password must be at least 6 characters long."
 }
 
 const Signup = () => {
@@ -47,8 +48,8 @@ const Signup = () => {
 
   return (
     <div className="justify-center flex mt-20">
-      <div className="flex-col items-center bg-white px-20 py-10 rounded-lg shadow-md">
-        <h1 className="text-center font-bold text-black text-3xl">Sign Up</h1>
+      <div className="flex-col items-center bg-white px-10 py-10 rounded-lg shadow-md">
+        <h1 className="text-center font-bold text-black text-3xl mx-32">Sign Up</h1>
         <h2 className="text-center text-black text-sm font-medium">Already have an account? <Link to="/signin" className="text-blue-700 hover:underline">Login</Link></h2>
 
         <form onSubmit={(e) => handleSignup(e)}>
