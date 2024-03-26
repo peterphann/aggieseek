@@ -48,7 +48,7 @@ const Signup = () => {
 
   return (
     <div className="justify-center flex mt-20">
-      <div className="flex-col items-center bg-white px-10 py-10 rounded-lg shadow-md">
+      <div className="flex-col items-center bg-white px-10 py-10 rounded-lg shadow-2xl">
         <h1 className="text-center font-bold text-black text-3xl mx-32">Sign Up</h1>
         <h2 className="text-center text-black text-sm font-medium">Already have an account? <Link to="/signin" className="text-blue-700 hover:underline">Login</Link></h2>
 

@@ -7,11 +7,11 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: light;
   /* color: rgba(255, 255, 255, 0.87); */
   /* background-color: #8D0509; */
-  background: linear-gradient(45deg, #500000, #bf0c12);
-  background-color: #500000;
+  /* background: linear-gradient(45deg, #500000, #bf0c12); */
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
