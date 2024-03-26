@@ -1,4 +1,4 @@
-import logo from "../assets/logo-white.png"
+import logo from "../assets/logo-black.png"
 
 const Logo = ({ ...props }) => {
   return (
