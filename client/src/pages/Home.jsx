@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <>
       <div className="m-12">
-        <div className="flex flex-row justify-between mb-8">
+        <div className="flex flex-row justify-between mb-3">
           <Logo className="object-contain md:h-16"></Logo>
           <ACCBadge></ACCBadge>
         </div>
