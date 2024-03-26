@@ -64,7 +64,7 @@ export default function Navbar() {
                       key={item.name}
                       to={item.href}
                       className={classNames(
-                        (currentPage == item.href) ? 'opacity-20 text-black' : ' text-black ',
+                        (currentPage == item.href) ? 'opacity-40 text-black' : ' text-black ',
                         'rounded-md px-3 py-2 text-sm font-semibold transition-transform ease-in-out duration-100 hover:-translate-y-0.5'
                       )}
                       aria-current={(currentPage == item.href) ? 'page' : undefined}
@@ -156,7 +156,7 @@ export default function Navbar() {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    (currentPage == item.href) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    (currentPage == item.href) ? ' text-black opacity-40' : 'text-black',
                     'block rounded-md px-3 py-2 text-base font-medium'
                   )}
                   aria-current={(currentPage == item.href) ? 'page' : undefined}

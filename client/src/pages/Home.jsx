@@ -14,7 +14,7 @@ const Home = () => {
           <ACCBadge></ACCBadge>
         </div>
 
-        <h2 className="text-5xl font-bold my-6">Get ahead of the game </h2>
+        <h2 className="text-5xl font-bold my-6">Get your desired classes, hassle free</h2>
 
         <div className="flex my-3">
           <div className="hidden text-base sm:block transform-translate ease-in-out duration-200 mr-5 cursor-default hover:-translate-y-1">
