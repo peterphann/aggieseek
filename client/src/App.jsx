@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import Dashboard from './pages/Dashboard'
 import Settings from './pages/Settings'
 import Profile from './pages/Profile'
+import ForgotPassword from './pages/ForgotPassword'
 import pyramids from "./assets/pyramids.svg"
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
       <Route path="dashboard" element={<Dashboard></Dashboard>}></Route>
       <Route path="settings" element={<Settings></Settings>}></Route>
       <Route path="profile" element={<Profile></Profile>}></Route>
+      <Route path="forgotpassword" element={<ForgotPassword></ForgotPassword>}></Route>
+
     </Routes>
     <img src={pyramids} alt="" className="fixed bottom-0 -z-10" />
     </BrowserRouter>
