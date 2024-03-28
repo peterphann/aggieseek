@@ -48,17 +48,18 @@ const Signin = () => {
 
         <form onSubmit={(e) => handleSignin(e)}>
           <div className="mt-5 text-center text-sm">
-            <input type="text" name="email" id="email" placeholder="Email" onChange={(e) => {setEmail(e.target.value)}} value={email} className="bg-white text-black border-b-2 border-zinc-200 px-6 py-2" autoComplete="off" />
+            <input type="text" name="email" id="email" placeholder="Email" onChange={(e) => {setEmail(e.target.value)}} value={email} className="bg-white text-black border-b-2 border-zinc-200 px-5 py-2" autoComplete="off" />
           </div>
-
           <div className="mt-5 text-center text-sm">
-            <input type="password" name="password" id="password" placeholder="Password" onChange={(e) => {setPassword(e.target.value)}} value={password} className="bg-white text-black border-b-2 border-zinc-200 px-6 py-2" />
+            <input type="password" name="password" id="password" placeholder="Password" onChange={(e) => {setPassword(e.target.value)}} value={password} className="bg-white text-black border-b-2 border-zinc-200 px-5 py-2" />
           </div>
 
-          <div className="mt-5 text-center">
-            <p className="text-red-600 font-medium text-xs min-h-6">{message}</p>
+          <div className="mt-3 text-center">
+            <p className="text-red-600 font-medium text-xs min-h-0">{message}</p>
           </div>
-
+          <div className="text-center">
+          <p><Link to="/forgotPassword" className="text-red-600 font-medium text-xs min-h-6 hover:underline">Forgot Password?</Link></p>
+          </div>
           <div className="text-center mt-6">
             <Button action="submit">Login</Button>
           </div>

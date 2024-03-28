@@ -64,7 +64,7 @@ export default function Navbar() {
                       key={item.name}
                       to={item.href}
                       className={classNames(
-                        (currentPage == item.href) ? 'opacity-40 text-black' : ' text-black ',
+                        (currentPage == item.href) ? ' text-[#8d0509]' : ' text-black ',
                         'rounded-md px-3 py-2 text-sm font-semibold transition-transform ease-in-out duration-100 hover:-translate-y-0.5'
                       )}
                       aria-current={(currentPage == item.href) ? 'page' : undefined}
