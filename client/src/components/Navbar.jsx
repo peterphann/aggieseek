@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom'
 import { auth } from '../firebase'
 
 const navigation = [
-  { name: 'Home', href: '/', private: false},
+  { name: 'Home', href: '/', private: false, hideWhenLoggedIn: true},
   { name: 'Dashboard', href: '/dashboard', private: true},
   { name: 'Settings', href: '/settings', private: true}
 ]
@@ -59,7 +59,7 @@ export default function Navbar() {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.filter((item) => (!item.private || isUser)).map((item) => (
+                    {navigation.filter((item) => (!item.private || isUser) && !(item.hideWhenLoggedIn && isUser)).map((item) => (
                       <Link
                       key={item.name}
                       to={item.href}
