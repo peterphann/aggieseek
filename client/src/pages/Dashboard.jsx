@@ -18,7 +18,8 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-    <div class = "mt-[2%] px-[8%]">
+    <div class = "mt-[2%] mb-[2%] px-[5%] flex">
+      <div class="flex justify-center w-full">
     <Table>
       <TableHeader>
         <TableRow>
@@ -44,8 +45,100 @@ const Dashboard = () => {
         <TableCell>Joe Mama</TableCell>
         <TableCell className="text-right">0</TableCell>
       </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
       </TableBody>
     </Table>
+    </div>
     </div>
     </div>
   );  ``
