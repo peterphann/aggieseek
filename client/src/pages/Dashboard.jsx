@@ -1,3 +1,11 @@
+import {  Table,
+  TableBody,
+  TableCaption,
+  TableFooter,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow, } from "@/components/table";
 const Dashboard = () => {
   return (
     <div>
@@ -10,8 +18,37 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+    <div class = "mt-[2%] px-[8%]">
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[100px]">CRN</TableHead>
+          <TableHead>Term</TableHead>
+          <TableHead>Course Title</TableHead>
+          <TableHead>Professor</TableHead>
+          <TableHead className="text-right">Amount of Seats</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+      <TableRow>
+        <TableCell className="font-medium">37730</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Data Structures and Algorithms</TableCell>
+        <TableCell>UrMom</TableCell>
+        <TableCell className="text-right">-10</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="font-medium">31333</TableCell>
+        <TableCell>Fall 2024</TableCell>
+        <TableCell>Girl Math</TableCell>
+        <TableCell>Joe Mama</TableCell>
+        <TableCell className="text-right">0</TableCell>
+      </TableRow>
+      </TableBody>
+    </Table>
     </div>
-  );
+    </div>
+  );  ``
 }
 
 export default Dashboard;
