@@ -19,14 +19,14 @@ const Dashboard = () => {
                 Add New Section
               </Menu.Button>
               <Menu.Items className="z-10 absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="px-1 py-1 ">
+                <div className="px-1 py-1">
                   <Menu.Item>
                     {({ active }) => (
                       <form  className={` p-2`}>
                       <label className="block text-sm font-medium text-center text-gray-700">Enter your desired CRN</label>
-                      <input onClick={(e) => e.stopPropagation()} type="text" name="crn" id="crn" autoComplete="off" className="mt-1 block w-full h-8 rounded-md border-b2 shadow-sm sm:text-sm " />
+                      <input onClick={(e) => e.stopPropagation()} type="text" name="crn" id="crn" placeholder = "CRN" autoComplete="off" className="mt-2 block w-full h-8 rounded-md border-b2 shadow-sm sm:text-sm px-2" />
                       <div className="flex justify-center w-full">
-                      <button type="submit" className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-[#8d0509] py-2 px-3 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                      <button type="submit" className="mt-3 inline-flex justify-center rounded-md border border-transparent bg-[#8d0509] py-2 px-3 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
                         Track this section
                       </button>
                       </div>
@@ -37,7 +37,7 @@ const Dashboard = () => {
               </Menu.Items>
             </Menu>
           <button>
-          <h2 class="text-sm font-medium ml-4 text-[#8d0509]">Edit</h2>
+            <h2 class="text-sm font-medium ml-4 text-[#8d0509]">Edit</h2>
           </button>
         </div>
       </div>
