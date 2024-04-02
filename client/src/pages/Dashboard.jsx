@@ -13,7 +13,8 @@ const sections = [
     crn: 47550,
     section: 599,
     term: "Fall 2024",
-    courseTitle: "Introduction to Computing",
+    course: "CSCE 181",
+    title: "Introduction to Computing",
     professor: "Tyagi, Aakash",
     seats: 371
   },
@@ -21,7 +22,8 @@ const sections = [
     crn: 10937,
     section: 501,
     term: "Fall 2024",
-    courseTitle: "Computer Organization",
+    course: "CSCE 312",
+    title: "Computer Organization",
     professor: " Mahapatra, Rabinarayan",
     seats: 22
   },
@@ -29,7 +31,8 @@ const sections = [
     crn: 49444,
     section: 507,
     term: "Fall 2024",
-    courseTitle: "Linear Algebra",
+    course: "MATH 304",
+    title: "Linear Algebra",
     professor: "Not Assigned",
     seats: 33
   },
@@ -37,9 +40,28 @@ const sections = [
     crn: 52795,
     section: 514,
     term: "Fall 2024",
-    courseTitle: "Linear Algebra",
+    course: "MATH 304",
+    title: "Linear Algebra",
     professor: "Not Assigned",
     seats: 0
+  },
+  {
+    crn: 57605,
+    section: 500,
+    term: "Fall 2024",
+    course: "DAEN 331",
+    title: "Optimization of Analytics",
+    professor: "Not Assigned",
+    seats: 35
+  },
+  {
+    crn: 58223,
+    section: 500,
+    term: "Fall 2024",
+    course: "FILM 475",
+    title: "Film, Propaganda, and Dissidence",
+    professor: "Cooke, Leighton",
+    seats: 20
   }
 ]
 
@@ -85,7 +107,8 @@ const Dashboard = () => {
         <TableRow>
           <TableHead className="w-[100px]">CRN</TableHead>
           <TableHead>Term</TableHead>
-          <TableHead>Course Title</TableHead>
+          <TableHead>Course</TableHead>
+          <TableHead>Title</TableHead>
           <TableHead>Professor</TableHead>
           <TableHead className="text-right">Amount of Seats</TableHead>
         </TableRow>
@@ -95,7 +118,8 @@ const Dashboard = () => {
           <TableRow>
             <TableCell className="font-medium">{section.crn}</TableCell>
             <TableCell>{section.term}</TableCell>
-            <TableCell>{section.courseTitle}</TableCell>
+            <TableCell>{section.course}</TableCell>
+            <TableCell>{section.title}</TableCell>
             <TableCell>{section.professor}</TableCell>
             <TableCell className={`text-right ${(section.seats < 1 ? 'text-red-500' : '')}`}>{section.seats}</TableCell>
           </TableRow>
