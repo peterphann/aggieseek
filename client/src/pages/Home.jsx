@@ -1,11 +1,22 @@
 import Button from "../components/Button"
 import Logo from "../components/Logo"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import { auth } from "../firebase"
 import ACCBadge from "../components/ACCBadge"
+import { useEffect } from "react"
 
 const Home = () => {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        navigate("/dashboard")
+      }
+    })
+  }, [])
+
   return (
     <>
       <div className="mt-20 text-center">
