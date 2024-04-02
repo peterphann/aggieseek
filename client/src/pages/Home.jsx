@@ -28,7 +28,7 @@ const Home = () => {
           </div>
           <div className="text-sm sm:text-base transform-translate ease-in-out duration-200 ml-5 cursor-default hover:-translate-y-1">
             <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
-            Make registeration easy and hassle free
+            Make registration easy and hassle free
           </div>
         </div>
 
