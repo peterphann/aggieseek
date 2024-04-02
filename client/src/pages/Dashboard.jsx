@@ -5,7 +5,7 @@ import {Table,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow, } from "@/components/table";
+  TableRow, } from "../components/table";
 import { Menu } from '@headlessui/react';
 const Dashboard = () => {
   return (
