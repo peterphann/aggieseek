@@ -7,6 +7,42 @@ import {Table,
   TableHeader,
   TableRow, } from "../components/table";
 import { Menu } from '@headlessui/react';
+
+const sections = [
+  {
+    crn: 47550,
+    section: 599,
+    term: "Fall 2024",
+    courseTitle: "Introduction to Computing",
+    professor: "Tyagi, Aakash",
+    seats: 371
+  },
+  {
+    crn: 10937,
+    section: 501,
+    term: "Fall 2024",
+    courseTitle: "Computer Organization",
+    professor: " Mahapatra, Rabinarayan",
+    seats: 22
+  },
+  {
+    crn: 49444,
+    section: 507,
+    term: "Fall 2024",
+    courseTitle: "Linear Algebra",
+    professor: "Not Assigned",
+    seats: 33
+  },
+  {
+    crn: 52795,
+    section: 514,
+    term: "Fall 2024",
+    courseTitle: "Linear Algebra",
+    professor: "Not Assigned",
+    seats: 0
+  }
+]
+
 const Dashboard = () => {
   return (
     <div>
@@ -55,111 +91,15 @@ const Dashboard = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-      <TableRow>
-        <TableCell className="font-medium">37730</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Data Structures and Algorithms</TableCell>
-        <TableCell>UrMom</TableCell>
-        <TableCell className="text-right">-10</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className="font-medium">31333</TableCell>
-        <TableCell>Fall 2024</TableCell>
-        <TableCell>Girl Math</TableCell>
-        <TableCell>Joe Mama</TableCell>
-        <TableCell className="text-right">0</TableCell>
-      </TableRow>
+        {sections.map((section) => (
+          <TableRow>
+            <TableCell className="font-medium">{section.crn}</TableCell>
+            <TableCell>{section.term}</TableCell>
+            <TableCell>{section.courseTitle}</TableCell>
+            <TableCell>{section.professor}</TableCell>
+            <TableCell className="text-right">{section.seats}</TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
     </div>
