@@ -97,7 +97,7 @@ const Dashboard = () => {
             <TableCell>{section.term}</TableCell>
             <TableCell>{section.courseTitle}</TableCell>
             <TableCell>{section.professor}</TableCell>
-            <TableCell className="text-right">{section.seats}</TableCell>
+            <TableCell className={`text-right ${(section.seats < 1 ? 'text-red-500' : '')}`}>{section.seats}</TableCell>
           </TableRow>
         ))}
       </TableBody>
