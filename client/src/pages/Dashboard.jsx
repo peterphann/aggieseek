@@ -82,7 +82,7 @@ const Dashboard = () => {
                     {({ active }) => (
                       <form  className={` p-2`}>
                       <label className="block text-sm font-medium text-center text-gray-700">Enter your desired CRN</label>
-                      <input onClick={(e) => e.stopPropagation()} type="text" name="crn" id="crn" placeholder = "CRN" autoComplete="off" className="mt-2 block w-full h-8 rounded-md border-b2 shadow-sm sm:text-sm px-2" />
+                      <input onClick={(e) => e.stopPropagation()} type="text" name="crn" id="crn" placeholder = "CRN" autoComplete="off" className="mt-2 block w-full h-8 rounded-md border-1 shadow-sm sm:text-sm px-2" />
                       <div className="flex justify-center w-full">
                       <button type="submit" className="mt-3 inline-flex justify-center rounded-md border border-transparent bg-[#8d0509] py-2 px-3 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
                         Track this section
