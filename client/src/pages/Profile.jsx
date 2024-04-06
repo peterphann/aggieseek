@@ -29,11 +29,37 @@ const Profile = () => {
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">Open user menu</span>
                   <img
-                    className="h-8 w-8 rounded-full"
+                    className="h-10 w-10 rounded-full"
                       src={anonymous}
                       alt=""
                   />
                 </Menu.Button>
+                <Menu.Items className="w-48 absolute mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                  <div className="px-1 py-1 ">
+                    <Menu.Item>
+                      {({ active }) => (
+                      <button
+                        className={`${
+                        active ? 'bg-red-100' : ''
+                        } group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
+                      >
+                        Change Profile Photo
+                      </button>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          className={`${
+                          active ? 'bg-red-100' : ''
+                          } group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
+                        >
+                          Delete Profile Photo
+                        </button>
+                      )}
+                    </Menu.Item>
+                  </div>
+                </Menu.Items>
               </Menu>
             </div>
           </div>
