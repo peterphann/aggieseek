@@ -73,7 +73,7 @@ const Dashboard = () => {
         <h2 class="text-3xl font-bold absolute w-full text-center">Sections I'm Watching</h2> {/* Absolutely positioned to center */}
           <div class="flex justify-end w-full"> {/* Container for right-aligned items */}
             <Menu as="div" className="relative inline-block text-left">
-              <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-[#8d0509] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+              <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                 Add New Section
               </Menu.Button>
               <Menu.Items className="z-10 absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -94,9 +94,9 @@ const Dashboard = () => {
                 </div>
               </Menu.Items>
             </Menu>
-          <button>
-            <h2 class="text-sm font-medium ml-4 text-[#8d0509]">Edit</h2>
-          </button>
+            <button className="text-[#8d0509] text-sm font-medium hover:underline">
+              Edit
+            </button>
         </div>
       </div>
     </div>
