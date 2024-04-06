@@ -1,5 +1,7 @@
 import { Input } from "../components/input";
 import { Switch } from "../components/switch";
+import { Menu } from "@headlessui/react";
+import anonymous from '../assets/profile.webp'
 const Profile = () => {
   // TODO: create profile and user settings as shown in figma
   // make sure to remove the h1 :)
@@ -21,7 +23,19 @@ const Profile = () => {
             <p class="text-md font-medium mt-0.5">Last Name</p>
             <Input placeholder="ur last name"/>
             <p class="text-md font-medium mt-0.5">Profile Photo</p>
-            <Input placeholder="urdiscordusername"/>
+            <div>
+              <Menu>
+                <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <span className="absolute -inset-1.5" />
+                  <span className="sr-only">Open user menu</span>
+                  <img
+                    className="h-8 w-8 rounded-full"
+                      src={anonymous}
+                      alt=""
+                  />
+                </Menu.Button>
+              </Menu>
+            </div>
           </div>
         </div>
       </div>   
