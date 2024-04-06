@@ -12,11 +12,15 @@ const Settings = () => {
   const notifyMode = ["Seats open up","Any change occurs"]
   const [selectedNotifyMode, setSelectedNotifyMode] = useState(notifyMode[0]);
   return (
-    <div>
-      <div class="flex justify-center  mt-[3%]">
-      <h2 class="text-3xl font-bold absolute w-full text-center">Settings</h2>
+    <div class = "mt-[3%]">
+      <div className="flex items-center justify-between px-[15%] mt-[3%]">
+        {<div className="flex-grow"></div>}  {/* Empty div for balancing */}
+        <h2 className="text-3xl font-bold flex-grow-0">Settings</h2>
+        <button className="text-sm font-medium text-[#8d0509] hover:underline flex-grow">
+          Save Info
+        </button>
       </div>
-      <div class="px-[15%] flex justify-between mt-10">
+      <div class="px-[15%] flex justify-between mt-5">
         <div class="flex flex-col">
           <p class="font-bold text-xl">Notification Contact Information</p>
           <div class="">
