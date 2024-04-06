@@ -1,5 +1,4 @@
 import { Input } from "../components/input";
-import { Switch } from "../components/switch";
 import { Menu } from "@headlessui/react";
 import anonymous from '../assets/profile.webp'
 const Profile = () => {
@@ -34,17 +33,22 @@ const Profile = () => {
                       alt=""
                   />
                 </Menu.Button>
-                <Menu.Items className="w-48 absolute mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                <Menu.Items className="w-[20%] absolute mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
                   <div className="px-1 py-1 ">
                     <Menu.Item>
                       {({ active }) => (
-                      <button
-                        className={`${
-                        active ? 'bg-red-100' : ''
-                        } group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
-                      >
+                        <div
+                          className={`w-full  rounded-md px-0 text-sm text-gray-900`}
+                        >
+                        <Input type = "file" onClick={(e) => e.stopPropagation()} className = "h-10 shadow-none px-1"/>
+                        <button 
+                          className={`${
+                          active ? 'bg-red-100' : ''
+                          } group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
+                        >
                         Change Profile Photo
-                      </button>
+                        </button>
+                      </div>
                       )}
                     </Menu.Item>
                     <Menu.Item>
