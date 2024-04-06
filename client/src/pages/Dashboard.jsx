@@ -137,7 +137,7 @@ const Dashboard = () => {
       <TableFooter>
         <TableRow>
           <TableCell colSpan="6" className = "py-2">
-            <Pagination>
+            <Pagination className = "justify-end">
               <PaginationContent>
                 <PaginationItem>
                   <PaginationPrevious href="#" />
