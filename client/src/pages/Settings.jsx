@@ -9,7 +9,7 @@ const Settings = () => {
   // make sure to remove the h1 :)
   const timeZones = ["Pacific Time", "Eastern Time", "Central Time"];
   const [selectedTimeZone, setSelectedTimeZone] = useState(timeZones[0]);
-  const notifyMode = ["Seats open up","Any change occurs"]
+  const notifyMode = ["Seats open up", "Any change occurs"]
   const [selectedNotifyMode, setSelectedNotifyMode] = useState(notifyMode[0]);
   return (
     <div class = "mt-[3%]">
@@ -22,18 +22,18 @@ const Settings = () => {
       </div>
       <div class="px-[15%] flex justify-between mt-5">
         <div class="flex flex-col">
-          <p class="font-bold text-xl">Notification Contact Information</p>
+          <p class="font-bold text-xl">Contact Information</p>
           <div class="">
-            <p class="text-md font-medium mt-1">Phone</p>
+            <p class="text-md font-medium mt-2">Phone</p>
             <Input placeholder="123-456-7890"/>
-            <p class="text-md font-medium mt-0.5">Email</p>
-            <Input placeholder="user@gmail.com"/>
-            <p class="text-md font-medium mt-0.5">Discord</p>
-            <Input placeholder="urdiscordusername"/>
+            <p class="text-md font-medium mt-2">Email</p>
+            <Input placeholder="example@domain.com"/>
+            <p class="text-md font-medium mt-2">Discord</p>
+            <Input placeholder="Username"/>
           </div>
         </div>
         <div class="flex flex-col">
-          <p class="font-bold text-xl">Desired Display Mode</p>
+          <p class="font-bold text-xl">Theme</p>
           <div class="mt-2 flex items-center space-x-2">
             <p class="text-md font-medium">Dark Mode</p>
             <Switch/>
@@ -50,9 +50,9 @@ const Settings = () => {
           <div class="">
             <p class="text-md font-medium mt-1">I want to be notified from</p>
             <div class="flex items-center space-x-2">
-              <Input placeholder="123-456-7890"/>
+              <Input placeholder=""/>
               <p class="text-md font-regular">to</p>
-              <Input placeholder="123-456-7890"/>
+              <Input placeholder=""/>
             </div>
             <p class="text-md font-medium mt-0.5">Time Zone</p>
             <Listbox value={selectedTimeZone} onChange={setSelectedTimeZone}>

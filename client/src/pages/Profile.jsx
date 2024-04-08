@@ -17,11 +17,11 @@ const Profile = () => {
         <div class="flex flex-col">
           <p class="font-bold text-xl">Personal Information</p>
           <div class="">
-            <p class="text-md font-medium mt-1">First Name</p>
-            <Input placeholder="ur first name"/>
-            <p class="text-md font-medium mt-0.5">Last Name</p>
-            <Input placeholder="ur last name"/>
-            <p class="text-md font-medium mt-0.5">Profile Photo</p>
+            <p class="text-md font-medium m2">First Name</p>
+            <Input placeholder="First Name"/>
+            <p class="text-md font-medium mt-2">Last Name</p>
+            <Input placeholder="Last Name"/>
+            <p class="text-md font-medium mt-2">Profile Photo</p>
             <div>
               <Menu>
                 <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -38,13 +38,13 @@ const Profile = () => {
                     <Menu.Item>
                       {({ active }) => (
                         <div
-                          className={`w-full  rounded-md px-0 text-sm text-gray-900`}
+                          className={`w-full rounded-md px-0 text-sm text-gray-900`}
                         >
                         <Input type = "file" onClick={(e) => e.stopPropagation()} className = "h-10 shadow-none px-1"/>
                         <button 
                           className={`${
                           active ? 'bg-red-100' : ''
-                          } group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
+                          } group mt-1 flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
                         >
                         Change Profile Photo
                         </button>
@@ -56,7 +56,7 @@ const Profile = () => {
                         <button
                           className={`${
                           active ? 'bg-red-100' : ''
-                          } group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
+                          } group mt-1 flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
                         >
                           Delete Profile Photo
                         </button>
@@ -76,12 +76,12 @@ const Profile = () => {
         <div class="flex flex-col">
           <p class="font-bold text-xl">Security</p>
           <div class="">
-            <p class="text-md font-medium mt-1">Email</p>
-            <Input placeholder="ur email"/>
-            <p class="text-md font-medium mt-0.5">Password</p>
-            <Input placeholder="ur password"/>
-            <p class="text-md font-medium mt-0.5">Reconfirm Password</p>
-            <Input placeholder="ur password"/>
+            <p class="text-md font-medium mt-2">Email</p>
+            <Input placeholder="example@domain.com"/>
+            <p class="text-md font-medium mt-2">Password</p>
+            <Input placeholder="Password"/>
+            <p class="text-md font-medium mt-2">Confirm Password</p>
+            <Input placeholder="Confirm Password"/>
           </div>
         </div>
       </div>   
