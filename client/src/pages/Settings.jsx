@@ -16,9 +16,9 @@ const Settings = () => {
       <div className="flex items-center justify-between px-[15%] mt-[3%]">
         {<div className="flex-grow"></div>}  {/* Empty div for balancing */}
         <h2 className="text-3xl font-bold flex-grow-0">Settings</h2>
-        <button className="text-sm font-medium text-[#8d0509] hover:underline flex-grow">
-          Save Info
-        </button>
+        <div className="text-sm text-center font-medium text-[#8d0509] hover:underline flex-grow">
+          <button className="justify-center hover:underline">Save Info</button>
+        </div>
       </div>
       <div class="px-[15%] flex justify-between mt-5">
         <div class="flex flex-col">
