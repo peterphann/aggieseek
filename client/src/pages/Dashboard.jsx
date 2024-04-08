@@ -7,6 +7,15 @@ import {Table,
   TableHeader,
   TableRow, } from "../components/table";
 import { Menu } from '@headlessui/react';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "../components/pagination"
 
 const sections = [
   {
@@ -73,7 +82,7 @@ const Dashboard = () => {
         <h2 class="text-3xl font-bold absolute w-full text-center">Sections I'm Watching</h2> {/* Absolutely positioned to center */}
           <div class="flex justify-end w-full"> {/* Container for right-aligned items */}
             <Menu as="div" className="relative inline-block text-left">
-              <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-[#8d0509] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+              <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                 Add New Section
               </Menu.Button>
               <Menu.Items className="z-10 absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -82,7 +91,7 @@ const Dashboard = () => {
                     {({ active }) => (
                       <form  className={` p-2`}>
                       <label className="block text-sm font-medium text-center text-gray-700">Enter your desired CRN</label>
-                      <input onClick={(e) => e.stopPropagation()} type="text" name="crn" id="crn" placeholder = "CRN" autoComplete="off" className="mt-2 block w-full h-8 rounded-md border-b2 shadow-sm sm:text-sm px-2" />
+                      <input onClick={(e) => e.stopPropagation()} type="text" name="crn" id="crn" placeholder = "CRN" autoComplete="off" className="mt-2 block w-full h-8 rounded-md border-1 shadow-sm sm:text-sm px-2" />
                       <div className="flex justify-center w-full">
                       <button type="submit" className="mt-3 inline-flex justify-center rounded-md border border-transparent bg-[#8d0509] py-2 px-3 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
                         Track this section
@@ -94,9 +103,9 @@ const Dashboard = () => {
                 </div>
               </Menu.Items>
             </Menu>
-          <button>
-            <h2 class="text-sm font-medium ml-4 text-[#8d0509]">Edit</h2>
-          </button>
+            <button className="text-[#8d0509] text-sm font-medium hover:underline">
+              Edit
+            </button>
         </div>
       </div>
     </div>
@@ -125,6 +134,36 @@ const Dashboard = () => {
           </TableRow>
         ))}
       </TableBody>
+      <TableFooter>
+        <TableRow>
+          <TableCell colSpan="6" className = "py-2">
+            <Pagination className = "justify-end">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious href="#" />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#">1</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#" isActive>
+                    2
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#">3</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext href="#" />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </TableCell>
+        </TableRow>
+      </TableFooter>
     </Table>
     </div>
     </div>
