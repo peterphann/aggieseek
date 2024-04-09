@@ -58,7 +58,7 @@ const Settings = () => {
             <Listbox value={selectedTimeZone} onChange={setSelectedTimeZone}>
             {({ open }) => (
               <div className="relative mt-1">
-                <Listbox.Button className="relative w-full h-8 pl-3 border pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                <Listbox.Button className="relative w-full h-8 pl-3 border pr-10 text-left bg-white shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                   {selectedTimeZone}
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon
@@ -67,7 +67,7 @@ const Settings = () => {
                     />
                   </span>
                 </Listbox.Button>
-                <Listbox.Options className="absolute z-20 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <Listbox.Options className="absolute z-20 w-full py-1 mt-1 overflow-auto text-base bg-white shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   {timeZones.map((timeZone, timeZoneIdx) => (
                     <Listbox.Option
                       key={timeZoneIdx}
@@ -98,7 +98,7 @@ const Settings = () => {
             <Listbox value={selectedNotifyMode} onChange={setSelectedNotifyMode}>
             {({ open }) => (
               <div className="relative mt-1">
-                <Listbox.Button className="relative w-full h-8 pl-3 border pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                <Listbox.Button className="relative w-full h-8 pl-3 border pr-10 text-left bg-white shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                   {selectedNotifyMode}
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon
@@ -107,7 +107,7 @@ const Settings = () => {
                     />
                   </span>
                 </Listbox.Button>
-                <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   {notifyMode.map((notify, notifyIdx) => (
                     <Listbox.Option
                       key={notifyIdx}
