@@ -1,9 +1,42 @@
 import { Input } from "../components/Input";
 import { Menu } from "@headlessui/react";
 import anonymous from '../assets/profile.webp'
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+import { getDatabase, onValue, ref } from "firebase/database";
+
 const Profile = () => {
-  // TODO: create profile and user settings as shown in figma
-  // make sure to remove the h1 :)
+  const navigate = useNavigate()
+
+  const [first, setFirst] = useState("")
+  const [last, setLast] = useState("")
+  const [email, setEmail] = useState("")
+
+  useEffect(() => {
+    getAuth().onAuthStateChanged((user) => {
+      if (user) {
+        const db = getDatabase()
+        const uid = user.uid
+        onValue(ref(db, 'users/' + uid + '/firstName'), (snapshot) => {
+          const data = snapshot.val()
+          setFirst(data)
+        })
+        onValue(ref(db, 'users/' + uid + '/lastName'), (snapshot) => {
+          const data = snapshot.val()
+          setLast(data)
+        })
+        onValue(ref(db, 'users/' + uid + '/email'), (snapshot) => {
+          const data = snapshot.val()
+          setEmail(data)
+        })
+
+      } else {
+        navigate('/')
+      }
+    })
+  }, [])
+
   return (
     <div>
       <div className="flex items-center justify-between px-[15%] mt-[3%]">
@@ -15,15 +48,15 @@ const Profile = () => {
           </button>
         </div>
       </div>
-      <div class="px-[15%] flex justify-between mt-5">
-        <div class="flex flex-col">
-          <p class="font-bold text-xl">Personal Information</p>
-          <div class="">
-            <p class="text-md font-medium m2">First Name</p>
-            <Input placeholder="First Name"/>
-            <p class="text-md font-medium mt-2">Last Name</p>
-            <Input placeholder="Last Name"/>
-            <p class="text-md font-medium mt-2">Profile Photo</p>
+      <div className="px-[15%] flex justify-between mt-5">
+        <div className="flex flex-col">
+          <p className="font-bold text-xl">Personal Information</p>
+          <div className="">
+            <p className="text-md font-medium m2">First Name</p>
+            <Input placeholder="First Name" defaultValue={first}/>
+            <p className="text-md font-medium mt-2">Last Name</p>
+            <Input placeholder="Last Name" defaultValue={last}/>
+            <p className="text-md font-medium mt-2">Profile Photo</p>
             <div>
               <Menu>
                 <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -74,15 +107,15 @@ const Profile = () => {
       <div className="flex justify-center mt-4 mb-4">
         <hr className="border-gray-300 w-[70%]"/> {/* Adjusted horizontal line */}
       </div>
-      <div class="px-[15%] flex justify-between">
-        <div class="flex flex-col">
-          <p class="font-bold text-xl">Security</p>
-          <div class="">
-            <p class="text-md font-medium mt-2">Email</p>
-            <Input placeholder="example@domain.com"/>
-            <p class="text-md font-medium mt-2">Password</p>
+      <div className="px-[15%] flex justify-between">
+        <div className="flex flex-col">
+          <p className="font-bold text-xl">Security</p>
+          <div className="">
+            <p className="text-md font-medium mt-2">Email</p>
+            <Input placeholder="example@domain.com" defaultValue={email}/>
+            <p className="text-md font-medium mt-2">Password</p>
             <Input placeholder="Password"/>
-            <p class="text-md font-medium mt-2">Confirm Password</p>
+            <p className="text-md font-medium mt-2">Confirm Password</p>
             <Input placeholder="Confirm Password"/>
           </div>
         </div>
