@@ -1,5 +1,5 @@
-import { Input } from "../components/input";
-import { Switch } from "../components/switch";
+import { Input } from "../components/Input";
+import { Switch } from "../components/Switch";
 import { useState } from "react";
 import { Listbox } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
@@ -9,31 +9,31 @@ const Settings = () => {
   // make sure to remove the h1 :)
   const timeZones = ["Pacific Time", "Eastern Time", "Central Time"];
   const [selectedTimeZone, setSelectedTimeZone] = useState(timeZones[0]);
-  const notifyMode = ["Seats open up","Any change occurs"]
+  const notifyMode = ["Seats open up", "Any change occurs"]
   const [selectedNotifyMode, setSelectedNotifyMode] = useState(notifyMode[0]);
   return (
     <div class = "mt-[3%]">
       <div className="flex items-center justify-between px-[15%] mt-[3%]">
         {<div className="flex-grow"></div>}  {/* Empty div for balancing */}
         <h2 className="text-3xl font-bold flex-grow-0">Settings</h2>
-        <button className="text-sm font-medium text-[#8d0509] hover:underline flex-grow">
-          Save Info
-        </button>
+        <div className="text-sm text-center font-medium text-[#8d0509] hover:underline flex-grow">
+          <button className="justify-center hover:underline">Save Info</button>
+        </div>
       </div>
       <div class="px-[15%] flex justify-between mt-5">
         <div class="flex flex-col">
-          <p class="font-bold text-xl">Notification Contact Information</p>
+          <p class="font-bold text-xl">Contact Information</p>
           <div class="">
-            <p class="text-md font-medium mt-1">Phone</p>
+            <p class="text-md font-medium mt-2">Phone</p>
             <Input placeholder="123-456-7890"/>
-            <p class="text-md font-medium mt-0.5">Email</p>
-            <Input placeholder="user@gmail.com"/>
-            <p class="text-md font-medium mt-0.5">Discord</p>
-            <Input placeholder="urdiscordusername"/>
+            <p class="text-md font-medium mt-2">Email</p>
+            <Input placeholder="example@domain.com"/>
+            <p class="text-md font-medium mt-2">Discord</p>
+            <Input placeholder="Username"/>
           </div>
         </div>
         <div class="flex flex-col">
-          <p class="font-bold text-xl">Desired Display Mode</p>
+          <p class="font-bold text-xl">Theme</p>
           <div class="mt-2 flex items-center space-x-2">
             <p class="text-md font-medium">Dark Mode</p>
             <Switch/>
@@ -50,15 +50,15 @@ const Settings = () => {
           <div class="">
             <p class="text-md font-medium mt-1">I want to be notified from</p>
             <div class="flex items-center space-x-2">
-              <Input placeholder="123-456-7890"/>
+              <Input placeholder=""/>
               <p class="text-md font-regular">to</p>
-              <Input placeholder="123-456-7890"/>
+              <Input placeholder=""/>
             </div>
             <p class="text-md font-medium mt-0.5">Time Zone</p>
             <Listbox value={selectedTimeZone} onChange={setSelectedTimeZone}>
             {({ open }) => (
               <div className="relative mt-1">
-                <Listbox.Button className="relative w-full h-8 pl-3 border pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                <Listbox.Button className="relative w-full h-8 pl-3 border pr-10 text-left bg-white shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                   {selectedTimeZone}
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon
@@ -67,7 +67,7 @@ const Settings = () => {
                     />
                   </span>
                 </Listbox.Button>
-                <Listbox.Options className="absolute z-20 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <Listbox.Options className="absolute z-20 w-full py-1 mt-1 overflow-auto text-base bg-white shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   {timeZones.map((timeZone, timeZoneIdx) => (
                     <Listbox.Option
                       key={timeZoneIdx}
@@ -98,7 +98,7 @@ const Settings = () => {
             <Listbox value={selectedNotifyMode} onChange={setSelectedNotifyMode}>
             {({ open }) => (
               <div className="relative mt-1">
-                <Listbox.Button className="relative w-full h-8 pl-3 border pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                <Listbox.Button className="relative w-full h-8 pl-3 border pr-10 text-left bg-white shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                   {selectedNotifyMode}
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon
@@ -107,7 +107,7 @@ const Settings = () => {
                     />
                   </span>
                 </Listbox.Button>
-                <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   {notifyMode.map((notify, notifyIdx) => (
                     <Listbox.Option
                       key={notifyIdx}

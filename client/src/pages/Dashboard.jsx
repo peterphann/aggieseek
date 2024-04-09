@@ -5,7 +5,7 @@ import {Table,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow, } from "../components/table";
+  TableRow, } from "../components/Table";
 import { Menu } from '@headlessui/react';
 import {
   Pagination,
@@ -15,7 +15,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../components/pagination"
+} from "../components/Pagination"
 
 const sections = [
   {
@@ -85,7 +85,7 @@ const Dashboard = () => {
               <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                 Add New Section
               </Menu.Button>
-              <Menu.Items className="z-10 absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="z-10 absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({ active }) => (
@@ -93,7 +93,7 @@ const Dashboard = () => {
                       <label className="block text-sm font-medium text-center text-gray-700">Enter your desired CRN</label>
                       <input onClick={(e) => e.stopPropagation()} type="text" name="crn" id="crn" placeholder = "CRN" autoComplete="off" className="mt-2 block w-full h-8 rounded-md border-1 shadow-sm sm:text-sm px-2" />
                       <div className="flex justify-center w-full">
-                      <button type="submit" className="mt-3 inline-flex justify-center rounded-md border border-transparent bg-[#8d0509] py-2 px-3 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                      <button type="submit" className="mt-3 inline-flex justify-center border border-transparent bg-[#8d0509] py-2 px-3 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
                         Track this section
                       </button>
                       </div>
