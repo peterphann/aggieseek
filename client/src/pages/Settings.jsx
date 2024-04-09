@@ -1,5 +1,5 @@
-import { Input } from "../components/input";
-import { Switch } from "../components/switch";
+import { Input } from "../components/Input";
+import { Switch } from "../components/Switch";
 import { useState } from "react";
 import { Listbox } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'

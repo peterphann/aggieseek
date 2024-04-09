@@ -5,7 +5,7 @@ import {Table,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow, } from "../components/table";
+  TableRow, } from "../components/Table";
 import { Menu } from '@headlessui/react';
 import {
   Pagination,
@@ -15,7 +15,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../components/pagination"
+} from "../components/Pagination"
 
 const sections = [
   {

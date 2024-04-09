@@ -1,4 +1,4 @@
-import { Input } from "../components/input";
+import { Input } from "../components/Input";
 import { Menu } from "@headlessui/react";
 import anonymous from '../assets/profile.webp'
 const Profile = () => {
