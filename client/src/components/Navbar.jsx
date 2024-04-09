@@ -22,15 +22,13 @@ export default function Navbar() {
   const [isUser, setIsUser] = useState(null)
 
   useEffect(() => {
-    const unsubscribe = getAuth().onAuthStateChanged(user => {
+    getAuth().onAuthStateChanged(user => {
       setIsUser(user)
     })
-
-    return unsubscribe
   }, [])
 
   const signOut = () => {
-    auth.signOut()
+    getAuth().signOut()
   }
 
   return (
