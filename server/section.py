@@ -25,6 +25,9 @@ def parse_soup(soup : BeautifulSoup) -> dict:
       'term' : term
   }
 
+def scrape_instructor(term, crn) -> str:
+  instructor_url = f'https://compass-ssb.tamu.edu/pls/PROD/bwykschd.p_disp_listcrse?term_in={term}&subj_in={self.properties["subject"]}&crse_in={self.properties["course"]}&crn_in={self.properties["crn"]}'
+
 def scrape_section(term, crn) -> dict:
   url = f'https://compass-ssb.tamu.edu/pls/PROD/bwykschd.p_disp_detail_sched?term_in={term}&crn_in={crn}'
   print(url)
