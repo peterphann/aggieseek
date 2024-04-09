@@ -12,7 +12,7 @@ const Settings = () => {
   const notifyMode = ["Seats open up", "Any change occurs"]
   const [selectedNotifyMode, setSelectedNotifyMode] = useState(notifyMode[0]);
   return (
-    <div class = "mt-[3%]">
+    <div className="mt-[3%]">
       <div className="flex items-center justify-between px-[15%] mt-[3%]">
         {<div className="flex-grow"></div>}  {/* Empty div for balancing */}
         <h2 className="text-3xl font-bold flex-grow-0">Settings</h2>
@@ -20,41 +20,41 @@ const Settings = () => {
           <button className="justify-center hover:underline">Save Info</button>
         </div>
       </div>
-      <div class="px-[15%] flex justify-between mt-5">
-        <div class="flex flex-col">
-          <p class="font-bold text-xl">Contact Information</p>
-          <div class="">
-            <p class="text-md font-medium mt-2">Phone</p>
+      <div className="px-[15%] flex justify-between mt-5">
+        <div className="flex flex-col">
+          <p className="font-bold text-xl">Contact Information</p>
+          <div className="">
+            <p className="text-md font-medium mt-2">Phone</p>
             <Input placeholder="123-456-7890"/>
-            <p class="text-md font-medium mt-2">Email</p>
+            <p className="text-md font-medium mt-2">Email</p>
             <Input placeholder="example@domain.com"/>
-            <p class="text-md font-medium mt-2">Discord</p>
+            <p className="text-md font-medium mt-2">Discord</p>
             <Input placeholder="Username"/>
           </div>
         </div>
-        <div class="flex flex-col">
-          <p class="font-bold text-xl">Theme</p>
-          <div class="mt-2 flex items-center space-x-2">
-            <p class="text-md font-medium">Dark Mode</p>
+        <div className="flex flex-col">
+          <p className="font-bold text-xl">Theme</p>
+          <div className="mt-2 flex items-center space-x-2">
+            <p className="text-md font-medium">Dark Mode</p>
             <Switch/>
-            <p class="text-md font-medium">Light Mode</p>
+            <p className="text-md font-medium">Light Mode</p>
           </div>
         </div>
       </div>
       <div className="flex justify-center mt-4 mb-4">
         <hr className="border-gray-300 w-[70%]"/> {/* Adjusted horizontal line */}
       </div>
-      <div class="px-[15%] flex justify-between mt-0">
-        <div class="flex flex-col">
-          <p class="font-bold text-xl">Desired Notification Times</p>
-          <div class="">
-            <p class="text-md font-medium mt-1">I want to be notified from</p>
-            <div class="flex items-center space-x-2">
+      <div className="px-[15%] flex justify-between mt-0">
+        <div className="flex flex-col">
+          <p className="font-bold text-xl">Desired Notification Times</p>
+          <div className="">
+            <p className="text-md font-medium mt-1">I want to be notified from</p>
+            <div className="flex items-center space-x-2">
               <Input placeholder=""/>
-              <p class="text-md font-regular">to</p>
+              <p className="text-md font-regular">to</p>
               <Input placeholder=""/>
             </div>
-            <p class="text-md font-medium mt-0.5">Time Zone</p>
+            <p className="text-md font-medium mt-0.5">Time Zone</p>
             <Listbox value={selectedTimeZone} onChange={setSelectedTimeZone}>
             {({ open }) => (
               <div className="relative mt-1">
@@ -94,7 +94,7 @@ const Settings = () => {
               </div>
             )}
           </Listbox>
-            <p class="text-md font-medium mt-0.5">I want to be notified when</p>
+            <p className="text-md font-medium mt-0.5">I want to be notified when</p>
             <Listbox value={selectedNotifyMode} onChange={setSelectedNotifyMode}>
             {({ open }) => (
               <div className="relative mt-1">
@@ -136,18 +136,18 @@ const Settings = () => {
           </Listbox>
           </div>
         </div>
-        <div class="flex flex-col">
-          <p class="font-bold text-xl">Desired Notification Modes</p>
-          <div class="mt-2 flex items-center space-x-2">
-            <p class="text-md font-medium">SMS</p>
+        <div className="flex flex-col">
+          <p className="font-bold text-xl">Desired Notification Modes</p>
+          <div className="mt-2 flex items-center space-x-2">
+            <p className="text-md font-medium">SMS</p>
             <Switch/>
           </div>
-          <div class="mt-2 flex items-center space-x-2">
-            <p class="text-md font-medium">Discord</p>
+          <div className="mt-2 flex items-center space-x-2">
+            <p className="text-md font-medium">Discord</p>
             <Switch/>
           </div>
-          <div class="mt-2 flex items-center space-x-2">
-            <p class="text-md font-medium">Email</p>
+          <div className="mt-2 flex items-center space-x-2">
+            <p className="text-md font-medium">Email</p>
             <Switch/>
           </div>
         </div>
