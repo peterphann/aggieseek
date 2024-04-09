@@ -9,6 +9,7 @@ import Settings from './pages/Settings'
 import Profile from './pages/Profile'
 import ForgotPassword from './pages/ForgotPassword'
 import pyramids from "./assets/pyramids.svg"
+import "./firebase"
 
 function App() {
 

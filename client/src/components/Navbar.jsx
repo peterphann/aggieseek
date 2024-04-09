@@ -5,7 +5,7 @@ import Logo from './Logo'
 import anonymous from '../assets/profile.webp'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
-import { auth } from '../firebase'
+import { getAuth } from 'firebase/auth'
 
 const navigation = [
   { name: 'Home', href: '/', private: false, hideWhenLoggedIn: true},
@@ -28,7 +28,7 @@ export default function Navbar() {
   const [isUser, setIsUser] = useState(null)
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    const unsubscribe = getAuth().onAuthStateChanged(user => {
       setIsUser(user)
     })
 

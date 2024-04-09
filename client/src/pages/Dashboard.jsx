@@ -16,10 +16,10 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../components/Pagination"
-import { useEffect, useState } from "react";
-import { auth, database } from "../firebase";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase } from "firebase/database";
+import { getAuth } from "firebase/auth";
 
 const sections = [
   {
@@ -80,22 +80,18 @@ const sections = [
 
 const Dashboard = () => {
 
-  const [uid, setUID] = useState(null)
   const navigate = useNavigate()
 
   const dashboardTest = () => {
     const db = getDatabase()
-    set(ref(db, 'sections/hello'), {
-      username: "Hello",
-      email: "Test"
-    })
+  
   }
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    getAuth().onAuthStateChanged((user) => {
       if (user) {
-        setUID(user.uid)
-        dashboardTest()
+
+
       } else {
         navigate('/')
       }
@@ -104,10 +100,10 @@ const Dashboard = () => {
 
   return (
     <div>
-    <div class="flex justify-center items-center mt-[3%]"> {/* Fullscreen container for vertical & horizontal centering */}
-      <div class="flex items-center justify-center w-full max-w-4xl px-4 relative"> {/* Content container */}
-        <h2 class="text-3xl font-bold absolute w-full text-center">Sections I'm Watching</h2> {/* Absolutely positioned to center */}
-          <div class="flex justify-end w-full"> {/* Container for right-aligned items */}
+    <div className="flex justify-center items-center mt-[3%]"> {/* Fullscreen container for vertical & horizontal centering */}
+      <div className="flex items-center justify-center w-full max-w-4xl px-4 relative"> {/* Content container */}
+        <h2 className="text-3xl font-bold absolute w-full text-center">Sections I'm Watching</h2> {/* Absolutely positioned to center */}
+          <div className="flex justify-end w-full"> {/* Container for right-aligned items */}
             <Menu as="div" className="relative inline-block text-left">
               <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                 Add New Section
@@ -136,8 +132,8 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-    <div class = "mt-[2%] mb-[2%] px-[5%] flex">
-      <div class="flex justify-center w-full">
+    <div className= "mt-[2%] mb-[2%] px-[5%] flex">
+      <div className="flex justify-center w-full">
     <Table>
       <TableHeader>
         <TableRow>
@@ -195,7 +191,7 @@ const Dashboard = () => {
     </div>
     </div>
     </div>
-  );  ``
+  ); 
 }
 
 export default Dashboard;
