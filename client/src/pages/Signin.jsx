@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase.jsx";
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { useNavigate } from "react-router-dom";
 
 const errorMessages = {
@@ -20,7 +19,7 @@ const Signin = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    getAuth().onAuthStateChanged(user => {
       if (user) {
         navigate("/dashboard")
       }
@@ -30,7 +29,7 @@ const Signin = () => {
   const handleSignin = (e) => {
     e.preventDefault();
 
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(getAuth(), email, password)
       .then((userCredential) => {
         navigate("/dashboard")
       })

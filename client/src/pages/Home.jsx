@@ -2,15 +2,15 @@ import Button from "../components/Button"
 import Logo from "../components/Logo"
 import { Link, useNavigate } from 'react-router-dom'
 import { CheckIcon } from '@heroicons/react/24/outline'
-import { auth } from "../firebase"
 import ACCBadge from "../components/ACCBadge"
 import { useEffect } from "react"
+import { getAuth } from "firebase/auth"
 
 const Home = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    getAuth().onAuthStateChanged(user => {
       if (user) {
         navigate("/dashboard")
       }
