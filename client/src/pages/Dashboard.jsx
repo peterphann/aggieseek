@@ -16,6 +16,10 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../components/Pagination"
+import { useEffect, useState } from "react";
+import { auth, database } from "../firebase";
+import { useNavigate } from "react-router-dom";
+import { getDatabase, ref, set } from "firebase/database";
 
 const sections = [
   {
@@ -75,6 +79,29 @@ const sections = [
 ]
 
 const Dashboard = () => {
+
+  const [uid, setUID] = useState(null)
+  const navigate = useNavigate()
+
+  const dashboardTest = () => {
+    const db = getDatabase()
+    set(ref(db, 'sections/hello'), {
+      username: "Hello",
+      email: "Test"
+    })
+  }
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUID(user.uid)
+        dashboardTest()
+      } else {
+        navigate('/')
+      }
+    })
+  }, [])
+
   return (
     <div>
     <div class="flex justify-center items-center mt-[3%]"> {/* Fullscreen container for vertical & horizontal centering */}
