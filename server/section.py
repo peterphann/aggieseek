@@ -41,13 +41,21 @@ def parse_soup(soup : BeautifulSoup, term, crn) -> dict:
       'course' : course,
       'section' : int(split_name[3]),
       'term' : full_term,
-      'professor' : professor
+      'professor' : professor,
+      'status': 200
   }
 
 def scrape_instructor(course, term, crn) -> str:
   subject = course.split()[0]
   number = course.split()[1]
   instructor_url = f'https://compass-ssb.tamu.edu/pls/PROD/bwykschd.p_disp_listcrse?term_in={term}&subj_in={subject}&crse_in={number}&crn_in={crn}'
+
+  request = requests.get(instructor_url)
+  if (request.status_code != 200): return ""
+  instructor_soup = BeautifulSoup(request.text, 'html.parser')
+
+  table_fields = instructor_soup.find_all('td', class_='dddefault')[7].text
+  return table_fields
 
 def scrape_section(term, crn) -> dict:
   url = f'https://compass-ssb.tamu.edu/pls/PROD/bwykschd.p_disp_detail_sched?term_in={term}&crn_in={crn}'
