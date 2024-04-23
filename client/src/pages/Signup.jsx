@@ -43,7 +43,8 @@ const Signup = () => {
             email: false,
             phone: false,
             discord: false
-          }
+          },
+          sections: []
         })
       })
       .catch((error) => {
@@ -53,7 +54,7 @@ const Signup = () => {
   }
 
   useEffect(() => {
-    auth.onAuthStateChanged(user => {
+    getAuth().onAuthStateChanged(user => {
       if (user) {
         navigate("/dashboard")
       }
