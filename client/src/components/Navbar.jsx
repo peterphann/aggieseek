@@ -104,7 +104,7 @@ export default function Navbar() {
                         </Menu.Item>
                         <Menu.Item>
                           <div className='p-2' >
-                            <p className=' text-sm'>No new notifications</p>
+                            <p className=' text'>No new notifications</p>
                           </div>
                         </Menu.Item>
                       </div>
