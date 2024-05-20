@@ -13,6 +13,12 @@ const navigation = [
   { name: 'Settings', href: '/settings', private: true}
 ]
 
+const notifications = [
+  { course: 'CSCE 181', crn: '47550', message: 'Seats increased', hoursAgo: 1, origSeats:2 , newSeats: 3},
+  { course: 'ECEN 350', crn: '21665', message: 'Seats opened up', hoursAgo: 2, origSeats:0 , newSeats: 1},
+  { course: 'MATH 304', crn: '52795', message: 'Seats decreased', hoursAgo: 3, origSeats:3 , newSeats: 4},
+]
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -81,7 +87,7 @@ export default function Navbar() {
                     <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
                     </Menu.Button>
-                    <Menu.Items className="z-10 absolute right-0 rounded-md w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="z-10 absolute right-0 rounded-md w-60 mt-2 origin-top-right bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="px-1 py-1">
                         <Menu.Item className="bg-[#A8292F] rounded-t-md">
                           <div className='p-2'>
@@ -90,23 +96,28 @@ export default function Navbar() {
                             </p>
                           </div>
                         </Menu.Item>
-                        <Menu.Item>
-                          <div className='p-2' >
-                            <div className=' flex justify-between'>
-                            <p className=' text'><span className=' font-bold'>CSCE 181</span><span className=' text-xs text-gray-400 font-bold'> 47550</span></p>
-                            <p className=' text'><span className=' text-xs font-bold'> Seats increased</span></p>
+                        {notifications.length > 0 ? (
+                          notifications.map((notification, index) => (
+                            <Menu.Item key={index}>
+                              <div className='p-2'>
+                                <div className='flex justify-between'>
+                                  <p className='text'><span className='font-bold'>{notification.course}</span><span className='text-xs text-gray-400 font-bold'> {notification.crn}</span></p>
+                                  <p className='text'><span className='text-xs font-bold'> {notification.message}</span></p>
+                                </div>
+                                <div className='flex justify-between'>
+                                  <p className='text-xs'><span className='text-gray-500'>{notification.hoursAgo} hours ago</span></p>
+                                  <p className='text-xs'>{notification.origSeats} -{'>'} {notification.newSeats}</p>
+                                </div>
+                              </div>
+                            </Menu.Item>
+                          ))
+                        ) : (
+                          <Menu.Item>
+                            <div className='p-2'>
+                              <p className='text'>No new notifications</p>
                             </div>
-                            <div className=' flex justify-between'>
-                              <p className=' text-xs'><span className=' text-gray-500'>2 hours ago</span></p>
-                              <p className=' text-xs'>2 -{'>'} 3</p>
-                            </div>
-                          </div>
-                        </Menu.Item>
-                        <Menu.Item>
-                          <div className='p-2' >
-                            <p className=' text'>No new notifications</p>
-                          </div>
-                        </Menu.Item>
+                          </Menu.Item>
+                        )}
                       </div>
                     </Menu.Items>
                   </Menu>
