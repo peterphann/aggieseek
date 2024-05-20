@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Disclosure, Menu, Transition,} from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Logo from './Logo'
 import anonymous from '../assets/profile.webp'
@@ -76,14 +76,24 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {isUser && <button
-                  type="button"
-                  className="relative rounded-full bg-transparent p-1 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>}
+                {isUser &&
+                  <Menu as="div" className="relative inline-block text-left">
+                    <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                      <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    </Menu.Button>
+                    <Menu.Items className="z-10 absolute right-0 rounded-md w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div className="px-1 py-1">
+                        <Menu.Item className="bg-[#A8292F] rounded-t-md">
+                          <div className='p-2'>
+                            <p className=' font-bold text-white'>
+                              Notifications
+                            </p>
+                          </div>
+                        </Menu.Item>
+                      </div>
+                    </Menu.Items>
+                  </Menu>
+                }
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
