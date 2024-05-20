@@ -78,7 +78,7 @@ export default function Navbar() {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {isUser &&
                   <Menu as="div" className="relative inline-block text-left">
-                    <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                    <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
                     </Menu.Button>
                     <Menu.Items className="z-10 absolute right-0 rounded-md w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -88,6 +88,23 @@ export default function Navbar() {
                             <p className=' font-bold text-white'>
                               Notifications
                             </p>
+                          </div>
+                        </Menu.Item>
+                        <Menu.Item>
+                          <div className='p-2' >
+                            <div className=' flex justify-between'>
+                            <p className=' text'><span className=' font-bold'>CSCE 181</span><span className=' text-xs text-gray-400 font-bold'> 47550</span></p>
+                            <p className=' text'><span className=' text-xs font-bold'> Seats increased</span></p>
+                            </div>
+                            <div className=' flex justify-between'>
+                              <p className=' text-xs'><span className=' text-gray-500'>2 hours ago</span></p>
+                              <p className=' text-xs'>2 -{'>'} 3</p>
+                            </div>
+                          </div>
+                        </Menu.Item>
+                        <Menu.Item>
+                          <div className='p-2' >
+                            <p className=' text-sm'>No new notifications</p>
                           </div>
                         </Menu.Item>
                       </div>
