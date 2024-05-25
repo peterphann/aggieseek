@@ -40,7 +40,7 @@ const Dashboard = () => {
         if (data === null) {
           resolve([]);
           return;
-        };
+        }
         const crnArray = Object.keys(data).map(key => parseInt(key));
         resolve(crnArray);
       }, (error) => {
@@ -58,6 +58,12 @@ const Dashboard = () => {
     );
 
     responses = responses.filter((response) => response.status == 200);
+
+    responses.sort((a, b) => {
+      if (a.course < b.course) return -1;
+      if (a.course > b.course) return 1;
+      return 0;
+    });
 
     setSections(responses);
     setIsLoading(false);
@@ -125,7 +131,7 @@ const Dashboard = () => {
               <Menu.Items className="z-10 absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="px-1 py-1">
                   <Menu.Item>
-                    {({ active }) => (
+                    {({   active }) => (
                       <form className={` p-2`}>
                         <label className="block text-sm font-medium text-center text-gray-700">Enter your desired CRN</label>
                         <input value={crnInput} onChange={(e) => setCrnInput(e.target.value)} onClick={(e) => e.stopPropagation()} type="number" name="crn" id="crn" placeholder="CRN" autoComplete="off" className="mt-2 block w-full h-8 rounded-md border-1 shadow-sm sm:text-sm px-2" />
@@ -152,7 +158,7 @@ const Dashboard = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">CRNs</TableHead>
+                <TableHead className="w-[100px]">CRN</TableHead>
                 <TableHead>Term</TableHead>
                 <TableHead>Course</TableHead>
                 <TableHead>Title</TableHead>
