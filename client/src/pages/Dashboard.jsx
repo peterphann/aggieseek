@@ -130,7 +130,7 @@ const Dashboard = () => {
         <div className="flex items-center justify-center w-full max-w-4xl px-4 my-4 "> {/* Content container */}
           <h2 className="text-3xl font-bold absolute w-full text-center pointer-events-none">Dashboard</h2> {/* Absolutely positioned to center */}
 
-          <div className="flex flex-row justify-end w-full absolute right-64"> {/* Container for right-aligned items */}
+          <div className="flex flex-row justify-end w-full absolute right-[20%]"> {/* Container for right-aligned items */}
             <Menu as="div" className="inline-block">
 
               <Menu.Button hidden={isLoading} className="justify-center w-full px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
