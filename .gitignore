@@ -27,11 +27,3 @@ dist-ssr
 # Devcontainers
 .devcontainer
 .devcontainer/*
-
-# Server files and environment variables
-.env
-server/.flaskenv
-server/env
-server/__pycache__
-env/
-.venv
