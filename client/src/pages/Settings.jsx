@@ -1,20 +1,63 @@
 import { Input } from "../components/Input";
 import { Switch } from "../components/Switch";
-import {Fragment, useState} from "react";
-import {Listbox, Menu, Transition} from "@headlessui/react";
+import {useEffect, useState} from "react";
+import {Listbox} from "@headlessui/react";
+import { getAuth } from "firebase/auth";
+import { getDatabase, onValue, ref, get } from "firebase/database";
+import LoadingCircle from "../components/LoadingCircle";
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 const Settings = () => {
   // TODO: create course tracking settings as shown in figma
-  // make sure to remove the h1 :)
+
   const timeZones = ["Pacific Time", "Eastern Time", "Central Time"];
   const [selectedTimeZone, setSelectedTimeZone] = useState(timeZones[0]);
   const notifyMode = ["Seats open up", "Any change occurs"]
   const [selectedNotifyMode, setSelectedNotifyMode] = useState(notifyMode[0]);
+
+
+  const [phone, setPhone] = useState('')
+  const [isUsingPhone, setUsingPhone] = useState(false)
+  const [email, setEmail] = useState('')
+  const [isUsingEmail, setUsingEmail] = useState(false)
+  const [discord, setDiscord] = useState('')
+  const [isUsingDiscord, setUsingDiscord] = useState(false)
+
+  const updateSettings = () => {
+    get(ref(getDatabase(), 'users/methods/discord/value/'))
+  }
+
+  const fetchFromDatabase = (uid, info, set) => {
+    return new Promise((resolve, reject) => {
+      const dbRef = ref(getDatabase(), 'users/' + uid + info);
+      onValue(dbRef, (snapshot) => {
+        const data = snapshot.val();
+        set(data);
+        resolve(data);
+      }, (error) => {
+        reject(error);
+      });
+    });
+  };
+
+  useEffect(() => {
+    getAuth().onAuthStateChanged((user) => {
+      if (user) {
+        fetchFromDatabase(user.uid, '/methods/email/value', setEmail);
+        fetchFromDatabase(user.uid, '/methods/discord/value', setDiscord)
+        fetchFromDatabase(user.uid, '/methods/phone/value', setPhone)
+        fetchFromDatabase(user.uid, '/methods/email/enabled', setUsingEmail)
+        fetchFromDatabase(user.uid, '/methods/discord/enabled', setUsingDiscord)
+        fetchFromDatabase(user.uid, '/methods/phone/enabled', setUsingPhone)
+      }
+    })
+  }, []);
+
   return (
       <div>
 
-        <div className="flex justify-center items-center mt-10"> {/* Fullscreen container for vertical & horizontal centering */}
+        <div
+            className="flex justify-center items-center mt-10"> {/* Fullscreen container for vertical & horizontal centering */}
           <div className="flex items-center justify-center w-full max-w-4xl px-4 my-4 "> {/* Content container */}
             <h2 className="text-3xl font-bold absolute w-full text-center pointer-events-none">Settings</h2> {/* Absolutely positioned to center */}
 
@@ -34,21 +77,14 @@ const Settings = () => {
             <p className="font-bold text-xl">Contact Information</p>
             <div className="">
               <p className="text-md font-medium mt-2">Phone</p>
-              <Input placeholder="123-456-7890"/>
+              <Input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="123-456-7890"/>
               <p className="text-md font-medium mt-2">Email</p>
-              <Input placeholder="example@domain.com"/>
-              <p className="text-md font-medium mt-2">Discord</p>
-              <Input placeholder="Username"/>
+              <Input value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="example@domain.com"/>
+              <p className="text-md font-medium mt-2">Discord Webhook</p>
+              <Input value={discord} onChange={(e) => setDiscord(e.target.value)}  placeholder="Webhook URL"/>
             </div>
           </div>
-          <div className="flex flex-col">
-            <p className="font-bold text-xl">Theme</p>
-            <div className="mt-2 flex items-center space-x-2">
-              <p className="text-md font-medium">Dark Mode</p>
-              <Switch/>
-              <p className="text-md font-medium">Light Mode</p>
-            </div>
-          </div>
+
         </div>
         <div className="flex justify-center mt-4 mb-4">
           <hr className="border-gray-300 w-[70%]"/>
@@ -84,7 +120,7 @@ const Settings = () => {
                             <Listbox.Option
                                 key={timeZoneIdx}
                                 className={({active}) =>
-                                    `cursor-default select-none relative py-2 pl-10 pr-4 ${active ? 'text-amber-900 bg-red-100' : 'text-gray-900'}`
+                                    `cursor-pointer select-none relative py-2 pl-10 pr-4 ${active ? 'text-amber-900 bg-red-100' : 'text-gray-900'}`
                                 }
                                 value={timeZone}
                             >
@@ -127,7 +163,7 @@ const Settings = () => {
                             <Listbox.Option
                                 key={notifyIdx}
                                 className={({active}) =>
-                                    `cursor-default select-none relative py-2 pl-10 pr-4 ${active ? 'text-amber-900 bg-red-100' : 'text-gray-900'}`
+                                    `cursor-pointer select-none relative py-2 pl-10 pr-4 ${active ? 'text-amber-900 bg-red-100' : 'text-gray-900'}`
                                 }
                                 value={notify}
                             >
@@ -156,16 +192,17 @@ const Settings = () => {
             <p className="font-bold text-xl">Desired Notification Modes</p>
             <div className="mt-2 flex items-center space-x-2">
               <p className="text-md font-medium">SMS</p>
-              <Switch/>
-            </div>
-            <div className="mt-2 flex items-center space-x-2">
-              <p className="text-md font-medium">Discord</p>
-              <Switch/>
+              <Switch checked={isUsingPhone} onCheckedChange={() => setUsingPhone(!isUsingPhone)}/>
             </div>
             <div className="mt-2 flex items-center space-x-2">
               <p className="text-md font-medium">Email</p>
-              <Switch/>
+              <Switch checked={isUsingEmail} onCheckedChange={() => setUsingEmail(!isUsingEmail)}/>
             </div>
+            <div className="mt-2 flex items-center space-x-2">
+              <p className="text-md font-medium">Discord</p>
+              <Switch checked={isUsingDiscord} onCheckedChange={() => setUsingDiscord(!isUsingDiscord)}/>
+            </div>
+
           </div>
         </div>
       </div>
