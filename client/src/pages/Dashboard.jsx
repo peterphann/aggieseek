@@ -20,7 +20,7 @@ import {
 } from "../components/Pagination"
 import {Fragment, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { getDatabase, onValue, ref, remove, set } from "firebase/database";
+import { getDatabase, onValue, ref, remove, set, get } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import LoadingCircle from "../components/LoadingCircle";
 import { ExclamationTriangleIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
@@ -60,7 +60,7 @@ const Dashboard = () => {
         })
       );
 
-      responses = responses.filter((response) => response.status == 200);
+      responses = responses.filter((response) => response.status === 200);
 
       responses.sort((a, b) => {
         if (a.course < b.course) return -1;
@@ -80,10 +80,11 @@ const Dashboard = () => {
     setCrnInput("");
     fetch(`http://localhost:8080/sections/202431/${userInput}/`)
       .then((data) => {
-        if (data.status == 400) return;
+        if (data.status === 400) return;
 
         const uid = getAuth().currentUser.uid;
         const dbRef = ref(getDatabase(), 'users/' + uid + '/sections/' + userInput);
+        const sectionValueRef = ref(getDatabase(), 'sections/' + userInput + '/value/');
         const sectionDbRef = ref(getDatabase(), 'sections/' + userInput + '/users/' + uid + '/');
         set(dbRef, true);
         set(sectionDbRef, true);
@@ -98,9 +99,9 @@ const Dashboard = () => {
   const removeSection = (crn) => {
     const uid = getAuth().currentUser.uid
     const dbRef = ref(getDatabase(), 'users/' + uid + '/sections/' + crn);
-    const sectionDbRef = ref(getDatabase(), 'sections/' + crn + '/users/' + uid + '/');
+    const sectionUsersRef = ref(getDatabase(), 'sections/' + crn + '/users/' + uid + '/');
     remove(dbRef);
-    remove(sectionDbRef);
+    remove(sectionUsersRef);
     updateDatabase();
   }
 
@@ -151,7 +152,7 @@ const Dashboard = () => {
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({active}) => (
-                        <form onSubmit={(e) => e.preventDefault()} className={`p-2`}>
+                        <form onSubmit={(e) => {e.preventDefault(); addSection()}} className={`p-2`}>
                           <label className="block text-sm font-medium text-center text-gray-700">Enter your desired
                             CRN</label>
                           <input value={crnInput} onChange={(e) => setCrnInput(e.target.value)}
@@ -159,7 +160,7 @@ const Dashboard = () => {
                                  placeholder="CRN" autoComplete="off"
                                  className="mt-2 block w-full h-8 rounded-md border-1 shadow-sm sm:text-sm px-2"/>
                           <div className="flex justify-center w-full">
-                            <button onClick={() => addSection()} type="submit"
+                            <button type="submit"
                                     className="mt-3 inline-flex justify-center border border-transparent bg-[#8d0509] py-2 px-3 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
                               Track this section
                             </button>
