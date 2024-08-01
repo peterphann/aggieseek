@@ -1,0 +1,1328 @@
+[
+  {
+    "id": "ACCT",
+    "short": "ACCT",
+    "long": "ACCT - Accounting",
+    "title": "ACCT - Accounting"
+  },
+  {
+    "id": "AEGD",
+    "short": "AEGD",
+    "long": "AEGD - Adv Ed Gen Dentistry",
+    "title": "AEGD - Adv Ed Gen Dentistry"
+  },
+  {
+    "id": "AERO",
+    "short": "AERO",
+    "long": "AERO - Aerospace Engineering",
+    "title": "AERO - Aerospace Engineering"
+  },
+  {
+    "id": "AERS",
+    "short": "AERS",
+    "long": "AERS - Aerospace Studies",
+    "title": "AERS - Aerospace Studies"
+  },
+  {
+    "id": "AFST",
+    "short": "AFST",
+    "long": "AFST - Africana Studies",
+    "title": "AFST - Africana Studies"
+  },
+  {
+    "id": "AGCJ",
+    "short": "AGCJ",
+    "long": "AGCJ - Ag Comm & Journalism",
+    "title": "AGCJ - Ag Comm & Journalism"
+  },
+  {
+    "id": "AGEC",
+    "short": "AGEC",
+    "long": "AGEC - Agricultural Economics",
+    "title": "AGEC - Agricultural Economics"
+  },
+  {
+    "id": "AGLS",
+    "short": "AGLS",
+    "long": "AGLS - Ag & Life Sciences",
+    "title": "AGLS - Ag & Life Sciences"
+  },
+  {
+    "id": "AGSC",
+    "short": "AGSC",
+    "long": "AGSC - Agricultural Science",
+    "title": "AGSC - Agricultural Science"
+  },
+  {
+    "id": "AGSM",
+    "short": "AGSM",
+    "long": "AGSM - Agricultrl Systems Mgmt",
+    "title": "AGSM - Agricultrl Systems Mgmt"
+  },
+  {
+    "id": "ALEC",
+    "short": "ALEC",
+    "long": "ALEC - Ag Leadrshp, Ed & Comm",
+    "title": "ALEC - Ag Leadrshp, Ed & Comm"
+  },
+  {
+    "id": "ALED",
+    "short": "ALED",
+    "long": "ALED - Ag Leadership & Dev",
+    "title": "ALED - Ag Leadership & Dev"
+  },
+  {
+    "id": "ANLY",
+    "short": "ANLY",
+    "long": "ANLY - Analytics",
+    "title": "ANLY - Analytics"
+  },
+  {
+    "id": "ANSC",
+    "short": "ANSC",
+    "long": "ANSC - Animal Science",
+    "title": "ANSC - Animal Science"
+  },
+  {
+    "id": "ANTH",
+    "short": "ANTH",
+    "long": "ANTH - Anthropology",
+    "title": "ANTH - Anthropology"
+  },
+  {
+    "id": "ARAB",
+    "short": "ARAB",
+    "long": "ARAB - Arabic",
+    "title": "ARAB - Arabic"
+  },
+  {
+    "id": "ARCH",
+    "short": "ARCH",
+    "long": "ARCH - Architecture",
+    "title": "ARCH - Architecture"
+  },
+  {
+    "id": "AREN",
+    "short": "AREN",
+    "long": "AREN - Architectural Engr",
+    "title": "AREN - Architectural Engr"
+  },
+  {
+    "id": "ARSC",
+    "short": "ARSC",
+    "long": "ARSC - Arts & Sciences",
+    "title": "ARSC - Arts & Sciences"
+  },
+  {
+    "id": "ARTS",
+    "short": "ARTS",
+    "long": "ARTS - Art",
+    "title": "ARTS - Art"
+  },
+  {
+    "id": "ASCC",
+    "short": "ASCC",
+    "long": "ASCC - Academic Success Center",
+    "title": "ASCC - Academic Success Center"
+  },
+  {
+    "id": "ASIA",
+    "short": "ASIA",
+    "long": "ASIA - Asian Studies",
+    "title": "ASIA - Asian Studies"
+  },
+  {
+    "id": "ASTR",
+    "short": "ASTR",
+    "long": "ASTR - Astronomy",
+    "title": "ASTR - Astronomy"
+  },
+  {
+    "id": "ATMO",
+    "short": "ATMO",
+    "long": "ATMO - Atmospheric Sciences",
+    "title": "ATMO - Atmospheric Sciences"
+  },
+  {
+    "id": "ATTR",
+    "short": "ATTR",
+    "long": "ATTR - Athletic Training",
+    "title": "ATTR - Athletic Training"
+  },
+  {
+    "id": "BAEN",
+    "short": "BAEN",
+    "long": "BAEN - Biological & Ag Engr",
+    "title": "BAEN - Biological & Ag Engr"
+  },
+  {
+    "id": "BEFB",
+    "short": "BEFB",
+    "long": "BEFB-Bilingual Ed Field Based",
+    "title": "BEFB-Bilingual Ed Field Based"
+  },
+  {
+    "id": "BESC",
+    "short": "BESC",
+    "long": "BESC - Bioenvironmental Sci",
+    "title": "BESC - Bioenvironmental Sci"
+  },
+  {
+    "id": "BESL",
+    "short": "BESL",
+    "long": "BESL-Bilingual ESL Education",
+    "title": "BESL-Bilingual ESL Education"
+  },
+  {
+    "id": "BICH",
+    "short": "BICH",
+    "long": "BICH - Biochemistry",
+    "title": "BICH - Biochemistry"
+  },
+  {
+    "id": "BIMS",
+    "short": "BIMS",
+    "long": "BIMS - Biomedical Science",
+    "title": "BIMS - Biomedical Science"
+  },
+  {
+    "id": "BIOL",
+    "short": "BIOL",
+    "long": "BIOL - Biology",
+    "title": "BIOL - Biology"
+  },
+  {
+    "id": "BIOT",
+    "short": "BIOT",
+    "long": "BIOT - Biotechnology",
+    "title": "BIOT - Biotechnology"
+  },
+  {
+    "id": "BMEN",
+    "short": "BMEN",
+    "long": "BMEN - Biomedical Engineering",
+    "title": "BMEN - Biomedical Engineering"
+  },
+  {
+    "id": "BUAD",
+    "short": "BUAD",
+    "long": "BUAD - Business Administration",
+    "title": "BUAD - Business Administration"
+  },
+  {
+    "id": "BUSH",
+    "short": "BUSH",
+    "long": "BUSH - Geo. Bush School of Gov",
+    "title": "BUSH - Geo. Bush School of Gov"
+  },
+  {
+    "id": "BUSN",
+    "short": "BUSN",
+    "long": "BUSN - Mays Business School",
+    "title": "BUSN - Mays Business School"
+  },
+  {
+    "id": "CARC",
+    "short": "CARC",
+    "long": "CARC - College of Architecture",
+    "title": "CARC - College of Architecture"
+  },
+  {
+    "id": "CEHD",
+    "short": "CEHD",
+    "long": "CEHD - Coll of Ed & Human Dev",
+    "title": "CEHD - Coll of Ed & Human Dev"
+  },
+  {
+    "id": "CHEM",
+    "short": "CHEM",
+    "long": "CHEM - Chemistry",
+    "title": "CHEM - Chemistry"
+  },
+  {
+    "id": "CHEN",
+    "short": "CHEN",
+    "long": "CHEN - Chemical Engineering",
+    "title": "CHEN - Chemical Engineering"
+  },
+  {
+    "id": "CHIN",
+    "short": "CHIN",
+    "long": "CHIN - Chinese",
+    "title": "CHIN - Chinese"
+  },
+  {
+    "id": "CLAS",
+    "short": "CLAS",
+    "long": "CLAS - Classics",
+    "title": "CLAS - Classics"
+  },
+  {
+    "id": "CLBA",
+    "short": "CLBA",
+    "long": "CLBA - Mays Business School",
+    "title": "CLBA - Mays Business School"
+  },
+  {
+    "id": "CLEN",
+    "short": "CLEN",
+    "long": "CLEN - College of Engineering",
+    "title": "CLEN - College of Engineering"
+  },
+  {
+    "id": "CLSC",
+    "short": "CLSC",
+    "long": "CLSC - College of Science",
+    "title": "CLSC - College of Science"
+  },
+  {
+    "id": "COMM",
+    "short": "COMM",
+    "long": "COMM - Communication",
+    "title": "COMM - Communication"
+  },
+  {
+    "id": "COSC",
+    "short": "COSC",
+    "long": "COSC - Construction Science",
+    "title": "COSC - Construction Science"
+  },
+  {
+    "id": "CPSY",
+    "short": "CPSY",
+    "long": "CPSY - Counseling Psychology",
+    "title": "CPSY - Counseling Psychology"
+  },
+  {
+    "id": "CSCE",
+    "short": "CSCE",
+    "long": "CSCE - Computer Sci & Engr",
+    "title": "CSCE - Computer Sci & Engr"
+  },
+  {
+    "id": "CULN",
+    "short": "CULN",
+    "long": "CULN - Culinology",
+    "title": "CULN - Culinology"
+  },
+  {
+    "id": "CVEN",
+    "short": "CVEN",
+    "long": "CVEN - Civil Engineering",
+    "title": "CVEN - Civil Engineering"
+  },
+  {
+    "id": "CYBR",
+    "short": "CYBR",
+    "long": "CYBR - Cybersecurity",
+    "title": "CYBR - Cybersecurity"
+  },
+  {
+    "id": "DAEN",
+    "short": "DAEN",
+    "long": "DAEN - Data Engineering",
+    "title": "DAEN - Data Engineering"
+  },
+  {
+    "id": "DASC",
+    "short": "DASC",
+    "long": "DASC - Dairy Science",
+    "title": "DASC - Dairy Science"
+  },
+  {
+    "id": "DCED",
+    "short": "DCED",
+    "long": "DCED - Dance Education",
+    "title": "DCED - Dance Education"
+  },
+  {
+    "id": "DDHS",
+    "short": "DDHS",
+    "long": "DDHS - Dental Hygiene",
+    "title": "DDHS - Dental Hygiene"
+  },
+  {
+    "id": "DHUM",
+    "short": "DHUM",
+    "long": "DHUM - Digital Humanities",
+    "title": "DHUM - Digital Humanities"
+  },
+  {
+    "id": "DPHS",
+    "short": "DPHS",
+    "long": "DPHS - Dental Public Health",
+    "title": "DPHS - Dental Public Health"
+  },
+  {
+    "id": "ECCB",
+    "short": "ECCB",
+    "long": "ECCB - Eco & Conservation Biol",
+    "title": "ECCB - Eco & Conservation Biol"
+  },
+  {
+    "id": "ECEN",
+    "short": "ECEN",
+    "long": "ECEN - Electrical & Comp Engr",
+    "title": "ECEN - Electrical & Comp Engr"
+  },
+  {
+    "id": "ECMT",
+    "short": "ECMT",
+    "long": "ECMT - Econometrics",
+    "title": "ECMT - Econometrics"
+  },
+  {
+    "id": "ECON",
+    "short": "ECON",
+    "long": "ECON - Economics",
+    "title": "ECON - Economics"
+  },
+  {
+    "id": "EDAD",
+    "short": "EDAD",
+    "long": "EDAD - Educational Administrtn",
+    "title": "EDAD - Educational Administrtn"
+  },
+  {
+    "id": "EDCI",
+    "short": "EDCI",
+    "long": "EDCI - Educ Curriculum & Dev",
+    "title": "EDCI - Educ Curriculum & Dev"
+  },
+  {
+    "id": "EDHP",
+    "short": "EDHP",
+    "long": "EDHP - Ed Healthcare Prof",
+    "title": "EDHP - Ed Healthcare Prof"
+  },
+  {
+    "id": "EEBL",
+    "short": "EEBL",
+    "long": "EEBL - Ecology & Evol Biology",
+    "title": "EEBL - Ecology & Evol Biology"
+  },
+  {
+    "id": "EHRD",
+    "short": "EHRD",
+    "long": "EHRD - Ed Human Res Develop",
+    "title": "EHRD - Ed Human Res Develop"
+  },
+  {
+    "id": "ENDG",
+    "short": "ENDG",
+    "long": "ENDG - Engr Design Graphics",
+    "title": "ENDG - Engr Design Graphics"
+  },
+  {
+    "id": "ENDO",
+    "short": "ENDO",
+    "long": "ENDO - Endodontics",
+    "title": "ENDO - Endodontics"
+  },
+  {
+    "id": "ENDS",
+    "short": "ENDS",
+    "long": "ENDS - Environmental Design",
+    "title": "ENDS - Environmental Design"
+  },
+  {
+    "id": "ENGL",
+    "short": "ENGL",
+    "long": "ENGL - English",
+    "title": "ENGL - English"
+  },
+  {
+    "id": "ENGR",
+    "short": "ENGR",
+    "long": "ENGR - Engineering",
+    "title": "ENGR - Engineering"
+  },
+  {
+    "id": "ENTC",
+    "short": "ENTC",
+    "long": "ENTC - Engineering Technology",
+    "title": "ENTC - Engineering Technology"
+  },
+  {
+    "id": "ENTO",
+    "short": "ENTO",
+    "long": "ENTO - Entomology",
+    "title": "ENTO - Entomology"
+  },
+  {
+    "id": "EPFB",
+    "short": "EPFB",
+    "long": "EPFB - Educ Psyc Field Based",
+    "title": "EPFB - Educ Psyc Field Based"
+  },
+  {
+    "id": "EPSY",
+    "short": "EPSY",
+    "long": "EPSY - Educational Psychology",
+    "title": "EPSY - Educational Psychology"
+  },
+  {
+    "id": "ESET",
+    "short": "ESET",
+    "long": "ESET - Electronic Sys Eng Tech",
+    "title": "ESET - Electronic Sys Eng Tech"
+  },
+  {
+    "id": "EURO",
+    "short": "EURO",
+    "long": "EURO - European Studies",
+    "title": "EURO - European Studies"
+  },
+  {
+    "id": "EVEN",
+    "short": "EVEN",
+    "long": "EVEN - Environmental Engr",
+    "title": "EVEN - Environmental Engr"
+  },
+  {
+    "id": "FILM",
+    "short": "FILM",
+    "long": "FILM - Film Studies",
+    "title": "FILM - Film Studies"
+  },
+  {
+    "id": "FINC",
+    "short": "FINC",
+    "long": "FINC - Finance",
+    "title": "FINC - Finance"
+  },
+  {
+    "id": "FINP",
+    "short": "FINP",
+    "long": "FINP - Financial Planning",
+    "title": "FINP - Financial Planning"
+  },
+  {
+    "id": "FIVS",
+    "short": "FIVS",
+    "long": "FIVS - Forensic & Inv Science",
+    "title": "FIVS - Forensic & Inv Science"
+  },
+  {
+    "id": "FORS",
+    "short": "FORS",
+    "long": "FORS - Forensic Healthcare",
+    "title": "FORS - Forensic Healthcare"
+  },
+  {
+    "id": "FREN",
+    "short": "FREN",
+    "long": "FREN - French",
+    "title": "FREN - French"
+  },
+  {
+    "id": "FSTC",
+    "short": "FSTC",
+    "long": "FSTC - Food Science & Tech",
+    "title": "FSTC - Food Science & Tech"
+  },
+  {
+    "id": "FYEX",
+    "short": "FYEX",
+    "long": "FYEX - First Year Experience",
+    "title": "FYEX - First Year Experience"
+  },
+  {
+    "id": "GENE",
+    "short": "GENE",
+    "long": "GENE - Genetics",
+    "title": "GENE - Genetics"
+  },
+  {
+    "id": "GEOG",
+    "short": "GEOG",
+    "long": "GEOG - Geography",
+    "title": "GEOG - Geography"
+  },
+  {
+    "id": "GEOL",
+    "short": "GEOL",
+    "long": "GEOL - Geology",
+    "title": "GEOL - Geology"
+  },
+  {
+    "id": "GEOP",
+    "short": "GEOP",
+    "long": "GEOP - Geophysics",
+    "title": "GEOP - Geophysics"
+  },
+  {
+    "id": "GEOS",
+    "short": "GEOS",
+    "long": "GEOS - Geosciences",
+    "title": "GEOS - Geosciences"
+  },
+  {
+    "id": "GERM",
+    "short": "GERM",
+    "long": "GERM - German",
+    "title": "GERM - German"
+  },
+  {
+    "id": "GLST",
+    "short": "GLST",
+    "long": "GLST - Global Studies",
+    "title": "GLST - Global Studies"
+  },
+  {
+    "id": "HBEH",
+    "short": "HBEH",
+    "long": "HBEH -  Health Behavior",
+    "title": "HBEH -  Health Behavior"
+  },
+  {
+    "id": "HCPI",
+    "short": "HCPI",
+    "long": "HCPI - Healthcare Prof Core In",
+    "title": "HCPI - Healthcare Prof Core In"
+  },
+  {
+    "id": "HISP",
+    "short": "HISP",
+    "long": "HISP - Hispanic Studies",
+    "title": "HISP - Hispanic Studies"
+  },
+  {
+    "id": "HIST",
+    "short": "HIST",
+    "long": "HIST - History",
+    "title": "HIST - History"
+  },
+  {
+    "id": "HLTH",
+    "short": "HLTH",
+    "long": "HLTH - Health",
+    "title": "HLTH - Health"
+  },
+  {
+    "id": "HMGT",
+    "short": "HMGT",
+    "long": "HMGT - Hosp, Hotel Mgmt, Tour",
+    "title": "HMGT - Hosp, Hotel Mgmt, Tour"
+  },
+  {
+    "id": "HORT",
+    "short": "HORT",
+    "long": "HORT - Horticultural Sciences",
+    "title": "HORT - Horticultural Sciences"
+  },
+  {
+    "id": "HUMA",
+    "short": "HUMA",
+    "long": "HUMA - Humanities",
+    "title": "HUMA - Humanities"
+  },
+  {
+    "id": "IBST",
+    "short": "IBST",
+    "long": "IBST - Institute Biosci & Tech",
+    "title": "IBST - Institute Biosci & Tech"
+  },
+  {
+    "id": "IBUS",
+    "short": "IBUS",
+    "long": "IBUS - International Business",
+    "title": "IBUS - International Business"
+  },
+  {
+    "id": "ICPE",
+    "short": "ICPE",
+    "long": "ICPE-Interdisc Curr Prg Energy",
+    "title": "ICPE-Interdisc Curr Prg Energy"
+  },
+  {
+    "id": "IDIS",
+    "short": "IDIS",
+    "long": "IDIS - Industrial Distribution",
+    "title": "IDIS - Industrial Distribution"
+  },
+  {
+    "id": "INST",
+    "short": "INST",
+    "long": "INST-Interdisciplinary Studies",
+    "title": "INST-Interdisciplinary Studies"
+  },
+  {
+    "id": "INTA",
+    "short": "INTA",
+    "long": "INTA - International Affairs",
+    "title": "INTA - International Affairs"
+  },
+  {
+    "id": "ISEN",
+    "short": "ISEN",
+    "long": "ISEN - Indust & Systems Engr",
+    "title": "ISEN - Indust & Systems Engr"
+  },
+  {
+    "id": "ISTM",
+    "short": "ISTM",
+    "long": "ISTM - Mgmt Info Systems",
+    "title": "ISTM - Mgmt Info Systems"
+  },
+  {
+    "id": "ITAL",
+    "short": "ITAL",
+    "long": "ITAL - Italian",
+    "title": "ITAL - Italian"
+  },
+  {
+    "id": "ITDE",
+    "short": "ITDE",
+    "long": "ITDE - Interdisciplinary Engr",
+    "title": "ITDE - Interdisciplinary Engr"
+  },
+  {
+    "id": "ITSV",
+    "short": "ITSV",
+    "long": "ITSV - Info Tech Service Mgmt",
+    "title": "ITSV - Info Tech Service Mgmt"
+  },
+  {
+    "id": "JAPN",
+    "short": "JAPN",
+    "long": "JAPN - Japanese",
+    "title": "JAPN - Japanese"
+  },
+  {
+    "id": "JOUR",
+    "short": "JOUR",
+    "long": "JOUR - Journalism",
+    "title": "JOUR - Journalism"
+  },
+  {
+    "id": "JWST",
+    "short": "JWST",
+    "long": "JWST - Jewish Studies",
+    "title": "JWST - Jewish Studies"
+  },
+  {
+    "id": "KINE",
+    "short": "KINE",
+    "long": "KINE - Kinesiology",
+    "title": "KINE - Kinesiology"
+  },
+  {
+    "id": "LAND",
+    "short": "LAND",
+    "long": "LAND - Landscape Architecture",
+    "title": "LAND - Landscape Architecture"
+  },
+  {
+    "id": "LAW",
+    "short": "LAW",
+    "long": "LAW - Law",
+    "title": "LAW - Law"
+  },
+  {
+    "id": "LDEV",
+    "short": "LDEV",
+    "long": "LDEV - Land Development",
+    "title": "LDEV - Land Development"
+  },
+  {
+    "id": "LDTC",
+    "short": "LDTC",
+    "long": "LDTC - Learning Design & Techn",
+    "title": "LDTC - Learning Design & Techn"
+  },
+  {
+    "id": "LING",
+    "short": "LING",
+    "long": "LING -Linguistics",
+    "title": "LING -Linguistics"
+  },
+  {
+    "id": "LMAS",
+    "short": "LMAS",
+    "long": "LMAS - Latino/Mex Amer Studies",
+    "title": "LMAS - Latino/Mex Amer Studies"
+  },
+  {
+    "id": "MASC",
+    "short": "MASC",
+    "long": "MASC - Integrated Math & Sci",
+    "title": "MASC - Integrated Math & Sci"
+  },
+  {
+    "id": "MATH",
+    "short": "MATH",
+    "long": "MATH - Mathematics",
+    "title": "MATH - Mathematics"
+  },
+  {
+    "id": "MCMD",
+    "short": "MCMD",
+    "long": "MCMD - Molecular Cell Medicine",
+    "title": "MCMD - Molecular Cell Medicine"
+  },
+  {
+    "id": "MEEN",
+    "short": "MEEN",
+    "long": "MEEN - Mechanical Engineering",
+    "title": "MEEN - Mechanical Engineering"
+  },
+  {
+    "id": "MEFB",
+    "short": "MEFB",
+    "long": "MEFB - Mid Grds Ed Field Based",
+    "title": "MEFB - Mid Grds Ed Field Based"
+  },
+  {
+    "id": "MEMA",
+    "short": "MEMA",
+    "long": "MEMA - Mechanics and Materials",
+    "title": "MEMA - Mechanics and Materials"
+  },
+  {
+    "id": "MEPS",
+    "short": "MEPS",
+    "long": "MEPS-Molecular & Env Plant Sci",
+    "title": "MEPS-Molecular & Env Plant Sci"
+  },
+  {
+    "id": "MGMT",
+    "short": "MGMT",
+    "long": "MGMT - Management",
+    "title": "MGMT - Management"
+  },
+  {
+    "id": "MKTG",
+    "short": "MKTG",
+    "long": "MKTG - Marketing",
+    "title": "MKTG - Marketing"
+  },
+  {
+    "id": "MLSC",
+    "short": "MLSC",
+    "long": "MLSC - Military Science",
+    "title": "MLSC - Military Science"
+  },
+  {
+    "id": "MMET",
+    "short": "MMET",
+    "long": "MMET - Mfg & Mech Engr Tech",
+    "title": "MMET - Mfg & Mech Engr Tech"
+  },
+  {
+    "id": "MODL",
+    "short": "MODL",
+    "long": "MODL - Modern Languages",
+    "title": "MODL - Modern Languages"
+  },
+  {
+    "id": "MPHY",
+    "short": "MPHY",
+    "long": "MPHY - Medical Physiology",
+    "title": "MPHY - Medical Physiology"
+  },
+  {
+    "id": "MPIM",
+    "short": "MPIM",
+    "long": "MPIM - Microbial Pathogen Imm",
+    "title": "MPIM - Microbial Pathogen Imm"
+  },
+  {
+    "id": "MSCI",
+    "short": "MSCI",
+    "long": "MSCI - Medical Sciences",
+    "title": "MSCI - Medical Sciences"
+  },
+  {
+    "id": "MSEN",
+    "short": "MSEN",
+    "long": "MSEN -Materials Science & Engr",
+    "title": "MSEN -Materials Science & Engr"
+  },
+  {
+    "id": "MSTC",
+    "short": "MSTC",
+    "long": "MSTC - Music Technology",
+    "title": "MSTC - Music Technology"
+  },
+  {
+    "id": "MTDE",
+    "short": "MTDE",
+    "long": "MTDE - Multidisciplinary Engr",
+    "title": "MTDE - Multidisciplinary Engr"
+  },
+  {
+    "id": "MUSC",
+    "short": "MUSC",
+    "long": "MUSC - Music",
+    "title": "MUSC - Music"
+  },
+  {
+    "id": "MUST",
+    "short": "MUST",
+    "long": "MUST - Museum Studies",
+    "title": "MUST - Museum Studies"
+  },
+  {
+    "id": "MXET",
+    "short": "MXET",
+    "long": "MXET - Multidiscip Engr Tech",
+    "title": "MXET - Multidiscip Engr Tech"
+  },
+  {
+    "id": "NEXT",
+    "short": "NEXT",
+    "long": "NEXT - Neuro Exper Therapeutic",
+    "title": "NEXT - Neuro Exper Therapeutic"
+  },
+  {
+    "id": "NRSC",
+    "short": "NRSC",
+    "long": "NRSC - Neuroscience",
+    "title": "NRSC - Neuroscience"
+  },
+  {
+    "id": "NUEN",
+    "short": "NUEN",
+    "long": "NUEN - Nuclear Engineering",
+    "title": "NUEN - Nuclear Engineering"
+  },
+  {
+    "id": "NURS",
+    "short": "NURS",
+    "long": "NURS - Nursing",
+    "title": "NURS - Nursing"
+  },
+  {
+    "id": "NUTR",
+    "short": "NUTR",
+    "long": "NUTR - Nutrition",
+    "title": "NUTR - Nutrition"
+  },
+  {
+    "id": "NVSC",
+    "short": "NVSC",
+    "long": "NVSC - Naval Science",
+    "title": "NVSC - Naval Science"
+  },
+  {
+    "id": "OBIO",
+    "short": "OBIO",
+    "long": "OBIO - Oral Biology",
+    "title": "OBIO - Oral Biology"
+  },
+  {
+    "id": "OCEN",
+    "short": "OCEN",
+    "long": "OCEN - Ocean Engineering",
+    "title": "OCEN - Ocean Engineering"
+  },
+  {
+    "id": "OCNG",
+    "short": "OCNG",
+    "long": "OCNG - Oceanography",
+    "title": "OCNG - Oceanography"
+  },
+  {
+    "id": "OMFP",
+    "short": "OMFP",
+    "long": "OMFP - Oral & Maxillofac Path",
+    "title": "OMFP - Oral & Maxillofac Path"
+  },
+  {
+    "id": "OMFR",
+    "short": "OMFR",
+    "long": "OMFR - Oral & Maxillofac Radio",
+    "title": "OMFR - Oral & Maxillofac Radio"
+  },
+  {
+    "id": "OMFS",
+    "short": "OMFS",
+    "long": "OMFS - Oral & Maxillofac Surg",
+    "title": "OMFS - Oral & Maxillofac Surg"
+  },
+  {
+    "id": "ORTH",
+    "short": "ORTH",
+    "long": "ORTH - Orthodontics",
+    "title": "ORTH - Orthodontics"
+  },
+  {
+    "id": "PBSI",
+    "short": "PBSI",
+    "long": "PBSI - Psyc & Brain Sciences",
+    "title": "PBSI - Psyc & Brain Sciences"
+  },
+  {
+    "id": "PEDD",
+    "short": "PEDD",
+    "long": "PEDD - Pediatric Dentistry",
+    "title": "PEDD - Pediatric Dentistry"
+  },
+  {
+    "id": "PERF",
+    "short": "PERF",
+    "long": "PERF - Performance Studies",
+    "title": "PERF - Performance Studies"
+  },
+  {
+    "id": "PERI",
+    "short": "PERI",
+    "long": "PERI - Peridontics",
+    "title": "PERI - Peridontics"
+  },
+  {
+    "id": "PETE",
+    "short": "PETE",
+    "long": "PETE - Petroleum Engineering",
+    "title": "PETE - Petroleum Engineering"
+  },
+  {
+    "id": "PHAR",
+    "short": "PHAR",
+    "long": "PHAR - Pharmacy",
+    "title": "PHAR - Pharmacy"
+  },
+  {
+    "id": "PHEB",
+    "short": "PHEB",
+    "long": "PHEB - Public Hlth Epide Biost",
+    "title": "PHEB - Public Hlth Epide Biost"
+  },
+  {
+    "id": "PHEO",
+    "short": "PHEO",
+    "long": "PHEO - Public Hlth Enviro Occu",
+    "title": "PHEO - Public Hlth Enviro Occu"
+  },
+  {
+    "id": "PHIL",
+    "short": "PHIL",
+    "long": "PHIL - Philosophy",
+    "title": "PHIL - Philosophy"
+  },
+  {
+    "id": "PHLT",
+    "short": "PHLT",
+    "long": "PHLT - Public Health",
+    "title": "PHLT - Public Health"
+  },
+  {
+    "id": "PHPM",
+    "short": "PHPM",
+    "long": "PHPM - Public Hlth Pol & Mgmt",
+    "title": "PHPM - Public Hlth Pol & Mgmt"
+  },
+  {
+    "id": "PHSC",
+    "short": "PHSC",
+    "long": "PHSC - Pharmaceutical Sciences",
+    "title": "PHSC - Pharmaceutical Sciences"
+  },
+  {
+    "id": "PHYS",
+    "short": "PHYS",
+    "long": "PHYS - Physics",
+    "title": "PHYS - Physics"
+  },
+  {
+    "id": "PLAN",
+    "short": "PLAN",
+    "long": "PLAN - Urban Planning",
+    "title": "PLAN - Urban Planning"
+  },
+  {
+    "id": "PLPA",
+    "short": "PLPA",
+    "long": "PLPA - Plant Pathology",
+    "title": "PLPA - Plant Pathology"
+  },
+  {
+    "id": "POLS",
+    "short": "POLS",
+    "long": "POLS - Political Science",
+    "title": "POLS - Political Science"
+  },
+  {
+    "id": "POSC",
+    "short": "POSC",
+    "long": "POSC - Poultry Science",
+    "title": "POSC - Poultry Science"
+  },
+  {
+    "id": "PROS",
+    "short": "PROS",
+    "long": "PROS - Prosthodontics",
+    "title": "PROS - Prosthodontics"
+  },
+  {
+    "id": "PSAA",
+    "short": "PSAA",
+    "long": "PSAA - Public Service & Admin",
+    "title": "PSAA - Public Service & Admin"
+  },
+  {
+    "id": "PVFA",
+    "short": "PVFA",
+    "long": "PVFA - Perf Vis Fine Arts",
+    "title": "PVFA - Perf Vis Fine Arts"
+  },
+  {
+    "id": "RDNG",
+    "short": "RDNG",
+    "long": "RDNG - Reading",
+    "title": "RDNG - Reading"
+  },
+  {
+    "id": "RELS",
+    "short": "RELS",
+    "long": "RELS - Religious Studies",
+    "title": "RELS - Religious Studies"
+  },
+  {
+    "id": "RPTS",
+    "short": "RPTS",
+    "long": "RPTS - Rec, Park & Tourism Sci",
+    "title": "RPTS - Rec, Park & Tourism Sci"
+  },
+  {
+    "id": "RUSS",
+    "short": "RUSS",
+    "long": "RUSS - Russian",
+    "title": "RUSS - Russian"
+  },
+  {
+    "id": "RWFM",
+    "short": "RWFM",
+    "long": "RWFM - Rang Wild & Fish Mgmt",
+    "title": "RWFM - Rang Wild & Fish Mgmt"
+  },
+  {
+    "id": "SABR",
+    "short": "SABR",
+    "long": "SABR - Study Abroad",
+    "title": "SABR - Study Abroad"
+  },
+  {
+    "id": "SCMT",
+    "short": "SCMT",
+    "long": "SCMT - Supply Chain Mgmt",
+    "title": "SCMT - Supply Chain Mgmt"
+  },
+  {
+    "id": "SCSC",
+    "short": "SCSC",
+    "long": "SCSC - Soil and Crop Sciences",
+    "title": "SCSC - Soil and Crop Sciences"
+  },
+  {
+    "id": "SEFB",
+    "short": "SEFB",
+    "long": "SEFB - Special Ed Field Based",
+    "title": "SEFB - Special Ed Field Based"
+  },
+  {
+    "id": "SENG",
+    "short": "SENG",
+    "long": "SENG - Safety Engineering",
+    "title": "SENG - Safety Engineering"
+  },
+  {
+    "id": "SOCI",
+    "short": "SOCI",
+    "long": "SOCI - Sociology",
+    "title": "SOCI - Sociology"
+  },
+  {
+    "id": "SOMS",
+    "short": "SOMS",
+    "long": "SOMS-Schl of Military Sciences",
+    "title": "SOMS-Schl of Military Sciences"
+  },
+  {
+    "id": "SOPH",
+    "short": "SOPH",
+    "long": "SOPH - School of Public Health",
+    "title": "SOPH - School of Public Health"
+  },
+  {
+    "id": "SPAN",
+    "short": "SPAN",
+    "long": "SPAN - Spanish",
+    "title": "SPAN - Spanish"
+  },
+  {
+    "id": "SPED",
+    "short": "SPED",
+    "long": "SPED - Special Education",
+    "title": "SPED - Special Education"
+  },
+  {
+    "id": "SPMT",
+    "short": "SPMT",
+    "long": "SPMT - Sport Management",
+    "title": "SPMT - Sport Management"
+  },
+  {
+    "id": "SPSY",
+    "short": "SPSY",
+    "long": "SPSY - School Psychology",
+    "title": "SPSY - School Psychology"
+  },
+  {
+    "id": "SSEN",
+    "short": "SSEN",
+    "long": "SSEN - Subsea Engineering",
+    "title": "SSEN - Subsea Engineering"
+  },
+  {
+    "id": "STAT",
+    "short": "STAT",
+    "long": "STAT - Statistics",
+    "title": "STAT - Statistics"
+  },
+  {
+    "id": "SYEX",
+    "short": "SYEX",
+    "long": "SYEX - Second Year Experience",
+    "title": "SYEX - Second Year Experience"
+  },
+  {
+    "id": "TAMU",
+    "short": "TAMU",
+    "long": "TAMU - Enrollment Type/Holding",
+    "title": "TAMU - Enrollment Type/Holding"
+  },
+  {
+    "id": "TCMG",
+    "short": "TCMG",
+    "long": "TCMG - Technology Management",
+    "title": "TCMG - Technology Management"
+  },
+  {
+    "id": "TCMT",
+    "short": "TCMT",
+    "long": "TCMT - Technical Management",
+    "title": "TCMT - Technical Management"
+  },
+  {
+    "id": "TEED",
+    "short": "TEED",
+    "long": "TEED - Teacher Education",
+    "title": "TEED - Teacher Education"
+  },
+  {
+    "id": "TEFB",
+    "short": "TEFB",
+    "long": "TEFB - Teacher Ed Field Based",
+    "title": "TEFB - Teacher Ed Field Based"
+  },
+  {
+    "id": "THEA",
+    "short": "THEA",
+    "long": "THEA - Theatre",
+    "title": "THEA - Theatre"
+  },
+  {
+    "id": "UGST",
+    "short": "UGST",
+    "long": "UGST - Undergraduate Studies",
+    "title": "UGST - Undergraduate Studies"
+  },
+  {
+    "id": "URPN",
+    "short": "URPN",
+    "long": "URPN - Urban & Reg Planning",
+    "title": "URPN - Urban & Reg Planning"
+  },
+  {
+    "id": "URSC",
+    "short": "URSC",
+    "long": "URSC - Urban Science",
+    "title": "URSC - Urban Science"
+  },
+  {
+    "id": "VIBS",
+    "short": "VIBS",
+    "long": "VIBS - Vet Integrative Biosci",
+    "title": "VIBS - Vet Integrative Biosci"
+  },
+  {
+    "id": "VIST",
+    "short": "VIST",
+    "long": "VIST - Visual Studies",
+    "title": "VIST - Visual Studies"
+  },
+  {
+    "id": "VIZA",
+    "short": "VIZA",
+    "long": "VIZA - Visualization",
+    "title": "VIZA - Visualization"
+  },
+  {
+    "id": "VLCS",
+    "short": "VLCS",
+    "long": "VLCS-Vet Large Animal Clin Sc",
+    "title": "VLCS-Vet Large Animal Clin Sc"
+  },
+  {
+    "id": "VMID",
+    "short": "VMID",
+    "long": "VMID - Vet Medicine-Interdisc",
+    "title": "VMID - Vet Medicine-Interdisc"
+  },
+  {
+    "id": "VPAR",
+    "short": "VPAR",
+    "long": "VPAR - Veterinary Parasitology",
+    "title": "VPAR - Veterinary Parasitology"
+  },
+  {
+    "id": "VPAT",
+    "short": "VPAT",
+    "long": "VPAT - Veterinary Pathology",
+    "title": "VPAT - Veterinary Pathology"
+  },
+  {
+    "id": "VSCS",
+    "short": "VSCS",
+    "long": "VSCS-Vet Small Animal Clin Sc",
+    "title": "VSCS-Vet Small Animal Clin Sc"
+  },
+  {
+    "id": "VTMI",
+    "short": "VTMI",
+    "long": "VTMI - Veterinary Microbiology",
+    "title": "VTMI - Veterinary Microbiology"
+  },
+  {
+    "id": "VTPB",
+    "short": "VTPB",
+    "long": "VTPB - Veterinary Pathobiology",
+    "title": "VTPB - Veterinary Pathobiology"
+  },
+  {
+    "id": "VTPP",
+    "short": "VTPP",
+    "long": "VTPP - Vet Physiology & Pharm",
+    "title": "VTPP - Vet Physiology & Pharm"
+  },
+  {
+    "id": "WFSC",
+    "short": "WFSC",
+    "long": "WFSC-Wildlife & Fisheries Sci",
+    "title": "WFSC-Wildlife & Fisheries Sci"
+  },
+  {
+    "id": "WGST",
+    "short": "WGST",
+    "long": "WGST - Women's &Gender Studies",
+    "title": "WGST - Women's &Gender Studies"
+  },
+  {
+    "id": "WMHS",
+    "short": "WMHS",
+    "long": "WMHS-Water Mgmt & Hydrol Sci",
+    "title": "WMHS-Water Mgmt & Hydrol Sci"
+  }
+]
