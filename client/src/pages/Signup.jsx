@@ -40,9 +40,18 @@ const Signup = () => {
           lastName: last,
           email: email,
           methods: {
-            email: false,
-            phone: false,
-            discord: false
+            email: {
+              enabled: false,
+              value: email
+            },
+            phone: {
+              enabled: false,
+              value: ''
+            },
+            discord: {
+              enabled: false,
+              value: ''
+            },
           },
           sections: []
         })
