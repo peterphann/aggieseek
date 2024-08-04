@@ -55,7 +55,7 @@ const Dashboard = () => {
     try {
         let responses = await Promise.all(
         crns.map(async (crn) => {
-          const response = await fetch(`/api/sections/202431/${crn}/`);
+          const response = await fetch(`https://api.aggieseek.net/sections/202431/${crn}/`);
           return response.json();
         })
       );
@@ -78,7 +78,7 @@ const Dashboard = () => {
   const addSection = () => {
     const userInput = crnInput;
     setCrnInput("");
-    fetch(`/api/sections/202431/${userInput}/`)
+    fetch(`https://api.aggieseek.net/sections/202431/${userInput}/`)
       .then((data) => {
         if (data.status === 400) return;
 
