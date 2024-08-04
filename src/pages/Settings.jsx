@@ -24,9 +24,12 @@ const Settings = () => {
   const [isUsingDiscord, setUsingDiscord] = useState(false)
 
   const updateSettings = () => {
-    get(ref(getDatabase(), 'users/methods/discord/value/'))
+    get(ref(getDatabase(), 'sections/')).then(
+        r => {
+          console.log(r.val())
+        }
+    )
   }
-
   const fetchFromDatabase = (uid, info, set) => {
     return new Promise((resolve, reject) => {
       const dbRef = ref(getDatabase(), 'users/' + uid + info);
@@ -41,6 +44,7 @@ const Settings = () => {
   };
 
   useEffect(() => {
+    updateSettings()
     getAuth().onAuthStateChanged((user) => {
       if (user) {
         fetchFromDatabase(user.uid, '/methods/email/value', setEmail);
