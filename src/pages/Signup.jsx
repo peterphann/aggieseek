@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import Button from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
+import { getDatabase, ref, set } from "firebase/database";
 
 const errorMessages = {
   "auth/invalid-email": "The email you entered is invalid.",
@@ -28,9 +28,33 @@ const Signup = () => {
       return
     }
 
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(getAuth(), email, password)
       .then((userCredential) => {
         navigate('/dashboard')
+
+        const db = getDatabase()
+        const uid = getAuth().currentUser.uid
+        
+        set(ref(db, 'users/' + uid), {
+          firstName: first,
+          lastName: last,
+          email: email,
+          methods: {
+            email: {
+              enabled: false,
+              value: email
+            },
+            phone: {
+              enabled: false,
+              value: ''
+            },
+            discord: {
+              enabled: false,
+              value: ''
+            },
+          },
+          sections: []
+        })
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -39,7 +63,7 @@ const Signup = () => {
   }
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    getAuth().onAuthStateChanged(user => {
       if (user) {
         navigate("/dashboard")
       }

@@ -9,6 +9,7 @@ import Settings from './pages/Settings'
 import Profile from './pages/Profile'
 import ForgotPassword from './pages/ForgotPassword'
 import pyramids from "./assets/pyramids.svg"
+import "./firebase"
 
 function App() {
 
@@ -26,7 +27,7 @@ function App() {
       <Route path="forgotpassword" element={<ForgotPassword></ForgotPassword>}></Route>
 
     </Routes>
-    <img src={pyramids} alt="" className="fixed bottom-0 -z-10" />
+    <img src={pyramids} alt="" className="fixed bottom-0 -z-10 w-screen"/>
     </BrowserRouter>
   )
 }

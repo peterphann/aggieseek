@@ -1,11 +1,11 @@
 import { Fragment, useEffect, useState } from 'react'
-import { Disclosure, Menu, Transition,} from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Bars3Icon, BellIcon, XMarkIcon, ArrowLongRightIcon } from '@heroicons/react/24/outline'
 import Logo from './Logo'
 import anonymous from '../assets/profile.webp'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
-import { auth } from '../firebase'
+import { getAuth } from 'firebase/auth'
 
 const navigation = [
   { name: 'Home', href: '/', private: false, hideWhenLoggedIn: true},
@@ -28,15 +28,13 @@ export default function Navbar() {
   const [isUser, setIsUser] = useState(null)
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    getAuth().onAuthStateChanged(user => {
       setIsUser(user)
     })
-
-    return unsubscribe
   }, [])
 
   const signOut = () => {
-    auth.signOut()
+    getAuth().signOut()
   }
 
   return (
@@ -59,7 +57,7 @@ export default function Navbar() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <Link to="/">
+                  <Link to={isUser ? "/dashboard" : "/"}>
                     <Logo className="transition-all ease-in-out duration-100 h-8 w-9/12 object-contain cursor-pointer hover:opacity-80"></Logo>
                     </Link>
                 </div>
@@ -82,14 +80,25 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {isUser &&
+                 {isUser &&
                   <Menu as="div" className="relative inline-block text-left">
-                    <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+
+                    <Menu.Button className="inline-flex text-gray-400 hover:text-gray-600 justify-center w-full px-4 py-2 text-sm font-medium hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
                     </Menu.Button>
-                    <Menu.Items className="z-10 absolute right-0 rounded-md w-60 mt-2 origin-top-right bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+
+                    <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items className="z-30 absolute right-0 w-80 mt-2 origin-top-right bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="px-1 py-1">
-                        <Menu.Item className="bg-[#A8292F] rounded-t-md">
+                        <Menu.Item className="bg-[#A8292F]">
                           <div className='p-2'>
                             <p className=' font-bold text-white'>
                               Notifications
@@ -105,8 +114,8 @@ export default function Navbar() {
                                   <p className='text'><span className='text-xs font-bold'> {notification.message}</span></p>
                                 </div>
                                 <div className='flex justify-between'>
-                                  <p className='text-xs'><span className='text-gray-500'>{notification.hoursAgo} hours ago</span></p>
-                                  <p className='text-xs'>{notification.origSeats} -{'>'} {notification.newSeats}</p>
+                                  <p className='text-xs'><span className='text-gray-500'>{notification.hoursAgo} hour{notification.hoursAgo === 1 ? "" : "s"} ago</span></p>
+                                  <p className='text-xs flex items-center'>{notification.origSeats} <span><ArrowLongRightIcon className={"mx-1 w-4"}></ArrowLongRightIcon></span> {notification.newSeats}</p>
                                 </div>
                               </div>
                             </Menu.Item>
@@ -120,6 +129,8 @@ export default function Navbar() {
                         )}
                       </div>
                     </Menu.Items>
+                    </Transition>
+
                   </Menu>
                 }
 
@@ -145,7 +156,7 @@ export default function Navbar() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-20 mt-2 w-48 origin-top-right bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       {!isUser && <Menu.Item>
                         {({ active }) => (
                           <Link

@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase.jsx";
-import { sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
     // TODO: create profile and user settings as shown in figma
     // make sure to remove the h1 :)
     const [email, setEmail] = useState("")
-    const navigate = useNavigate()
     const [message, setMessage] = useState("")
     const sendResetPasswordEmail = async () => {
         if (email) { // Check if the email is not empty
             try {
-                await sendPasswordResetEmail(auth, email);
+                await sendPasswordResetEmail(getAuth(), email);
                 setMessage("Password reset email sent!");
                 //navigate("/signup"); // Redirect to login page or any other page
             } catch (error) {
