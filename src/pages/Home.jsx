@@ -21,23 +21,23 @@ const Home = () => {
   return (
     <>
       <div className="mt-20 text-center">
-        <motion.div className="flex justify-center"
+        <motion.div className="flex flex-col items-center justify-center lg:flex-row gap-4"
           initial={{'opacity': 0, translateY: '40%'}}
           animate={{'opacity': 1, translateY: '0%'}}
           transition={{type: 'spring', stiffness: 100, duration: 0.5}}>
-           <h2 className="text-6xl font-bold">Welcome to </h2>
-           <Logo className="object-contain w-80 mx-4" ></Logo>
+           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">Welcome to </h2>
+           <Logo className="object-contain w-60 lg:w-80" ></Logo>
         </motion.div>
 
         <motion.div
             initial={{'opacity': 0, translateY: '40%'}}
             animate={{'opacity': 1, translateY: '0%'}}
             transition={{type: 'spring', stiffness: 100, delay: 0.25, duration: 0.5}}>
-          <h2 className="text-4xl font-bold my-4">Get ahead of the game</h2>
+          <h2 className="text-2xl lg:text-4xl  font-bold mt-4 mb-8 lg:mb-4">Get ahead of the game</h2>
         </motion.div>
 
-        <div className="flex justify-center my-2">
-        <div className="hidden text-base sm:block transform-translate ease-in-out duration-200 mr-5 cursor-default hover:-translate-y-1">
+        <div className="flex flex-col lg:flex-row justify-center my-2">
+          <div className="text-base sm:block transform-translate ease-in-out duration-200 mr-5 cursor-default hover:-translate-y-1">
             <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
             Pick what courses you want
           </div>
