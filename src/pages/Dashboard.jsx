@@ -187,7 +187,7 @@ const Dashboard = () => {
 
       {!isLoading &&
           <div className="mt-5 mb-10 px-2 sm:px-6 lg:px-8 flex justify-center ">
-            <div className="flex justify-center w-full max-w-7xl">
+            <div className="flex justify-center w-full max-w-7xl px-4">
               <Table>
                 <TableHeader>
                   <TableRow>
