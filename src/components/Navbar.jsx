@@ -55,7 +55,7 @@ export default function Navbar() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 items-center justify-center ml-0 sm:items-stretch sm:justify-start sm:ml-0">
+              <div className="flex flex-1 items-center justify-center ml-0 sm:justify-start sm:ml-0">
                 <div className="flex flex-shrink-0 items-center">
                   <Link to={isUser ? "/dashboard" : "/"}>
                     <Logo className="transition-all ease-in-out duration-100 h-8 w-9/12 object-contain cursor-pointer hover:opacity-80"></Logo>
