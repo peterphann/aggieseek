@@ -27,7 +27,7 @@ function App() {
       <Route path="forgotpassword" element={<ForgotPassword></ForgotPassword>}></Route>
 
     </Routes>
-    
+    <img src={pyramids} alt="" className="fixed bottom-0 -z-10 w-screen"/>
     </BrowserRouter>
   )
 }
