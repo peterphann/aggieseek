@@ -96,7 +96,7 @@ export default function Navbar() {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="z-30 absolute right-0 w-80 mt-2 origin-top-right bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="z-30 absolute right-0 w-64 sm:w-80 mt-2 origin-top-right bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="px-1 py-1">
                         <Menu.Item className="bg-[#A8292F]">
                           <div className='p-2'>
