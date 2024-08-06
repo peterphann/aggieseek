@@ -41,9 +41,9 @@ export default function Navbar() {
     <Disclosure as="nav" className="bg-transparent shadow-sm">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <div className="flex items-center sm:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="absolute -inset-0.5" />
@@ -55,11 +55,11 @@ export default function Navbar() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 items-center justify-center -ml-10 sm:items-stretch sm:justify-start sm:ml-0">
+              <div className="flex flex-1 items-center justify-center ml-0 md:justify-start sm:ml-0">
                 <div className="flex flex-shrink-0 items-center">
                   <Link to={isUser ? "/dashboard" : "/"}>
                     <Logo className="transition-all ease-in-out duration-100 h-8 w-9/12 object-contain cursor-pointer hover:opacity-80"></Logo>
-                    </Link>
+                  </Link>
                 </div>
                 <div className="hidden -ml-4 lg:ml-6 sm:block">
                   <div className="flex space-x-4">
@@ -79,7 +79,7 @@ export default function Navbar() {
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className="flex items-center pr-2 sm:ml-6 sm:pr-0">
                  {isUser &&
                   <Menu as="div" className="relative inline-block text-left">
 
@@ -96,7 +96,7 @@ export default function Navbar() {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="z-30 absolute right-0 w-80 mt-2 origin-top-right bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="z-30 absolute right-0 w-64 sm:w-80 mt-2 origin-top-right bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="px-1 py-1">
                         <Menu.Item className="bg-[#A8292F]">
                           <div className='p-2'>
@@ -161,7 +161,7 @@ export default function Navbar() {
                         {({ active }) => (
                           <Link
                             to="/signin"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm font-semibold text-gray-700')}
                           >
                             Sign In
                           </Link>
@@ -172,7 +172,7 @@ export default function Navbar() {
                         {({ active }) => (
                           <Link
                             to="/profile"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm font-semibold text-gray-700')}
                           >
                             Profile
                           </Link>
@@ -184,7 +184,7 @@ export default function Navbar() {
                           <Link
                             to="/"
                             onClick={() => signOut()}
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 font-semibold text-sm text-gray-700')}
                           >
                             Sign Out
                           </Link>
