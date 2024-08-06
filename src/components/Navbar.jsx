@@ -6,19 +6,13 @@ import anonymous from '../assets/profile.webp'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { getAuth } from 'firebase/auth'
+import {getDatabase, onValue, ref} from "firebase/database";
 
 const navigation = [
   { name: 'Home', href: '/', private: false, hideWhenLoggedIn: true},
   { name: 'Dashboard', href: '/dashboard', private: true},
   { name: 'Settings', href: '/settings', private: true}
 ]
-
-const notifications = [
-  { course: 'CSCE 181', crn: '47550', message: 'Seats increased', hoursAgo: 1, origSeats:2 , newSeats: 3},
-  { course: 'ECEN 350', crn: '21665', message: 'Seats opened up', hoursAgo: 2, origSeats:0 , newSeats: 1},
-  { course: 'MATH 304', crn: '52795', message: 'Seats decreased', hoursAgo: 3, origSeats:3 , newSeats: 4},
-]
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -26,10 +20,57 @@ function classNames(...classes) {
 export default function Navbar() {
   const currentPage = useLocation().pathname
   const [isUser, setIsUser] = useState(null)
+  const [notifications, setNotifications] = useState([])
+
+  const getNotifications = () => {
+    const uid = getAuth().currentUser.uid
+    return new Promise((resolve, reject) => {
+      const dbRef = ref(getDatabase(), 'users/' + uid + '/notifications/')
+      onValue(dbRef, snapshot => {
+        const data = snapshot.val()
+        if (data === null) {
+          resolve([])
+        } else {
+          const array = Object.values(data)
+          resolve(array)
+        }
+      }, error => {
+        reject(error)
+      })
+    })
+  }
+
+  const getTimeString = (date) => {
+    const pastDate = new Date(date)
+    const currDate = new Date()
+
+    const difference = currDate - pastDate
+
+    if (difference < 60 * 1000) {
+      const seconds = (difference / 1000).toFixed(0)
+      return `${seconds} second${seconds === '1' ? '' : 's'} ago`
+    } else if (difference < 60 * 60 * 1000) {
+      const minutes = (difference / 60000).toFixed(0)
+      return `${minutes} minute${minutes === '1' ? '' : 's'} ago`
+    } else if (difference < 24 * 60 * 60 * 1000) {
+      const hours = (difference / 3600000).toFixed(0)
+      return `${hours} hour${hours === '1' ? '' : 's'} ago`
+    } else {
+      const days = (difference / 86400000).toFixed(0)
+      return `${days} day${days === '1' ? '' : 's'} ago`
+    }
+  }
 
   useEffect(() => {
     getAuth().onAuthStateChanged(user => {
       setIsUser(user)
+      if (user) {
+        getNotifications()
+          .then(data => {
+            console.log(data)
+            setNotifications(data)
+          })
+      }
     })
   }, [])
 
@@ -83,8 +124,11 @@ export default function Navbar() {
                  {isUser &&
                   <Menu as="div" className="relative inline-block text-left">
 
-                    <Menu.Button className="inline-flex text-gray-400 hover:text-gray-600 justify-center w-full px-4 py-2 text-sm font-medium hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                    <Menu.Button className="transition-opacity duration-100 relative inline-flex text-gray-600 opacity-80 hover:opacity-100 justify-center w-full px-2 py-2 text-sm font-medium hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
+                      {notifications.length > 0 && (
+                          <p className={"text-sm scale-75 text-white flex justify-center items-center absolute left-0 top-0 rounded-full bg-red-500 w-6 h-6"}>{notifications.length}</p>
+                      )}
                     </Menu.Button>
 
                     <Transition
@@ -110,11 +154,11 @@ export default function Navbar() {
                             <Menu.Item key={index}>
                               <div className='p-2'>
                                 <div className='flex justify-between'>
-                                  <p className='text'><span className='font-bold'>{notification.course}</span><span className='text-xs text-gray-400 font-bold'> {notification.crn}</span></p>
+                                  <p className='text'><span className='font-bold'>{notification.title}</span><span className='text-xs text-gray-400 font-bold'> {notification.crn}</span></p>
                                   <p className='text'><span className='text-xs font-bold'> {notification.message}</span></p>
                                 </div>
                                 <div className='flex justify-between'>
-                                  <p className='text-xs'><span className='text-gray-500'>{notification.hoursAgo} hour{notification.hoursAgo === 1 ? "" : "s"} ago</span></p>
+                                  <p className='text-xs'><span className='text-gray-500'>{getTimeString(notification.timestamp)}</span></p>
                                   <p className='text-xs flex items-center'>{notification.origSeats} <span><ArrowLongRightIcon className={"mx-1 w-4"}></ArrowLongRightIcon></span> {notification.newSeats}</p>
                                 </div>
                               </div>
