@@ -12,7 +12,7 @@ const errorMessages = {
   "auth/user-disabled": "The account you're trying to access is disabled."
 }
 
-const Signin = () => {
+const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [message, setMessage] = useState("")
@@ -42,8 +42,8 @@ const Signin = () => {
   return (
     <div className="justify-center flex mt-20">
       <div className="flex-col items-center bg-white px-10 py-10 rounded-lg shadow-2xl">
-        <h1 className="text-center font-bold text-black text-3xl mx-32">Login</h1>
-        <h2 className="text-center text-black text-sm font-medium">Don't have an account? <Link to="/signup" className="text-blue-700 hover:underline">Sign Up</Link></h2>
+        <h1 className="text-center font-bold text-black text-3xl mx-32">Log In</h1>
+        <h2 className="text-center text-black text-sm font-medium mt-1">Don't have an account? <Link to="/signup" className="text-blue-700 hover:underline">Sign Up</Link></h2>
 
         <form onSubmit={(e) => handleSignin(e)}>
           <div className="mt-5 text-center text-sm">
@@ -68,4 +68,4 @@ const Signin = () => {
   );
 }
 
-export default Signin;
+export default Login;

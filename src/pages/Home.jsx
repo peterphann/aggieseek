@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <>
       <div className="mt-20 text-center">
-        <motion.div className="flex flex-col items-center justify-center lg:flex-row gap-4"
+        <motion.div className="flex flex-col items-center justify-center md:flex-row gap-4"
           initial={{'opacity': 0, translateY: '40%'}}
           animate={{'opacity': 1, translateY: '0%'}}
           transition={{type: 'spring', stiffness: 100, duration: 0.5}}>
@@ -33,19 +33,19 @@ const Home = () => {
             initial={{'opacity': 0, translateY: '40%'}}
             animate={{'opacity': 1, translateY: '0%'}}
             transition={{type: 'spring', stiffness: 100, delay: 0.25, duration: 0.5}}>
-          <h2 className="text-2xl lg:text-4xl  font-bold mt-4 mb-8 lg:mb-4">Get ahead of the game</h2>
+          <h2 className="text-2xl lg:text-4xl font-bold mt-4 mb-4">Get ahead of the game</h2>
         </motion.div>
 
         <div className="flex flex-col lg:flex-row justify-center my-2">
-          <div className="text-base sm:block transform-translate ease-in-out duration-200 mr-5 cursor-default hover:-translate-y-1">
+          <div className="text-base sm:block transform-translate ease-in-out duration-200 cursor-default hover:-translate-y-1">
             <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
             Pick what courses you want
           </div>
-          <div className="text-sm sm:text-base transform-translate ease-in-out duration-200 ml-5 cursor-default hover:-translate-y-1">
+          <div className="text-base transform-translate ease-in-out duration-200 lg:ml-5 cursor-default hover:-translate-y-1">
             <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
             Notify you upon course openings
           </div>
-          <div className="text-sm sm:text-base transform-translate ease-in-out duration-200 ml-5 cursor-default hover:-translate-y-1">
+          <div className="text-base transform-translate ease-in-out duration-200 lg:ml-5 cursor-default hover:-translate-y-1">
             <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
             Make registration easy and hassle free
           </div>
