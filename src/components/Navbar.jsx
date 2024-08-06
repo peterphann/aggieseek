@@ -45,7 +45,7 @@ export default function Navbar() {
             <div className="relative flex h-16 items-center justify-between">
               <div className="flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open main menu</span>
                   {open ? (
@@ -55,13 +55,13 @@ export default function Navbar() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 ml-0 sm:ml-0">
+              <div className="flex flex-1 ml-4 sm:ml-0">
                 <div id={"logo-centered"} className="flex items-center">
                   <Link to={isUser ? "/dashboard" : "/"}>
                     <Logo className="transition-all ease-in-out duration-100 h-6 object-contain cursor-pointer hover:opacity-80"></Logo>
                   </Link>
                 </div>
-                <div className="-ml-4 lg:ml-6 hidden sm:block">
+                <div className="ml-4 lg:ml-6 hidden sm:block">
                   <div className="flex space-x-4">
                     {navigation.filter((item) => (!item.private || isUser) && !(item.hideWhenLoggedIn && isUser)).map((item) => (
                       <Link
@@ -199,18 +199,19 @@ export default function Navbar() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.filter((item) => (!item.private || isUser)).map((item) => (
+              {navigation.filter((item) => (!item.private || isUser) && !(item.hideWhenLoggedIn && isUser)).map((item) => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"
-                  href={item.href}
-                  className={classNames(
-                    (currentPage == item.href) ? ' text-black opacity-40' : 'text-black',
-                    'block rounded-md px-3 py-2 text-base font-medium'
-                  )}
-                  aria-current={(currentPage == item.href) ? 'page' : undefined}
+                  aria-current={(currentPage === item.href) ? 'page' : undefined}
                 >
-                  {item.name}
+                  <Link to={item.href}
+                  className={classNames(
+                    (currentPage === item.href) ? ' text-[#8d0509]' : 'text-black',
+                    'block rounded-md px-3 py-2 text-base font-medium'
+                  )}>
+                    {item.name}
+                  </Link>
                 </Disclosure.Button>
               ))}
             </div>
