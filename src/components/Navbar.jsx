@@ -55,13 +55,13 @@ export default function Navbar() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 items-center justify-center ml-0 md:justify-start sm:ml-0">
-                <div className="flex flex-shrink-0 items-center">
+              <div className="flex flex-1 ml-0 sm:ml-0">
+                <div id={"logo-centered"} className="flex items-center">
                   <Link to={isUser ? "/dashboard" : "/"}>
-                    <Logo className="transition-all ease-in-out duration-100 h-8 w-9/12 object-contain cursor-pointer hover:opacity-80"></Logo>
+                    <Logo className="transition-all ease-in-out duration-100 h-6 object-contain cursor-pointer hover:opacity-80"></Logo>
                   </Link>
                 </div>
-                <div className="hidden -ml-4 lg:ml-6 sm:block">
+                <div className="-ml-4 lg:ml-6 hidden sm:block">
                   <div className="flex space-x-4">
                     {navigation.filter((item) => (!item.private || isUser) && !(item.hideWhenLoggedIn && isUser)).map((item) => (
                       <Link
