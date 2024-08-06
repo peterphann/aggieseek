@@ -55,7 +55,7 @@ export default function Navbar() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 items-center justify-center -ml-10 sm:items-stretch sm:justify-start sm:ml-0">
+              <div className="flex flex-1 items-center justify-center ml-0 sm:items-stretch sm:justify-start sm:ml-0">
                 <div className="flex flex-shrink-0 items-center">
                   <Link to={isUser ? "/dashboard" : "/"}>
                     <Logo className="transition-all ease-in-out duration-100 h-8 w-9/12 object-contain cursor-pointer hover:opacity-80"></Logo>
@@ -161,7 +161,7 @@ export default function Navbar() {
                         {({ active }) => (
                           <Link
                             to="/signin"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm font-semibold text-gray-700')}
                           >
                             Sign In
                           </Link>
@@ -172,7 +172,7 @@ export default function Navbar() {
                         {({ active }) => (
                           <Link
                             to="/profile"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm font-semibold text-gray-700')}
                           >
                             Profile
                           </Link>
@@ -184,7 +184,7 @@ export default function Navbar() {
                           <Link
                             to="/"
                             onClick={() => signOut()}
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 font-semibold text-sm text-gray-700')}
                           >
                             Sign Out
                           </Link>
