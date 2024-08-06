@@ -127,14 +127,16 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className="flex justify-center items-center mt-10"> {/* Fullscreen container for vertical & horizontal centering */}
-        <div className="flex items-center justify-center w-full max-w-4xl px-4 my-4 "> {/* Content container */}
-          <h2 className="text-3xl font-bold absolute w-full text-center pointer-events-none">Dashboard</h2> {/* Absolutely positioned to center */}
+      <div className="flex justify-center items-center mt-10 px-2"> {/* Fullscreen container for vertical & horizontal centering */}
+        <div className="flex flex-col md:flex-row justify-between w-full max-w-7xl px-4 sm:px-6 lg:px-8"> {/* Content container */}
+          <div className="flex flex-row justify-start">
+            <h2 className="text-3xl font-bold">Dashboard</h2> {/* Absolutely positioned to center */}
+          </div>
 
-          <div className="flex flex-row justify-end w-full absolute right-[20%]"> {/* Container for right-aligned items */}
+          <div className="flex flex-row sm:justify-start md:justify-end"> {/* Container for right-aligned items */}
             <Menu as="div" className="inline-block">
 
-              <Menu.Button hidden={isLoading} className="justify-center w-full px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+              <Menu.Button hidden={isLoading} className="justify-center w-full px-0 md:px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                 Add New Section
               </Menu.Button>
 
@@ -148,7 +150,7 @@ const Dashboard = () => {
                 leaveTo="transform opacity-0 scale-95"
               >
                 <Menu.Items
-                  className="z-10 absolute w-56 mt-2 origin-top-left bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  className="z-10 absolute w-50 mt-2 origin-top-left bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({active}) => (
@@ -176,23 +178,22 @@ const Dashboard = () => {
             </Menu>
 
             <button hidden={isLoading} onClick={() => setIsEditMode(!isEditMode)}
-                    className="px-4 z-10 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                    className="pl-4 z-10 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
               Edit
             </button>
           </div>
-
         </div>
       </div>
 
       {!isLoading &&
-          <div className="mt-[2%] mb-[2%] px-[5%] flex">
-            <div className="flex justify-center w-full">
+          <div className="mt-5 mb-10 px-2 sm:px-6 lg:px-8 flex justify-center ">
+            <div className="flex justify-center w-full max-w-7xl px-4">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[100px]">CRN</TableHead>
-                    <TableHead className={"w-40"}>Term</TableHead>
-                    <TableHead className={"w-40"}>Course</TableHead>
+                    <TableHead className="">CRN</TableHead>
+                    <TableHead className="">Term</TableHead>
+                    <TableHead className="">Course</TableHead>
                     <TableHead>Title</TableHead>
                     <TableHead>Professor</TableHead>
                     <TableHead className="text-right">Amount of Seats</TableHead>
@@ -207,10 +208,10 @@ const Dashboard = () => {
                           <TableCell>{section.course}</TableCell>
                           <TableCell>{section.title}</TableCell>
                           <TableCell>{section.professor}</TableCell>
-                          <TableCell className={`text-right`}>
+                          <TableCell className={`text-right flex justify-end items-center`}>
                             {section.seats.remaining}
                             {isEditMode &&
-                                <button className="absolute left-3 pt-0.5" onClick={() => removeSection(section.crn)}>
+                                <button className="" onClick={() => removeSection(section.crn)}>
                                   <XMarkIcon className={"w-4 text-red-600 hover:text-red-700"}></XMarkIcon>
                                 </button>}
                           </TableCell>
