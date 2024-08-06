@@ -128,7 +128,7 @@ const Dashboard = () => {
   return (
     <div>
       <div className="flex justify-center items-center mt-10 px-2"> {/* Fullscreen container for vertical & horizontal centering */}
-        <div className="flex flex-col md:flex-row justify-between w-full max-w-7xl px-2 sm:px-6 lg:px-8"> {/* Content container */}
+        <div className="flex flex-col md:flex-row justify-between w-full max-w-7xl px-4 sm:px-6 lg:px-8"> {/* Content container */}
           <div className="flex flex-row justify-start">
             <h2 className="text-3xl font-bold">Dashboard</h2> {/* Absolutely positioned to center */}
           </div>
@@ -150,7 +150,7 @@ const Dashboard = () => {
                 leaveTo="transform opacity-0 scale-95"
               >
                 <Menu.Items
-                  className="z-10 absolute w-56 mt-2 origin-top-left bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  className="z-10 absolute w-50 mt-2 origin-top-left bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({active}) => (
@@ -208,10 +208,10 @@ const Dashboard = () => {
                           <TableCell>{section.course}</TableCell>
                           <TableCell>{section.title}</TableCell>
                           <TableCell>{section.professor}</TableCell>
-                          <TableCell className={`text-right`}>
+                          <TableCell className={`text-right flex justify-end items-center`}>
                             {section.seats.remaining}
                             {isEditMode &&
-                                <button className="absolute left-3 pt-0.5" onClick={() => removeSection(section.crn)}>
+                                <button className="" onClick={() => removeSection(section.crn)}>
                                   <XMarkIcon className={"w-4 text-red-600 hover:text-red-700"}></XMarkIcon>
                                 </button>}
                           </TableCell>
