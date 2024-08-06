@@ -71,7 +71,7 @@ const Settings = () => {
     }, [actualDiscord]);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center px-2">
       <div className="flex flex-col w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex mt-10">
             <h2 className="text-3xl font-bold">Settings</h2> {/* Absolutely positioned to center */}
