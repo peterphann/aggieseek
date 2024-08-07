@@ -226,7 +226,7 @@ const Dashboard = () => {
                       </TableRow>
                   }
                 </TableBody>
-                <TableFooter>
+                {sections.length >= 10 && (<TableFooter>
                   <TableRow>
                     <TableCell colSpan="6" className="py-c2">
                       <Pagination className="justify-end">
@@ -255,7 +255,7 @@ const Dashboard = () => {
                   </Pagination>
                 </TableCell>
               </TableRow>
-            </TableFooter>
+            </TableFooter>)}
           </Table>
         </div>
       </div>}
