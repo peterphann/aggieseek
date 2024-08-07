@@ -211,8 +211,8 @@ const Dashboard = () => {
                 </TableHeader>
                 <TableBody>
                   {
-                    chunkArray(sections)[Math.min(page, Math.floor(sections.length / 8) - 1)].map((section) => (
-                        <TableRow key={section.crn}>
+                    chunkArray(sections)[Math.min(page, Math.floor((sections.length - 1) / 8))].map((section) => (
+                        <TableRow key={section.crn} className={"transition-colors duration-100 hover:bg-muted/50"}>
                           <TableCell className="font-medium">{section.crn}</TableCell>
                           <TableCell>{section.term}</TableCell>
                           <TableCell>{section.course}</TableCell>
@@ -242,18 +242,13 @@ const Dashboard = () => {
                       <Pagination className="justify-end">
                         <PaginationContent>
                           <PaginationItem>
-                            <PaginationPrevious href="#" onClick={() => setPage(Math.min(1, Math.floor(sections.length / 8)))}/>
+                            <PaginationPrevious href="#" onClick={() => setPage(Math.min(0, Math.floor(sections.length / 8)))}/>
                           </PaginationItem>
                           {[...Array(Math.ceil(sections.length / 8)).keys()].map(num => (
                               <PaginationItem className={"cursor-pointer"} onClick={() => setPage(num )}>
                                 <PaginationLink isActive={num === page}>{num + 1}</PaginationLink>
                               </PaginationItem>
                           ))}
-
-
-                        <PaginationItem>
-                          <PaginationEllipsis />
-                        </PaginationItem>
                         <PaginationItem>
                           <PaginationNext href="#" onClick={() => {setPage(Math.min(Math.floor(sections.length / 8), page + 1))}} />
                         </PaginationItem>
