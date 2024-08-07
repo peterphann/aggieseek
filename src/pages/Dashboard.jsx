@@ -33,6 +33,16 @@ const Dashboard = () => {
   const [sections, setSections] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [page, setPage] = useState(0);
+
+
+  function chunkArray(array) {
+    const newArray = []
+    for (let i = 0; i < array.length; i += 8) {
+      newArray.push(array.slice(i, i + 8));
+    }
+    return newArray
+  }
 
   const fetchCrnFromDatabase = (uid) => {
     return new Promise((resolve, reject) => {
@@ -196,12 +206,12 @@ const Dashboard = () => {
                     <TableHead className="">Course</TableHead>
                     <TableHead>Title</TableHead>
                     <TableHead>Professor</TableHead>
-                    <TableHead className="text-right">Amount of Seats</TableHead>
+                    <TableHead className="text-right">Seats</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {
-                    sections.map((section) => (
+                    chunkArray(sections)[Math.min(page, Math.floor(sections.length / 8) - 1)].map((section) => (
                         <TableRow key={section.crn}>
                           <TableCell className="font-medium">{section.crn}</TableCell>
                           <TableCell>{section.term}</TableCell>
@@ -219,38 +229,34 @@ const Dashboard = () => {
                     ))
                   }
                   {
-                      sections.length == 0 &&
+                      sections.length === 0 &&
                       <TableRow>
                         <TableCell colSpan="6" className="text-center">Press "Add New Section" to add a
                           section!</TableCell>
                       </TableRow>
                   }
                 </TableBody>
-                {sections.length >= 10 && (<TableFooter>
+                {sections.length > 8 && (<TableFooter>
                   <TableRow>
                     <TableCell colSpan="6" className="py-c2">
                       <Pagination className="justify-end">
                         <PaginationContent>
                           <PaginationItem>
-                            <PaginationPrevious href="#"/>
+                            <PaginationPrevious href="#" onClick={() => setPage(Math.min(1, Math.floor(sections.length / 8)))}/>
                           </PaginationItem>
-                          <PaginationItem>
-                        <PaginationLink href="#" isActive>1</PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink href="#">
-                          2
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink href="#">3</PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationEllipsis />
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationNext href="#" />
-                      </PaginationItem>
+                          {[...Array(Math.ceil(sections.length / 8)).keys()].map(num => (
+                              <PaginationItem className={"cursor-pointer"} onClick={() => setPage(num )}>
+                                <PaginationLink isActive={num === page}>{num + 1}</PaginationLink>
+                              </PaginationItem>
+                          ))}
+
+
+                        <PaginationItem>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                        <PaginationItem>
+                          <PaginationNext href="#" onClick={() => {setPage(Math.min(Math.floor(sections.length / 8), page + 1))}} />
+                        </PaginationItem>
                     </PaginationContent>
                   </Pagination>
                 </TableCell>
