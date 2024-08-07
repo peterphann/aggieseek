@@ -38,6 +38,7 @@ const Dashboard = () => {
 
   function chunkArray(array) {
     const newArray = []
+    if (array.length === 0) return [[]]
 
     for (let i = 0; i < array.length; i += 8) {
       newArray.push(array.slice(i, i + 8));
@@ -213,7 +214,7 @@ const Dashboard = () => {
                 </TableHeader>
                 <TableBody>
                   {
-                    chunkArray(sections)[Math.min(page, Math.floor((sections.length - 1) / 8))].map((section) => (
+                    chunkArray(sections)[sections.length === 0 ? 0 : Math.min(page, Math.floor((sections.length - 1) / 8))].map((section) => (
                         <TableRow key={section.crn} className={"transition-colors duration-100 hover:bg-muted/50"}>
                           <TableCell className="font-medium">{section.crn}</TableCell>
                           <TableCell>{section.term}</TableCell>
