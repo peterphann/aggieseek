@@ -38,9 +38,11 @@ const Dashboard = () => {
 
   function chunkArray(array) {
     const newArray = []
+
     for (let i = 0; i < array.length; i += 8) {
       newArray.push(array.slice(i, i + 8));
     }
+
     return newArray
   }
 
@@ -201,11 +203,11 @@ const Dashboard = () => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="">CRN</TableHead>
-                    <TableHead className="">Term</TableHead>
-                    <TableHead className="">Course</TableHead>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Professor</TableHead>
+                    <TableHead className="w-[10%]">CRN</TableHead>
+                    <TableHead className="w-[15%]">Term</TableHead>
+                    <TableHead className="w-[15%]">Course</TableHead>
+                    <TableHead className="w-[35%]">Title</TableHead>
+                    <TableHead className="w-[25%]">Professor</TableHead>
                     <TableHead className="text-right">Seats</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -245,7 +247,7 @@ const Dashboard = () => {
                             <PaginationPrevious href="#" onClick={() => setPage(Math.min(0, Math.floor(sections.length / 8)))}/>
                           </PaginationItem>
                           {[...Array(Math.ceil(sections.length / 8)).keys()].map(num => (
-                              <PaginationItem className={"cursor-pointer"} onClick={() => setPage(num )}>
+                              <PaginationItem className={"cursor-pointer"} key={num} onClick={() => setPage(num )}>
                                 <PaginationLink isActive={num === page}>{num + 1}</PaginationLink>
                               </PaginationItem>
                           ))}
