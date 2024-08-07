@@ -25,8 +25,8 @@ const ForgotPassword = () => {
     };
     return (
         <div className="justify-center flex mt-20">
-        <div className="flex-col items-center bg-white px-10 py-10 rounded-lg shadow-2xl">
-          <h1 className="text-center font-bold text-black text-3xl mx-10">Forgot Password?</h1>
+        <div className="flex-col items-center bg-white px-10 md:px-32 py-10 shadow-2xl">
+          <h1 className="text-center font-bold text-black text-3xl">Forgot Password?</h1>
           <h2 className="text-center text-black text-sm font-medium">Remember your password? <Link to="/signin" className="text-blue-700 hover:underline">Login</Link></h2>
   
           <form onSubmit={(e) => { e.preventDefault(); sendResetPasswordEmail(); }}>
