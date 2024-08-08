@@ -4,6 +4,7 @@ import { getAuth } from "firebase/auth";
 import {getDatabase, onValue, ref, get, set} from "firebase/database";
 import LoadingCircle from "../components/LoadingCircle";
 import InputConfirm from "../components/InputConfirm.jsx";
+import Button from "../components/Button.jsx";
 
 const Profile = () => {
 
@@ -11,8 +12,10 @@ const Profile = () => {
 
   const [actualFirst, setActualFirst] = useState('')
   const [actualLast, setActualLast] = useState('')
+  const [actualEmail, setActualEmail] = useState('')
   const [inputFirst, setInputFirst] = useState('')
   const [inputLast, setInputLast] = useState('')
+  const [inputEmail, setInputEmail] = useState('')
 
   const updateSetting = (path, value, setActual) => {
     const uid = getAuth().currentUser.uid
@@ -46,6 +49,10 @@ const Profile = () => {
           fetchFromDatabase(user.uid, '/lastName/')
               .then(data => {
                 setActualLast(data)
+              }),
+          fetchFromDatabase(user.uid, '/email/')
+              .then(data => {
+                setActualEmail(data)
               })
         ]).then(() => {
           setIsLoading(false)
@@ -63,6 +70,10 @@ const Profile = () => {
       setInputLast(actualLast);
     }, [actualLast]);
 
+  useEffect(() => {
+      setInputEmail(actualEmail);
+    }, [actualEmail]);
+
 
   return (
       <div className="flex justify-center px-2">
@@ -72,11 +83,9 @@ const Profile = () => {
           </div>
 
           {!isLoading && <div className="flex justify-between mt-5">
-            <div className="flex flex-col">
+            <div className="flex flex-col w-full">
 
-              <div className={"flex"}>
-                <p className="font-bold text-xl">Personal Information</p>
-              </div>
+              <p className="font-bold text-xl">Personal Information</p>
 
               <div>
                 <p className="text-md font-medium mt-2">First Name</p>
@@ -90,7 +99,29 @@ const Profile = () => {
                 <div className={"flex items-center"}>
                   <InputConfirm type={"text"} onClick={() => updateSetting('lastName/', inputLast, setActualLast)}
                                 confirm={actualLast !== inputLast} value={inputLast}
-                                onChange={(e) => setInputLast(e.target.value)}  placeholder="Doe"/>
+                                onChange={(e) => setInputLast(e.target.value)} placeholder="Doe"/>
+                </div>
+
+                <p className="text-md font-medium mt-2">Email</p>
+                <div className={"flex items-center"}>
+                  <InputConfirm type={"email"}
+                                disabled value={inputEmail}
+                                onChange={(e) => setInputEmail(e.target.value)} placeholder="example@gmail.com"/>
+                </div>
+
+                <hr className={"my-8"}></hr>
+
+                <p className="font-bold text-xl">Security</p>
+
+                <div className={"flex"}>
+                  <Button disabled className={"bg-red-600 mt-3"}>
+                    Change Password
+                  </Button>
+
+                  <Button disabled className={"bg-red-600 mt-3 ml-6"}>
+                    Delete Account
+                  </Button>
+
                 </div>
 
               </div>
