@@ -24,10 +24,13 @@ const Settings = () => {
   const [isUsingEmail, setUsingEmail] = useState(false)
   const [isUsingDiscord, setUsingDiscord] = useState(false)
 
-  const updateSetting = (path, value) => {
+  const updateSetting = (path, value, setActual) => {
     const uid = getAuth().currentUser.uid
     const dbRef = ref(getDatabase(), 'users/' + uid + '/' + path)
-    set(dbRef, value);
+    set(dbRef, value)
+        .then(() => {
+            setActual(value)
+        });
   }
 
   const fetchFromDatabase = (uid, info) => {
@@ -98,7 +101,7 @@ const Settings = () => {
               <div className="">
                 <p className="text-md font-medium mt-2">Phone</p>
                 <div className={"flex items-center"}>
-                  <InputConfirm type={"tel"} onClick={() => updateSetting('methods/phone/value', inputPhone)}
+                  <InputConfirm type={"tel"} onClick={() => updateSetting('methods/phone/value', inputPhone, setActualPhone)}
                                 confirm={actualPhone !== inputPhone} value={inputPhone}
                                 onChange={(e) => setInputPhone(e.target.value)} placeholder="123-456-7890"/>
                   <Switch checked={isUsingPhone} className={"ml-6"}
@@ -110,7 +113,7 @@ const Settings = () => {
 
                 <p className="text-md font-medium mt-2">Email</p>
                 <div className={"flex items-center"}>
-                  <InputConfirm type={"email"} disabled onClick={() => updateSetting('methods/email/value', inputEmail)}
+                  <InputConfirm type={"email"} disabled onClick={() => updateSetting('methods/email/value', inputEmail, setActualEmail)}
                                 confirm={actualEmail !== inputEmail} value={inputEmail}
                                 placeholder="example@domain.com"/>
                   <Switch checked={isUsingEmail} className={"ml-6"}
@@ -122,7 +125,7 @@ const Settings = () => {
 
                 <p className="text-md font-medium mt-2">Discord Webhook</p>
                 <div className={"flex items-center"}>
-                  <InputConfirm type={"url"} onClick={() => updateSetting('methods/discord/value', inputDiscord)}
+                  <InputConfirm type={"url"} onClick={() => updateSetting('methods/discord/value', inputDiscord, setActualDiscord())}
                                 confirm={actualDiscord !== inputDiscord} value={inputDiscord}
                                 onChange={(e) => setInputDiscord(e.target.value)} placeholder="Webhook URL"/>
                   <Switch checked={isUsingDiscord} className={"ml-6"}
