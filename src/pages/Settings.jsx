@@ -1,7 +1,5 @@
-import { Input } from "../components/Input";
 import { Switch } from "../components/Switch";
 import {useEffect, useState} from "react";
-import {Listbox} from "@headlessui/react";
 import { getAuth } from "firebase/auth";
 import {getDatabase, onValue, ref, get, set} from "firebase/database";
 import LoadingCircle from "../components/LoadingCircle";
@@ -63,7 +61,7 @@ const Settings = () => {
                 setActualPhone(data['value'])
                 setUsingPhone(data['enabled'])
                })
-        ]).then(r => {
+        ]).then(() => {
           setIsLoading(false)
         })
 

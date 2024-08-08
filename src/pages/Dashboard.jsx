@@ -1,7 +1,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableFooter,
   TableCell,
   TableHead,
@@ -12,7 +11,6 @@ import {Menu, Transition} from '@headlessui/react';
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -97,7 +95,6 @@ const Dashboard = () => {
 
         const uid = getAuth().currentUser.uid;
         const dbRef = ref(getDatabase(), 'users/' + uid + '/sections/' + userInput);
-        const sectionValueRef = ref(getDatabase(), 'sections/' + userInput + '/value/');
         const sectionDbRef = ref(getDatabase(), 'sections/' + userInput + '/users/' + uid + '/');
         set(dbRef, true);
         set(sectionDbRef, true);

@@ -23,13 +23,13 @@ const Signup = () => {
   const handleSignup = (e) => {
     e.preventDefault()
 
-    if (password != confirm) {
+    if (password !== confirm) {
       setMessage("The passwords you entered do not match!")
       return
     }
 
     createUserWithEmailAndPassword(getAuth(), email, password)
-      .then((userCredential) => {
+      .then(() => {
         navigate('/dashboard')
 
         const db = getDatabase()
