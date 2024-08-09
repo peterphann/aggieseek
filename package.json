@@ -12,7 +12,7 @@
     "start": "serve -s dist"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.18",
+    "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.1",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
