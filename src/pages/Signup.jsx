@@ -23,22 +23,34 @@ const Signup = () => {
   const handleSignup = (e) => {
     e.preventDefault()
 
-    if (password != confirm) {
+    if (password !== confirm) {
       setMessage("The passwords you entered do not match!")
       return
     }
 
     createUserWithEmailAndPassword(getAuth(), email, password)
-      .then((userCredential) => {
+      .then(() => {
         navigate('/dashboard')
 
         const db = getDatabase()
         const uid = getAuth().currentUser.uid
-        
+        const date = (new Date()).toISOString().slice(0, -5) + 'Z';
+
+
         set(ref(db, 'users/' + uid), {
           firstName: first,
           lastName: last,
           email: email,
+          notifications: {
+            [`${date} Welcome`]: {
+              crn: '',
+              message: '',
+              newSeats: '',
+              origSeats: 'Get Started',
+              timestamp: date,
+              title: 'Welcome to AggieSeek!'
+            }
+          },
           methods: {
             email: {
               enabled: false,

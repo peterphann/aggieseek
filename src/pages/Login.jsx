@@ -30,7 +30,7 @@ const Login = () => {
     e.preventDefault();
 
     signInWithEmailAndPassword(getAuth(), email, password)
-      .then((userCredential) => {
+      .then(() => {
         navigate("/dashboard")
       })
       .catch((error) => {

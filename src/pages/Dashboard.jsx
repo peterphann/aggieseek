@@ -1,7 +1,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableFooter,
   TableCell,
   TableHead,
@@ -12,7 +11,6 @@ import {Menu, Transition} from '@headlessui/react';
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -33,6 +31,19 @@ const Dashboard = () => {
   const [sections, setSections] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [page, setPage] = useState(0);
+
+
+  function chunkArray(array) {
+    const newArray = []
+    if (array.length === 0) return [[]]
+
+    for (let i = 0; i < array.length; i += 8) {
+      newArray.push(array.slice(i, i + 8));
+    }
+
+    return newArray
+  }
 
   const fetchCrnFromDatabase = (uid) => {
     return new Promise((resolve, reject) => {
@@ -84,7 +95,6 @@ const Dashboard = () => {
 
         const uid = getAuth().currentUser.uid;
         const dbRef = ref(getDatabase(), 'users/' + uid + '/sections/' + userInput);
-        const sectionValueRef = ref(getDatabase(), 'sections/' + userInput + '/value/');
         const sectionDbRef = ref(getDatabase(), 'sections/' + userInput + '/users/' + uid + '/');
         set(dbRef, true);
         set(sectionDbRef, true);
@@ -191,18 +201,18 @@ const Dashboard = () => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="">CRN</TableHead>
-                    <TableHead className="">Term</TableHead>
-                    <TableHead className="">Course</TableHead>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Professor</TableHead>
-                    <TableHead className="text-right">Amount of Seats</TableHead>
+                    <TableHead className="w-[10%]">CRN</TableHead>
+                    <TableHead className="w-[15%]">Term</TableHead>
+                    <TableHead className="w-[15%]">Course</TableHead>
+                    <TableHead className="w-[35%]">Title</TableHead>
+                    <TableHead className="w-[25%]">Professor</TableHead>
+                    <TableHead className="text-right">Seats</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {
-                    sections.map((section) => (
-                        <TableRow key={section.crn}>
+                    chunkArray(sections)[sections.length === 0 ? 0 : Math.min(page, Math.floor((sections.length - 1) / 8))].map((section) => (
+                        <TableRow key={section.crn} className={"transition-colors duration-100 hover:bg-muted/50"}>
                           <TableCell className="font-medium">{section.crn}</TableCell>
                           <TableCell>{section.term}</TableCell>
                           <TableCell>{section.course}</TableCell>
@@ -219,43 +229,34 @@ const Dashboard = () => {
                     ))
                   }
                   {
-                      sections.length == 0 &&
+                      sections.length === 0 &&
                       <TableRow>
                         <TableCell colSpan="6" className="text-center">Press "Add New Section" to add a
                           section!</TableCell>
                       </TableRow>
                   }
                 </TableBody>
-                <TableFooter>
+                {sections.length > 8 && (<TableFooter>
                   <TableRow>
                     <TableCell colSpan="6" className="py-c2">
                       <Pagination className="justify-end">
                         <PaginationContent>
                           <PaginationItem>
-                            <PaginationPrevious href="#"/>
+                            <PaginationPrevious href="#" onClick={() => setPage(Math.min(0, Math.floor(sections.length / 8)))}/>
                           </PaginationItem>
-                          <PaginationItem>
-                        <PaginationLink href="#" isActive>1</PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink href="#">
-                          2
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink href="#">3</PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationEllipsis />
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationNext href="#" />
-                      </PaginationItem>
+                          {[...Array(Math.ceil(sections.length / 8)).keys()].map(num => (
+                              <PaginationItem className={"cursor-pointer"} key={num} onClick={() => setPage(num )}>
+                                <PaginationLink isActive={num === page}>{num + 1}</PaginationLink>
+                              </PaginationItem>
+                          ))}
+                        <PaginationItem>
+                          <PaginationNext href="#" onClick={() => {setPage(Math.min(Math.floor(sections.length / 8), page + 1))}} />
+                        </PaginationItem>
                     </PaginationContent>
                   </Pagination>
                 </TableCell>
               </TableRow>
-            </TableFooter>
+            </TableFooter>)}
           </Table>
         </div>
       </div>}

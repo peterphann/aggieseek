@@ -2,7 +2,6 @@ import Button from "../components/Button"
 import Logo from "../components/Logo"
 import { Link, useNavigate } from 'react-router-dom'
 import { CheckIcon } from '@heroicons/react/24/outline'
-import ACCBadge from "../components/ACCBadge"
 import { motion } from "framer-motion"
 import { useEffect } from "react"
 import { getAuth } from "firebase/auth"
