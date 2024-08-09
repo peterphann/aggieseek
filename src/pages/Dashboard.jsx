@@ -203,7 +203,7 @@ const Dashboard = () => {
                           <TableCell className="font-medium relative">
                             {section.crn}
                             {isEditMode && <button className="" onClick={() => removeSection(section.crn)}>
-                              <XMarkIcon className={"w-6 absolute -left-4 top-1/2 -translate-y-1/2 text-red-600 hover:text-red-700"}></XMarkIcon>
+                              <XMarkIcon className={"w-6 absolute top-1/2 -translate-y-1/2 text-red-600 hover:text-red-700"}></XMarkIcon>
                             </button>}
                           </TableCell>
                           <TableCell>{section.term}</TableCell>
