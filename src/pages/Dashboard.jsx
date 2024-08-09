@@ -183,8 +183,8 @@ const Dashboard = () => {
       </div>
 
       {!isLoading &&
-          <div className="mt-5 mb-10 px-2 sm:px-6 lg:px-8 flex justify-center ">
-            <div className="flex justify-center w-full max-w-7xl px-4">
+          <div className="mt-5 mb-10 px-2 sm:px-6 lg:px-8 flex justify-center">
+            <div className="flex justify-center w-full max-w-7xl px-4 origin-top-left">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -193,25 +193,24 @@ const Dashboard = () => {
                     <TableHead className="w-[15%]">Course</TableHead>
                     <TableHead className="w-[35%]">Title</TableHead>
                     <TableHead className="w-[25%]">Professor</TableHead>
-                    <TableHead className="text-right">Seats</TableHead>
+                    <TableHead className="w-[10%] text-right">Seats</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {
                     chunkArray(sections)[sections.length === 0 ? 0 : Math.min(page, Math.floor((sections.length - 1) / 8))].map((section) => (
                         <TableRow key={section.crn} className={"transition-colors duration-100 hover:bg-muted/50"}>
-                          <TableCell className="font-medium">{section.crn}</TableCell>
+                          <TableCell className="font-medium relative">
+                            {section.crn}
+                            {isEditMode && <button className="" onClick={() => removeSection(section.crn)}>
+                              <XMarkIcon className={"w-6 absolute -left-4 top-1/2 -translate-y-1/2 text-red-600 hover:text-red-700"}></XMarkIcon>
+                            </button>}
+                          </TableCell>
                           <TableCell>{section.term}</TableCell>
                           <TableCell>{section.course}</TableCell>
                           <TableCell>{section.title}</TableCell>
                           <TableCell>{section.professor}</TableCell>
-                          <TableCell className={`text-right flex justify-end items-center`}>
-                            {section.seats.remaining}
-                            {isEditMode &&
-                                <button className="" onClick={() => removeSection(section.crn)}>
-                                  <XMarkIcon className={"w-4 text-red-600 hover:text-red-700"}></XMarkIcon>
-                                </button>}
-                          </TableCell>
+                          <TableCell className={`text-right flex justify-end items-center`}>{section.seats.remaining}</TableCell>
                         </TableRow>
                     ))
                   }
