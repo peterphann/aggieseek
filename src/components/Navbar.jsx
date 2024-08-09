@@ -22,6 +22,10 @@ export default function Navbar() {
   const [isUser, setIsUser] = useState(null)
   const [notifications, setNotifications] = useState([])
 
+
+  const clearNotifications = () => {
+
+  }
   const getNotifications = () => {
     const uid = getAuth().currentUser.uid
     return new Promise((resolve, reject) => {
@@ -127,7 +131,7 @@ export default function Navbar() {
                     <Menu.Button className="transition-opacity duration-100 relative inline-flex text-gray-600 opacity-80 hover:opacity-100 justify-center w-full px-2 py-2 text-sm font-medium hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
                       {notifications.length > 0 && (
-                          <p className={"text-sm scale-75 text-white flex justify-center items-center absolute left-0 top-0 rounded-full bg-red-500 w-6 h-6"}>{notifications.length}</p>
+                          <p className={"text-sm scale-75 text-white flex justify-center items-center absolute left-0 top-0 rounded-full bg-red-500 w-6 h-6"}>{notifications.length <= 9 ? notifications.length : '9+'}</p>
                       )}
                     </Menu.Button>
 
@@ -144,12 +148,13 @@ export default function Navbar() {
                       <div className="px-1 py-1">
                         <Menu.Item className="bg-[#A8292F]">
                           <div className='p-2'>
-                            <p className=' font-bold text-white'>
+                            <p className='font-bold text-white'>
                               Notifications
                             </p>
                           </div>
                         </Menu.Item>
-                        {notifications.length > 0 ? (
+                        <div className={"overflow-y-scroll max-h-64"}>
+                          {notifications.length > 0 ? (
                           notifications.map((notification, index) => (
                             <Menu.Item key={index}>
                               <div className='p-2'>
@@ -171,6 +176,7 @@ export default function Navbar() {
                             </div>
                           </Menu.Item>
                         )}
+                        </div>
                       </div>
                     </Menu.Items>
                     </Transition>
