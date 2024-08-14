@@ -33,6 +33,11 @@ const Dashboard = () => {
   const [isError, setIsError] = useState(false);
   const [page, setPage] = useState(0);
 
+  const handleCRNInput = (e) => {
+    if (isNaN(parseInt(e.target.value)) && e.target.value !== '') return;
+
+    setCrnInput(e.target.value)
+  }
 
   function chunkArray(array) {
     const newArray = []
@@ -158,9 +163,9 @@ const Dashboard = () => {
                   <MenuItem>
                     <form onSubmit={(e) => {e.preventDefault(); addSection()}} className={"p-2"}>
                       <label className="block text-sm font-medium text-center text-gray-700">Enter your desired CRN</label>
-                      <input value={crnInput} onChange={(e) => setCrnInput(e.target.value)}
-                             onClick={(e) => e.stopPropagation()} type="number" name="crn" id="crn"
-                             placeholder="CRN" autoComplete="off"
+                      <input value={crnInput} onChange={(e) => handleCRNInput(e)}
+                             onClick={(e) => e.stopPropagation()} name="crn" id="crn"
+                             placeholder="CRN" autoComplete="off" maxLength={5}
                              className="mt-2 block w-full h-8 rounded-md border-1 shadow-sm sm:text-sm px-2"/>
                       <div className="flex justify-center w-full">
                         <button type="submit"
