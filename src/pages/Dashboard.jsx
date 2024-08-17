@@ -165,7 +165,7 @@ const Dashboard = () => {
                       <label className="block text-sm font-medium text-center text-gray-700">Enter your desired CRN</label>
                       <input value={crnInput} onChange={(e) => handleCRNInput(e)}
                              onClick={(e) => e.stopPropagation()} name="crn" id="crn"
-                             placeholder="CRN" autoComplete="off" maxLength={5}
+                             placeholder="CRN" autoComplete="off" maxLength={5} inputMode={"numeric"}
                              className="mt-2 block w-full h-8 rounded-md border-1 shadow-sm sm:text-sm px-2"/>
                       <div className="flex justify-center w-full">
                         <button type="submit"
