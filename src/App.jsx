@@ -9,25 +9,29 @@ import Profile from './pages/Profile'
 import ForgotPassword from './pages/ForgotPassword'
 import pyramids from "./assets/pyramids.svg"
 import "./firebase"
+import {PopupProvider, usePopup} from "./contexts/PopupContext.jsx";
+import Popup from "./components/Popup.jsx";
 
 function App() {
 
   return (
-    <BrowserRouter>
-    <Navbar></Navbar>
-    <Routes>
-      <Route index path="/" element={<Home></Home>}></Route>
-      <Route path="home" element={<Home></Home>}></Route>
-      <Route path="signup" element={<Signup></Signup>}></Route>
-      <Route path="signin" element={<Login></Login>}></Route>
-      <Route path="dashboard" element={<Dashboard></Dashboard>}></Route>
-      <Route path="settings" element={<Settings></Settings>}></Route>
-      <Route path="profile" element={<Profile></Profile>}></Route>
-      <Route path="forgotpassword" element={<ForgotPassword></ForgotPassword>}></Route>
-
-    </Routes>
-    <img src={pyramids} alt="" className="fixed bottom-0 -z-10 w-screen"/>
-    </BrowserRouter>
+    <PopupProvider>
+      <BrowserRouter>
+      <Navbar></Navbar>
+      <Popup></Popup>
+      <Routes>
+        <Route index path="/" element={<Home></Home>}></Route>
+        <Route path="home" element={<Home></Home>}></Route>
+        <Route path="signup" element={<Signup></Signup>}></Route>
+        <Route path="signin" element={<Login></Login>}></Route>
+        <Route path="dashboard" element={<Dashboard></Dashboard>}></Route>
+        <Route path="settings" element={<Settings></Settings>}></Route>
+        <Route path="profile" element={<Profile></Profile>}></Route>
+        <Route path="forgotpassword" element={<ForgotPassword></ForgotPassword>}></Route>
+      </Routes>
+      <img src={pyramids} alt="" className="fixed bottom-0 -z-10 w-screen"/>
+      </BrowserRouter>
+    </PopupProvider>
   )
 }
 

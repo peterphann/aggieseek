@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "../components/Table";
-import {Menu, Transition} from '@headlessui/react';
+import {Menu, MenuButton, MenuItem, MenuItems, Transition} from '@headlessui/react';
 import {
   Pagination,
   PaginationContent,
@@ -33,6 +33,11 @@ const Dashboard = () => {
   const [isError, setIsError] = useState(false);
   const [page, setPage] = useState(0);
 
+  const handleCRNInput = (e) => {
+    if (isNaN(parseInt(e.target.value)) && e.target.value !== '') return;
+
+    setCrnInput(e.target.value)
+  }
 
   function chunkArray(array) {
     const newArray = []
@@ -146,45 +151,32 @@ const Dashboard = () => {
           <div className="flex flex-row sm:justify-start md:justify-end"> {/* Container for right-aligned items */}
             <Menu as="div" className="inline-block">
 
-              <Menu.Button hidden={isLoading} className="justify-center w-full px-0 md:px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+              <MenuButton hidden={isLoading} className="justify-center w-full px-0 md:px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                 Add New Section
-              </Menu.Button>
+              </MenuButton>
 
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items
-                  className="z-10 absolute w-50 mt-2 origin-top-left bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <MenuItems
+                  anchor="bottom start"
+                  transition
+                  className="origin-top-left transition duration-100 ease-out data-[closed]:scale-95 data-[closed]:opacity-0 z-10 absolute w-50 mt-2 bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="px-1 py-1">
-                  <Menu.Item>
-                    {({active}) => (
-                        <form onSubmit={(e) => {e.preventDefault(); addSection()}} className={`p-2`}>
-                          <label className="block text-sm font-medium text-center text-gray-700">Enter your desired
-                            CRN</label>
-                          <input value={crnInput} onChange={(e) => setCrnInput(e.target.value)}
-                                 onClick={(e) => e.stopPropagation()} type="number" name="crn" id="crn"
-                                 placeholder="CRN" autoComplete="off"
-                                 className="mt-2 block w-full h-8 rounded-md border-1 shadow-sm sm:text-sm px-2"/>
-                          <div className="flex justify-center w-full">
-                            <button type="submit"
-                                    className="mt-3 inline-flex justify-center border border-transparent bg-[#8d0509] py-2 px-3 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
-                              Track this section
-                            </button>
-                          </div>
-                        </form>
-                    )}
-                  </Menu.Item>
+                  <MenuItem>
+                    <form onSubmit={(e) => {e.preventDefault(); addSection()}} className={"p-2"}>
+                      <label className="block text-sm font-medium text-center text-gray-700">Enter your desired CRN</label>
+                      <input value={crnInput} onChange={(e) => handleCRNInput(e)}
+                             onClick={(e) => e.stopPropagation()} name="crn" id="crn"
+                             placeholder="CRN" autoComplete="off" maxLength={5} inputMode={"numeric"}
+                             className="mt-2 block w-full h-8 rounded-md border-1 shadow-sm sm:text-sm px-2"/>
+                      <div className="flex justify-center w-full">
+                        <button type="submit"
+                                className="mt-3 inline-flex justify-center border border-transparent bg-[#8d0509] py-2 px-3 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                          Track this section
+                        </button>
+                      </div>
+                    </form>
+                  </MenuItem>
                 </div>
-              </Menu.Items>
-
-              </Transition>
-
+              </MenuItems>
             </Menu>
 
             <button hidden={isLoading} onClick={() => setIsEditMode(!isEditMode)}
@@ -196,8 +188,8 @@ const Dashboard = () => {
       </div>
 
       {!isLoading &&
-          <div className="mt-5 mb-10 px-2 sm:px-6 lg:px-8 flex justify-center ">
-            <div className="flex justify-center w-full max-w-7xl px-4">
+          <div className="mt-5 mb-10 px-2 sm:px-6 lg:px-8 flex justify-center">
+            <div className="flex justify-center w-full max-w-7xl px-4 origin-top-left">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -206,25 +198,24 @@ const Dashboard = () => {
                     <TableHead className="w-[15%]">Course</TableHead>
                     <TableHead className="w-[35%]">Title</TableHead>
                     <TableHead className="w-[25%]">Professor</TableHead>
-                    <TableHead className="text-right">Seats</TableHead>
+                    <TableHead className="w-[10%] text-right">Seats</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {
                     chunkArray(sections)[sections.length === 0 ? 0 : Math.min(page, Math.floor((sections.length - 1) / 8))].map((section) => (
                         <TableRow key={section.crn} className={"transition-colors duration-100 hover:bg-muted/50"}>
-                          <TableCell className="font-medium">{section.crn}</TableCell>
+                          <TableCell className="font-medium relative">
+                            {section.crn}
+                            {isEditMode && <button className="" onClick={() => removeSection(section.crn)}>
+                              <XMarkIcon className={"w-6 absolute top-1/2 -translate-y-1/2 text-red-600 hover:text-red-700"}></XMarkIcon>
+                            </button>}
+                          </TableCell>
                           <TableCell>{section.term}</TableCell>
                           <TableCell>{section.course}</TableCell>
                           <TableCell>{section.title}</TableCell>
                           <TableCell>{section.professor}</TableCell>
-                          <TableCell className={`text-right flex justify-end items-center`}>
-                            {section.seats.remaining}
-                            {isEditMode &&
-                                <button className="" onClick={() => removeSection(section.crn)}>
-                                  <XMarkIcon className={"w-4 text-red-600 hover:text-red-700"}></XMarkIcon>
-                                </button>}
-                          </TableCell>
+                          <TableCell className={`text-right flex justify-end items-center`}>{section.seats.remaining}</TableCell>
                         </TableRow>
                     ))
                   }

@@ -1,13 +1,13 @@
-import {Input} from "../components/Input.jsx";
-import {CheckIcon} from "@heroicons/react/24/outline";
+import {Input} from "./Input.jsx";
+import {ArrowTurnDownLeftIcon} from "@heroicons/react/24/outline";
 import {motion, AnimatePresence} from "framer-motion";
 
-const InputConfirm = ({onClick, confirm, ...props}) => {
+const InputUndo = ({actual, setValue, ...props}) => {
     return (
         <div className={'flex relative items-center'}>
             <Input {...props}></Input>
             <AnimatePresence>
-                {confirm && (
+                {actual !== props.value && (
                     <motion.div
                         initial={{opacity: 0}}
                         animate={{opacity: 0.5}}
@@ -15,9 +15,9 @@ const InputConfirm = ({onClick, confirm, ...props}) => {
                         whileHover={{opacity: 1}}
                         whileTap={{scale: 0.9}}
                         transition={{duration: 0.2}}
-                        onClick={onClick}
+                        onClick={() => setValue(actual)}
                         className={`absolute -left-6 cursor-pointer`}>
-                        <CheckIcon className={"w-4"}></CheckIcon>
+                        <ArrowTurnDownLeftIcon className={"w-4"}></ArrowTurnDownLeftIcon>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -25,4 +25,4 @@ const InputConfirm = ({onClick, confirm, ...props}) => {
     )
 };
 
-export default InputConfirm;
+export default InputUndo;
