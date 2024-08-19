@@ -9,7 +9,7 @@ import Profile from './pages/Profile'
 import ForgotPassword from './pages/ForgotPassword'
 import pyramids from "./assets/pyramids.svg"
 import "./firebase"
-import {PopupProvider, usePopup} from "./contexts/PopupContext.jsx";
+import {PopupProvider} from "./contexts/PopupContext.jsx";
 import Popup from "./components/Popup.jsx";
 
 function App() {

@@ -8,15 +8,9 @@ import {
   TableRow,
 } from "../components/Table";
 import {
-  CloseButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
   Popover,
   PopoverButton,
-  PopoverPanel,
-  Transition
+  PopoverPanel
 } from '@headlessui/react';
 import {
   Pagination,
@@ -28,7 +22,7 @@ import {
 } from "../components/Pagination"
 import {Fragment, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { getDatabase, onValue, ref, remove, set, get } from "firebase/database";
+import { getDatabase, onValue, ref, remove, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import LoadingCircle from "../components/LoadingCircle";
 import { ExclamationTriangleIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
@@ -114,7 +108,6 @@ const Dashboard = () => {
         if (data.status === 400) {
           setButtonState('invalid')
           setPopup(`CRN ${userInput} does not exist!`)
-          setButtonState('normal')
           return;
         }
 
@@ -174,39 +167,35 @@ const Dashboard = () => {
 
           <div className="flex flex-row sm:justify-start md:justify-end"> {/* Container for right-aligned items */}
             <Popover as="div" className="inline-block">
-              {({ open }) => (
-                  <>
-                    <PopoverButton hidden={isLoading} className="justify-center w-full px-0 md:px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                      Add New Section
-                    </PopoverButton>
+              <PopoverButton hidden={isLoading} className="justify-center w-full px-0 md:px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                Add New Section
+              </PopoverButton>
 
-                    <PopoverPanel className={"ml-6 md:ml-0 absolute z-40 origin-top-right bg-white border duration-100 shadow-lg p-2 data-[closed]:scale-95 data-[closed]:opacity-0 transition"}
-                                  transition
-                                  anchor={"bottom end"}>
-                      <form onSubmit={(e) => {
-                        e.preventDefault();
-                        addSection()
-                      }} className={"p-2"}>
-                        <label className="block text-sm font-medium text-center text-gray-700">Enter your desired
-                          CRN</label>
-                        <input value={crnInput} onChange={(e) => handleCRNInput(e)}
-                               disabled={buttonState === 'waiting'}
-                               onClick={(e) => e.stopPropagation()} name="crn" id="crn"
-                               placeholder="CRN" autoComplete="off" maxLength={5} inputMode={"numeric"}
-                               className={`mt-2 block w-full h-8 rounded-md border ${buttonState === 'invalid' && "bg-red-50"} shadow-sm sm:text-sm px-2`}/>
-                        <div className="flex justify-center w-full">
-                          <Button type="submit"
-                                  disabled={buttonState === 'waiting'}
-                                  className="mt-3 w-44 inline-flex text-sm justify-center disabled:bg-[#8d0509] disabled:cursor-default">
-                            {buttonState === 'waiting'
-                            ? <LoadingCircle className={"text-white"}></LoadingCircle>
-                            : "Track this section"}
-                          </Button>
-                        </div>
-                      </form>
-                    </PopoverPanel>
-                  </>
-              )}
+              <PopoverPanel className={"ml-6 md:ml-0 absolute z-40 origin-top-right bg-white border duration-100 shadow-lg p-2 data-[closed]:scale-95 data-[closed]:opacity-0 transition"}
+                            transition
+                            anchor={"bottom end"}>
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  addSection()
+                }} className={"p-2"}>
+                  <label className="block text-sm font-medium text-center text-gray-700">Enter your desired
+                    CRN</label>
+                  <input value={crnInput} onChange={(e) => handleCRNInput(e)}
+                         disabled={buttonState === 'waiting'}
+                         onClick={(e) => e.stopPropagation()} name="crn" id="crn"
+                         placeholder="CRN" autoComplete="off" maxLength={5} inputMode={"numeric"}
+                         className={`mt-2 block w-full h-8 rounded-md border ${buttonState === 'invalid' && "bg-red-50"} shadow-sm sm:text-sm px-2`}/>
+                  <div className="flex justify-center w-full">
+                    <Button type="submit"
+                            disabled={buttonState === 'waiting'}
+                            className="mt-3 w-44 inline-flex text-sm justify-center disabled:bg-[#8d0509] disabled:cursor-default">
+                      {buttonState === 'waiting'
+                      ? <LoadingCircle className={"text-white"}></LoadingCircle>
+                      : "Track this section"}
+                    </Button>
+                  </div>
+                </form>
+              </PopoverPanel>
             </Popover>
 
             <button hidden={isLoading} onClick={() => setIsEditMode(!isEditMode)}
