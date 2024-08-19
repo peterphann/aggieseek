@@ -20,7 +20,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../components/Pagination"
-import {Fragment, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { getDatabase, onValue, ref, remove, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
