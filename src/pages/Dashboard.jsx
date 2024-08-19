@@ -33,18 +33,22 @@ import { getAuth } from "firebase/auth";
 import LoadingCircle from "../components/LoadingCircle";
 import { ExclamationTriangleIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
 import Button from "../components/Button.jsx";
+import {usePopup} from "../contexts/PopupContext.jsx";
 
 const Dashboard = () => {
 
   const navigate = useNavigate();
+  const { setPopup } = usePopup()
   const [isLoading, setIsLoading] = useState(true);
   const [crnInput, setCrnInput] = useState("");
   const [sections, setSections] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isError, setIsError] = useState(false);
   const [page, setPage] = useState(0);
+  const [buttonState, setButtonState] = useState('normal')
 
   const handleCRNInput = (e) => {
+    setButtonState('normal')
     if (isNaN(parseInt(e.target.value)) && e.target.value !== '') return;
 
     setCrnInput(e.target.value)
@@ -104,10 +108,15 @@ const Dashboard = () => {
 
   const addSection = () => {
     const userInput = crnInput;
-    setCrnInput("");
+    setButtonState('waiting')
     fetch(`https://api.aggieseek.net/sections/202431/${userInput}/`)
       .then((data) => {
-        if (data.status === 400) return;
+        if (data.status === 400) {
+          setButtonState('invalid')
+          setPopup(`CRN ${userInput} does not exist!`)
+          setButtonState('normal')
+          return;
+        }
 
         const uid = getAuth().currentUser.uid;
         const dbRef = ref(getDatabase(), 'users/' + uid + '/sections/' + userInput);
@@ -116,6 +125,9 @@ const Dashboard = () => {
         set(sectionDbRef, true);
 
         updateDatabase();
+        setPopup(`CRN ${userInput} has been added!`)
+        setCrnInput("");
+        setButtonState('normal')
       })
       .catch((error) => {
         console.log(error);
@@ -168,7 +180,7 @@ const Dashboard = () => {
                       Add New Section
                     </PopoverButton>
 
-                    <PopoverPanel className={"absolute z-40 origin-top-right bg-white border duration-100 shadow-lg p-2 data-[closed]:scale-95 data-[closed]:opacity-0 transition"}
+                    <PopoverPanel className={"ml-6 md:ml-0 absolute z-40 origin-top-right bg-white border duration-100 shadow-lg p-2 data-[closed]:scale-95 data-[closed]:opacity-0 transition"}
                                   transition
                                   anchor={"bottom end"}>
                       <form onSubmit={(e) => {
@@ -178,15 +190,19 @@ const Dashboard = () => {
                         <label className="block text-sm font-medium text-center text-gray-700">Enter your desired
                           CRN</label>
                         <input value={crnInput} onChange={(e) => handleCRNInput(e)}
+                               disabled={buttonState === 'waiting'}
                                onClick={(e) => e.stopPropagation()} name="crn" id="crn"
                                placeholder="CRN" autoComplete="off" maxLength={5} inputMode={"numeric"}
-                               className="mt-2 block w-full h-8 rounded-md border-1 shadow-sm sm:text-sm px-2"/>
-                        <CloseButton className="flex justify-center w-full">
+                               className={`mt-2 block w-full h-8 rounded-md border ${buttonState === 'invalid' && "bg-red-50"} shadow-sm sm:text-sm px-2`}/>
+                        <div className="flex justify-center w-full">
                           <Button type="submit"
-                                  className="mt-3 inline-flex text-sm justify-center">
-                            Track this section
+                                  disabled={buttonState === 'waiting'}
+                                  className="mt-3 w-44 inline-flex text-sm justify-center disabled:bg-[#8d0509] disabled:cursor-default">
+                            {buttonState === 'waiting'
+                            ? <LoadingCircle className={"text-white"}></LoadingCircle>
+                            : "Track this section"}
                           </Button>
-                        </CloseButton>
+                        </div>
                       </form>
                     </PopoverPanel>
                   </>
