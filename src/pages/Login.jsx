@@ -42,7 +42,7 @@ const Login = () => {
   return (
     <div className="justify-center flex mt-20 ">
       <div className="flex-col items-center bg-white px-16 md:px-32 py-10 shadow-2xl">
-        <h1 className="text-center font-bold text-black text-3xl">Log In</h1>
+        <title className="text-center font-bold text-black text-3xl">Log In</title>
         <h2 className="text-center text-black text-sm font-medium mt-1">Don't have an account? <Link to="/signup" className="text-blue-700 hover:underline">Sign Up</Link></h2>
 
         <form onSubmit={(e) => handleSignin(e)}>
