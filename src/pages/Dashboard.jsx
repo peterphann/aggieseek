@@ -7,7 +7,17 @@ import {
   TableHeader,
   TableRow,
 } from "../components/Table";
-import {Menu, MenuButton, MenuItem, MenuItems, Transition} from '@headlessui/react';
+import {
+  CloseButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Popover,
+  PopoverButton,
+  PopoverPanel,
+  Transition
+} from '@headlessui/react';
 import {
   Pagination,
   PaginationContent,
@@ -22,6 +32,7 @@ import { getDatabase, onValue, ref, remove, set, get } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import LoadingCircle from "../components/LoadingCircle";
 import { ExclamationTriangleIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
+import Button from "../components/Button.jsx";
 
 const Dashboard = () => {
 
@@ -111,6 +122,7 @@ const Dashboard = () => {
       })
   };
 
+
   const removeSection = (crn) => {
     const uid = getAuth().currentUser.uid
     const dbRef = ref(getDatabase(), 'users/' + uid + '/sections/' + crn);
@@ -149,35 +161,37 @@ const Dashboard = () => {
           </div>
 
           <div className="flex flex-row sm:justify-start md:justify-end"> {/* Container for right-aligned items */}
-            <Menu as="div" className="inline-block">
+            <Popover as="div" className="inline-block">
+              {({ open }) => (
+                  <>
+                    <PopoverButton hidden={isLoading} className="justify-center w-full px-0 md:px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                      Add New Section
+                    </PopoverButton>
 
-              <MenuButton hidden={isLoading} className="justify-center w-full px-0 md:px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                Add New Section
-              </MenuButton>
-
-              <MenuItems
-                  anchor="bottom start"
-                  transition
-                  className="origin-top-left transition duration-100 ease-out data-[closed]:scale-95 data-[closed]:opacity-0 z-10 absolute w-50 mt-2 bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="px-1 py-1">
-                  <MenuItem>
-                    <form onSubmit={(e) => {e.preventDefault(); addSection()}} className={"p-2"}>
-                      <label className="block text-sm font-medium text-center text-gray-700">Enter your desired CRN</label>
-                      <input value={crnInput} onChange={(e) => handleCRNInput(e)}
-                             onClick={(e) => e.stopPropagation()} name="crn" id="crn"
-                             placeholder="CRN" autoComplete="off" maxLength={5} inputMode={"numeric"}
-                             className="mt-2 block w-full h-8 rounded-md border-1 shadow-sm sm:text-sm px-2"/>
-                      <div className="flex justify-center w-full">
-                        <button type="submit"
-                                className="mt-3 inline-flex justify-center border border-transparent bg-[#8d0509] py-2 px-3 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
-                          Track this section
-                        </button>
-                      </div>
-                    </form>
-                  </MenuItem>
-                </div>
-              </MenuItems>
-            </Menu>
+                    <PopoverPanel className={"absolute z-40 origin-top-right bg-white border duration-100 shadow-lg p-2 data-[closed]:scale-95 data-[closed]:opacity-0 transition"}
+                                  transition
+                                  anchor={"bottom end"}>
+                      <form onSubmit={(e) => {
+                        e.preventDefault();
+                        addSection()
+                      }} className={"p-2"}>
+                        <label className="block text-sm font-medium text-center text-gray-700">Enter your desired
+                          CRN</label>
+                        <input value={crnInput} onChange={(e) => handleCRNInput(e)}
+                               onClick={(e) => e.stopPropagation()} name="crn" id="crn"
+                               placeholder="CRN" autoComplete="off" maxLength={5} inputMode={"numeric"}
+                               className="mt-2 block w-full h-8 rounded-md border-1 shadow-sm sm:text-sm px-2"/>
+                        <CloseButton className="flex justify-center w-full">
+                          <Button type="submit"
+                                  className="mt-3 inline-flex text-sm justify-center">
+                            Track this section
+                          </Button>
+                        </CloseButton>
+                      </form>
+                    </PopoverPanel>
+                  </>
+              )}
+            </Popover>
 
             <button hidden={isLoading} onClick={() => setIsEditMode(!isEditMode)}
                     className="pl-4 z-10 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
@@ -207,8 +221,8 @@ const Dashboard = () => {
                         <TableRow key={section.crn} className={"transition-colors duration-100 hover:bg-muted/50"}>
                           <TableCell className="font-medium relative">
                             {section.crn}
-                            {isEditMode && <button className="" onClick={() => removeSection(section.crn)}>
-                              <XMarkIcon className={"w-6 absolute top-1/2 -translate-y-1/2 text-red-600 hover:text-red-700"}></XMarkIcon>
+                            {isEditMode && <button onClick={() => removeSection(section.crn)}>
+                              <XMarkIcon className={"w-6 transition-all absolute top-1/2 -translate-y-1/2 text-red-600 hover:scale-95 active:scale-90 hover:text-red-700"}></XMarkIcon>
                             </button>}
                           </TableCell>
                           <TableCell>{section.term}</TableCell>
