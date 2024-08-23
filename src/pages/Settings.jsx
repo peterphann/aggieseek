@@ -1,54 +1,65 @@
-import { Switch } from "../components/Switch";
+import {Switch} from "../components/Switch";
 import {useEffect, useState} from "react";
-import { getAuth } from "firebase/auth";
-import {getDatabase, onValue, ref, get, set} from "firebase/database";
+import {getAuth} from "firebase/auth";
+import {getDatabase, onValue, ref} from "firebase/database";
 import LoadingCircle from "../components/LoadingCircle";
-import {Input} from "../components/Input.jsx";
 import Button from "../components/Button.jsx";
 import {usePopup} from "../contexts/PopupContext.jsx";
-import DebugPane from "../components/DebugPane.jsx";
 import InputUndo from "../components/InputUndo.jsx";
 import useUpdate from "../hooks/useUpdate.jsx";
+import GrayOut from "../components/GrayOut.jsx";
+import validator from 'validator'
 
 const Settings = () => {
 
-  const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
 
-  const [actualPhone, setActualPhone] = useState('')
-  const [actualEmail, setActualEmail] = useState('')
-  const [actualDiscord, setActualDiscord] = useState('')
-  const [inputPhone, setInputPhone] = useState('')
-  const [inputEmail, setInputEmail] = useState('')
-  const [inputDiscord, setInputDiscord] = useState('')
-  const [isUsingPhone, setUsingPhone] = useState(false)
-  const [isUsingEmail, setUsingEmail] = useState(false)
-  const [isUsingDiscord, setUsingDiscord] = useState(false)
+    const [actualPhone, setActualPhone] = useState('')
+    const [actualEmail, setActualEmail] = useState('')
+    const [actualDiscord, setActualDiscord] = useState('')
+    const [inputPhone, setInputPhone] = useState('')
+    const [inputEmail, setInputEmail] = useState('')
+    const [inputDiscord, setInputDiscord] = useState('')
+    const [isUsingPhone, setUsingPhone] = useState(false)
+    const [isUsingEmail, setUsingEmail] = useState(false)
+    const [isUsingDiscord, setUsingDiscord] = useState(false)
+    const [invalidPhone, setInvalidPhone] = useState(false)
 
     const { setPopup } = usePopup()
     const { updateSetting } = useUpdate()
 
-  const updateAllSettings = () => {
-      Promise.all([
-          updateSetting('/methods/phone/value', inputPhone, setActualPhone),
-          updateSetting('/methods/email/value', inputEmail, setActualEmail),
-          updateSetting('/methods/discord/value', inputDiscord, setActualDiscord)
-      ])
-          .then(() => setPopup('Changes saved!'))
-          .catch((error) => {
-              setPopup('An error has occurred.')
-          })
-  }
+    const validateNumber = (number) => {
+        return validator.isMobilePhone(number)
+    }
+
+    const updateAllSettings = () => {
+        if (!validateNumber(inputPhone)) {
+            setPopup('Invalid phone number!')
+            setInvalidPhone(true)
+            return;
+        }
+
+        Promise.all([
+            updateSetting('/methods/phone/value', inputPhone, setActualPhone),
+            updateSetting('/methods/email/value', inputEmail, setActualEmail),
+            updateSetting('/methods/discord/value', inputDiscord, setActualDiscord)
+        ])
+            .then(() => setPopup('Changes saved!'))
+            .catch((error) => {
+                setPopup('An error has occurred.')
+            })
+    }
 
   const fetchFromDatabase = (uid, info) => {
-    return new Promise((resolve, reject) => {
-      const dbRef = ref(getDatabase(), 'users/' + uid + info);
-      onValue(dbRef, (snapshot) => {
-        const data = snapshot.val();
-        resolve(data);
-      }, (error) => {
-        reject(error);
+      return new Promise((resolve, reject) => {
+          const dbRef = ref(getDatabase(), 'users/' + uid + info);
+          onValue(dbRef, (snapshot) => {
+              const data = snapshot.val();
+              resolve(data);
+          }, (error) => {
+              reject(error);
+          });
       });
-    });
   };
 
   useEffect(() => {
@@ -84,11 +95,11 @@ const Settings = () => {
 
   useEffect(() => {
       setInputEmail(actualEmail);
-    }, [actualEmail]);
+  }, [actualEmail]);
 
   useEffect(() => {
       setInputDiscord(actualDiscord);
-    }, [actualDiscord]);
+  }, [actualDiscord]);
 
   return (
       <>
@@ -98,7 +109,10 @@ const Settings = () => {
                       <h2 className="text-3xl font-bold">Settings</h2>
                   </div>
 
-                  {!isLoading && <>
+                  {!isLoading && <form onSubmit={(e) => {
+                      e.preventDefault();
+                      updateAllSettings();
+                  }}>
                       <div className="flex justify-between mt-5">
                           <div className="flex flex-col">
 
@@ -109,9 +123,9 @@ const Settings = () => {
                               <div className="">
                                   <p className="text-md font-medium mt-2">Phone</p>
                                   <div className={"flex items-center"}>
-                                      <InputUndo type={"tel"} placeholder="123-456-7890"
-                                                 value={inputPhone}  setValue={setInputPhone} actual={actualPhone}
-                                                 onChange={(e) => setInputPhone(e.target.value)}></InputUndo>
+                                      <InputUndo invalid={invalidPhone} type={"tel"} placeholder="123-456-7890"
+                                                 value={inputPhone} setValue={setInputPhone} actual={actualPhone}
+                                                 onChange={(e) => {setInputPhone(e.target.value); setInvalidPhone(false)}}></InputUndo>
                                       <Switch checked={isUsingPhone} className={"ml-6"}
                                               onCheckedChange={() => {
                                                   setUsingPhone(!isUsingPhone);
@@ -144,14 +158,13 @@ const Settings = () => {
                                               }}/>
                                   </div>
                               </div>
-
                           </div>
                       </div>
 
                       <div className={"mt-8"}>
-                          <Button onClick={() => updateAllSettings()}>Save Changes</Button>
+                          <Button type={"submit"}>Save Changes</Button>
                       </div>
-                  </>}
+                  </form>}
 
                   {isLoading &&
                       <div className="flex flex-row justify-center mt-8">

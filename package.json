@@ -30,7 +30,8 @@
     "serve": "^14.2.3",
     "sort-by": "^0.0.2",
     "tailwind-merge": "^2.2.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "validator": "^13.12.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.30",

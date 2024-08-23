@@ -128,11 +128,11 @@ const Profile = () => {
                             <p className="font-bold text-xl">Security</p>
 
                             <div className={"flex"}>
-                                <Button disabled className={"bg-red-600 mt-3"}>
+                                <Button disabled className={"mt-3 opacity-70"}>
                                     Change Password
                                 </Button>
 
-                                <Button disabled className={"bg-red-600 mt-3 ml-6"}>
+                                <Button disabled className={"mt-3 ml-6 opacity-70"}>
                                     Delete Account
                                 </Button>
 

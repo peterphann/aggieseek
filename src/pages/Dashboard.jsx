@@ -33,6 +33,7 @@ const Dashboard = () => {
 
   const navigate = useNavigate();
   const { setPopup } = usePopup()
+
   const [isLoading, setIsLoading] = useState(true);
   const [crnInput, setCrnInput] = useState("");
   const [sections, setSections] = useState([]);
@@ -79,11 +80,11 @@ const Dashboard = () => {
   const fetchSectionData = async (crns) => {
     try {
         let responses = await Promise.all(
-        crns.map(async (crn) => {
-          const response = await fetch(`https://api.aggieseek.net/sections/202431/${crn}/`);
-          return response.json();
-        })
-      );
+          crns.map(async (crn) => {
+            const response = await fetch(`https://api.aggieseek.net/sections/202431/${crn}/`);
+            return response.json();
+          })
+        );
 
       responses = responses.filter((response) => response.status === 200);
 
@@ -102,9 +103,12 @@ const Dashboard = () => {
 
   const addSection = () => {
     const userInput = crnInput;
+    if (userInput === '') return;
     setButtonState('waiting')
+
     fetch(`https://api.aggieseek.net/sections/202431/${userInput}/`)
       .then((data) => {
+        console.log(data)
         if (data.status === 400) {
           setButtonState('invalid')
           setPopup(`CRN ${userInput} does not exist!`)
@@ -132,9 +136,14 @@ const Dashboard = () => {
     const uid = getAuth().currentUser.uid
     const dbRef = ref(getDatabase(), 'users/' + uid + '/sections/' + crn);
     const sectionUsersRef = ref(getDatabase(), 'sections/' + crn + '/users/' + uid + '/');
-    remove(dbRef);
-    remove(sectionUsersRef);
-    updateDatabase();
+    setSections(sections.filter(course => course.crn !== crn))
+    remove(dbRef)
+        .then(() => {
+          return remove(sectionUsersRef);
+        })
+        .then(() => {
+          updateDatabase()
+        });
   }
 
   const updateDatabase = () => {

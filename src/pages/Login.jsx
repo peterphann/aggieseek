@@ -19,6 +19,7 @@ const Login = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
+    document.title = 'Log In / AggieSeek'
     getAuth().onAuthStateChanged(user => {
       if (user) {
         navigate("/dashboard")
@@ -41,6 +42,7 @@ const Login = () => {
 
   return (
     <div className="justify-center flex mt-20 ">
+
       <div className="flex-col items-center bg-white px-16 md:px-32 py-10 shadow-2xl">
         <h1 className="text-center font-bold text-black text-3xl">Log In</h1>
         <h2 className="text-center text-black text-sm font-medium mt-1">Don't have an account? <Link to="/signup" className="text-blue-700 hover:underline">Sign Up</Link></h2>
