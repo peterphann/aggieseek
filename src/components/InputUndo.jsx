@@ -2,10 +2,10 @@ import {Input} from "./Input.jsx";
 import {ArrowTurnDownLeftIcon} from "@heroicons/react/24/outline";
 import {motion, AnimatePresence} from "framer-motion";
 
-const InputUndo = ({actual, setValue, ...props}) => {
+const InputUndo = ({actual, setValue, invalid, ...props}) => {
     return (
         <div className={'flex relative items-center'}>
-            <Input {...props}></Input>
+            <Input {...props} className={`${invalid && 'bg-red-100'}`}></Input>
             <AnimatePresence>
                 {actual !== props.value && (
                     <motion.div
