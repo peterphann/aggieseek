@@ -6,7 +6,8 @@ import anonymous from '../assets/profile.webp'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { getAuth } from 'firebase/auth'
-import {getDatabase, onValue, ref} from "firebase/database";
+import {getDatabase, onValue, ref, remove} from "firebase/database";
+import DebugPane from "./DebugPane.jsx";
 
 const navigation = [
   { name: 'Home', href: '/', private: false, hideWhenLoggedIn: true},
@@ -22,10 +23,13 @@ export default function Navbar() {
   const currentPage = useLocation().pathname
   const [isUser, setIsUser] = useState(null)
   const [notifications, setNotifications] = useState([])
-
+  const [viewed, setViewed] = useState(false)
 
   const clearNotifications = () => {
-
+    setViewed(true)
+    const uid = getAuth().currentUser.uid
+    const dbRef = ref(getDatabase(), 'users/' + uid + '/notifications/')
+    remove(dbRef)
   }
 
   const getNotifications = () => {
@@ -73,7 +77,6 @@ export default function Navbar() {
       if (user) {
         getNotifications()
           .then(data => {
-            console.log(data)
             setNotifications(data)
           })
       }
@@ -130,15 +133,17 @@ export default function Navbar() {
                  {isUser &&
                   <Menu as="div" className="relative inline-block text-left">
 
-                    <MenuButton className="transition-opacity duration-100 relative inline-flex text-gray-600 opacity-80 hover:opacity-100 justify-center w-full px-2 py-2 text-sm font-medium hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                    <MenuButton
+                        className="transition-opacity duration-100 relative inline-flex text-gray-600 opacity-80 hover:opacity-100 justify-center w-full px-2 py-2 text-sm font-medium hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      {notifications.length > 0 && (
+                      {notifications.length > 0 && !viewed && (
                           <p className={"text-sm scale-75 text-white flex justify-center items-center absolute left-0 top-0 rounded-full bg-red-500 w-6 h-6"}>{notifications.length <= 9 ? notifications.length : '9+'}</p>
                       )}
                     </MenuButton>
 
                     <MenuItems anchor="bottom end"
                                transition
+                               onFocus={clearNotifications}
                                className="origin-top-right transition duration-100 ease-out data-[closed]:scale-95 data-[closed]:opacity-0
                                           z-30 absolute right-0 w-64 sm:w-80 mt-2 bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="px-1 py-1">
