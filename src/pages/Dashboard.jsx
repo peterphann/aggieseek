@@ -169,7 +169,7 @@ const Dashboard = () => {
   return (
     <div>
       <div className="flex justify-center items-center mt-10 px-2"> {/* Fullscreen container for vertical & horizontal centering */}
-        <div className="flex flex-col md:flex-row justify-between w-full max-w-7xl px-4 sm:px-6 lg:px-8"> {/* Content container */}
+        <div className="flex flex-col md:flex-row justify-between w-full px-4 sm:px-6 lg:px-8"> {/* Content container */}
           <div className="flex flex-row justify-start">
             <h2 className="text-3xl font-bold">Dashboard</h2> {/* Absolutely positioned to center */}
           </div>
@@ -217,7 +217,7 @@ const Dashboard = () => {
 
       {!isLoading &&
           <div className="mt-5 mb-10 px-2 sm:px-6 lg:px-8 flex justify-center">
-            <div className="flex justify-center w-full max-w-7xl px-4 origin-top-left">
+            <div className="flex justify-center w-full px-4 origin-top-left">
               <Table>
                 <TableHeader>
                   <TableRow>
