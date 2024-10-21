@@ -1,6 +1,8 @@
 import { Search } from "lucide-react"
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "./ui/dialog"
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid"
+import { Input } from "./ui/input"
+import { Label } from "./ui/label"
 
 const SearchDialog = () => {
 
@@ -14,9 +16,14 @@ const SearchDialog = () => {
                 <DialogHeader>
                     <DialogTitle>Search Sections</DialogTitle>
                     <DialogDescription>
-                        Search sections here
+                        Enter the course name to search for available sections.
                     </DialogDescription>
                 </DialogHeader>
+
+                <div>
+                    <Label>Course Name</Label>
+                    <Input className={"mt-1"} placeholder={"CSCE 120"}/>
+                </div>
             </DialogContent>
         </Dialog>
     )
