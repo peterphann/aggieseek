@@ -62,53 +62,56 @@ const Dashboard = () => {
     return newArray
   }
 
-  const fetchCrnFromDatabase = (uid) => {
+  const fetchUserCRNs = (uid) => {
     return new Promise((resolve, reject) => {
-      const dbRef = ref(getDatabase(), 'users/' + uid + '/sections');
-      onValue(dbRef, (snapshot) => {
+      const dbRef = ref(getDatabase(), `users/${uid}/sections/${CURRENT_TERM}`);
+      onValue(dbRef, snapshot => {
         const data = snapshot.val();
         if (data === null) {
           resolve([]);
           return;
         }
-        const crnArray = Object.keys(data).map(key => parseInt(key));
-        resolve(crnArray);
+        resolve(data);
       }, (error) => {
         reject(error);
       })
     })
   };
 
-  const fetchSectionData = async (crns) => {
+  const fetchSectionData = async crns => {
+    crns = Object.keys(crns)
+
     try {
       let responses = await Promise.all(
-        crns.map(async (crn) => {
-          const response = await fetch(`https://api.aggieseek.net/sections/202431/${crn}/`);
+        crns.map(async crn => {
+          const response = await fetch(`${API_URL}/classes/${CURRENT_TERM}/${crn}/`);
           return response.json();
         })
-      );
+      )
 
-      responses = responses.filter((response) => response.status === 200);
+      responses = responses.filter(response => response.STATUS === 200);
 
       responses.sort((a, b) => {
-        if (a.course < b.course) return -1;
-        if (a.course > b.course) return 1;
+        if (a.COURSE_NAME < b.COURSE_NAME) return -1;
+        if (a.COURSE_NAME > b.COURSE_NAME) return 1;
         return 0;
       });
 
       setSections(responses);
-      setPageState('LOADED');
+      setPageState("LOADED");
     } catch (e) {
-      setPageState('ERROR');
+      console.log(e);
+      setPageState("ERROR")
     }
-  };
+
+  }
 
   const addSection = () => {
     const userInput = crnInput;
     if (userInput === '') return;
     setButtonState('waiting')
 
-    fetch(`https://api.aggieseek.net/sections/202431/${userInput}/`)
+    fetch(`${API_URL}/classes/${CURRENT_TERM}/${userInput}/`)
       .then((data) => {
         console.log(data)
         if (data.status === 400) {
@@ -118,8 +121,8 @@ const Dashboard = () => {
         }
 
         const uid = getAuth().currentUser.uid;
-        const dbRef = ref(getDatabase(), 'users/' + uid + '/sections/' + userInput);
-        const sectionDbRef = ref(getDatabase(), 'sections/' + userInput + '/users/' + uid + '/');
+        const dbRef = ref(getDatabase(), `users/${uid}/sections/${CURRENT_TERM}/${userInput}`);
+        const sectionDbRef = ref(getDatabase(), `sections/${CURRENT_TERM}/${userInput}/users/${uid}`);
         set(dbRef, true);
         set(sectionDbRef, true);
 
@@ -130,14 +133,15 @@ const Dashboard = () => {
       })
       .catch((error) => {
         console.log(error);
+        setButtonState('normal');
+        setPopup('An error occurred while adding the section. Please try again.');
       })
   };
 
-
   const removeSection = (crn) => {
     const uid = getAuth().currentUser.uid
-    const dbRef = ref(getDatabase(), 'users/' + uid + '/sections/' + crn);
-    const sectionUsersRef = ref(getDatabase(), 'sections/' + crn + '/users/' + uid + '/');
+    const dbRef = ref(getDatabase(), `users/${uid}/sections/${CURRENT_TERM}/${crn}`);
+    const sectionUsersRef = ref(getDatabase(), `sections/${CURRENT_TERM}/${crn}/users/${uid}`);
     setSections(sections.filter(course => course.crn !== crn))
     remove(dbRef)
       .then(() => {
@@ -148,8 +152,9 @@ const Dashboard = () => {
       });
   }
 
+
   const updateDatabase = () => {
-    fetchCrnFromDatabase(getAuth().currentUser.uid)
+    fetchUserCRNs(getAuth().currentUser.uid)
       .then((data) => {
         fetchSectionData(data);
       })
@@ -239,18 +244,18 @@ const Dashboard = () => {
               <TableBody>
                 {
                   chunkArray(sections)[sections.length === 0 ? 0 : Math.min(page, Math.floor((sections.length - 1) / 8))].map((section) => (
-                    <TableRow key={section.crn} className={"transition-colors duration-100 hover:bg-muted/50"}>
+                    <TableRow key={section.CRN} className={"transition-colors duration-100 hover:bg-muted/50"}>
                       <TableCell className="font-medium relative">
-                        {section.crn}
-                        {isEditMode && <button onClick={() => removeSection(section.crn)}>
+                        {section.CRN}
+                        {isEditMode && <button onClick={() => removeSection(section.CRN)}>
                           <XMarkIcon className={"w-6 transition-all absolute top-1/2 -translate-y-1/2 text-red-600 hover:scale-95 active:scale-90 hover:text-red-700"}></XMarkIcon>
                         </button>}
                       </TableCell>
-                      <TableCell>{section.term}</TableCell>
-                      <TableCell>{section.course}</TableCell>
-                      <TableCell>{section.title}</TableCell>
-                      <TableCell>{section.professor}</TableCell>
-                      <TableCell className={`text-right flex justify-end items-center`}>{section.seats.remaining}</TableCell>
+                      <TableCell>{section.TERM_CODE}</TableCell>
+                      <TableCell>{section.COURSE_NAME}</TableCell>
+                      <TableCell>{section.COURSE_TITLE}</TableCell>
+                      <TableCell>{section.INSTRUCTOR}</TableCell>
+                      <TableCell className={`text-right flex justify-end items-center`}>{section.SEATS.REMAINING}</TableCell>
                     </TableRow>
                   ))
                 }
