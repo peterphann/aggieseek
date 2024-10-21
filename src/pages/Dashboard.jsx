@@ -29,6 +29,7 @@ import { ExclamationTriangleIcon, PencilSquareIcon, PlusIcon, XMarkIcon } from "
 import Button from "../components/Button.jsx";
 import { usePopup } from "../contexts/PopupContext.jsx";
 import SearchDialog from "../components/SearchDialog";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 
 const API_URL = import.meta.env.VITE_API_URL
 const CURRENT_TERM = import.meta.env.VITE_CURRENT_TERM
@@ -267,7 +268,18 @@ const Dashboard = () => {
                       <TableCell>{section.COURSE_NAME}</TableCell>
                       <TableCell>{section.COURSE_TITLE}</TableCell>
                       <TableCell>{section.INSTRUCTOR}</TableCell>
-                      <TableCell className={`text-right flex justify-end items-center`}>{section.SEATS.REMAINING}</TableCell>
+                      <TableCell className={`text-right flex justify-end items-center`}>
+                        <HoverCard closeDelay={200}>
+                          <HoverCardTrigger>
+                            {section.SEATS.REMAINING}
+                          </HoverCardTrigger>
+                          <HoverCardContent className="items-start w-60 flex-col flex">  
+                            <p>Current: {section.SEATS.ACTUAL}</p>
+                            <p>Remaining: {section.SEATS.REMAINING}</p>
+                            <p>Capacity: {section.SEATS.CAPACITY}</p>
+                          </HoverCardContent>
+                        </HoverCard>
+                      </TableCell>
                     </TableRow>
                   ))
                 }
