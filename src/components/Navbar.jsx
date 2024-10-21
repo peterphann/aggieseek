@@ -101,7 +101,7 @@ export default function Navbar() {
   }
 
   return (
-    <Disclosure as="nav" className="bg-transparent shadow-sm">
+    <Disclosure as="nav" className="bg-transparent shadow-sm fixed top-0 left-0 right-0 z-50">
       {({ open }) => (
         <>
           <div className="px-2 sm:px-6 lg:px-8">
