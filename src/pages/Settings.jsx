@@ -158,7 +158,7 @@ const Settings = () => {
                           <DialogDescription>
                             <p className="mt-3">In order to receive discord notifications, you'll need to create your own discord channel along with a webhook to connect to.</p>
 
-                            <p className="mt-3">Follow the instructions <a className="underline text-blue-700" href="https://www.svix.com/resources/guides/how-to-make-webhook-discord/">here</a> to generate your own webhook URL to use with AggieSeek!</p>
+                            <p className="mt-3">Follow the instructions <a className="underline text-blue-700" target="_blank" rel="noopener noreferrer" href="https://www.svix.com/resources/guides/how-to-make-webhook-discord/">here</a> to generate your own webhook URL to use with AggieSeek!</p>
                           </DialogDescription>
                         </DialogHeader>
                       </DialogContent>

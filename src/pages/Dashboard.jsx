@@ -25,12 +25,14 @@ import { useNavigate } from "react-router-dom";
 import { getDatabase, onValue, ref, remove, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import LoadingCircle from "../components/LoadingCircle";
-import { ExclamationTriangleIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
+import { ExclamationTriangleIcon, PencilSquareIcon, PlusIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
 import Button from "../components/Button.jsx";
 import { usePopup } from "../contexts/PopupContext.jsx";
+import SearchDialog from "../components/SearchDialog";
 
 const API_URL = import.meta.env.VITE_API_URL
 const CURRENT_TERM = import.meta.env.VITE_CURRENT_TERM
+const MAXIMUM_SECTIONS = parseInt(import.meta.env.VITE_MAXIMUM_SECTIONS)
 
 const Dashboard = () => {
 
@@ -109,8 +111,13 @@ const Dashboard = () => {
   const addSection = () => {
     const userInput = crnInput;
     if (userInput === '') return;
-    setButtonState('waiting')
 
+    if (sections.length >= MAXIMUM_SECTIONS) {
+      setPopup("You've reached the maximum number of sections!")
+      return;
+    }
+
+    setButtonState('waiting')
     fetch(`${API_URL}/classes/${CURRENT_TERM}/${userInput}/`)
       .then((data) => {
         console.log(data)
@@ -187,14 +194,16 @@ const Dashboard = () => {
 
           {pageState !== 'INACTIVE' &&
             <div className="flex flex-row sm:justify-start md:justify-end"> {/* Container for right-aligned items */}
+
               <Popover as="div" className="inline-block">
-                <PopoverButton hidden={pageState === 'LOADING'} className="justify-center w-full px-0 md:px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                  Add New Section
+                <PopoverButton hidden={pageState === 'LOADING'} className="justify-center hover:underline flex items-center w-full py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                  <PlusIcon className="w-4 mr-1" />
+                  <p className="text-sm font-medium text-aggiered">Add Section</p>
                 </PopoverButton>
 
-                <PopoverPanel className={"ml-6 md:ml-0 absolute z-40 origin-top-right bg-white border duration-100 shadow-lg p-2 data-[closed]:scale-95 data-[closed]:opacity-0 transition"}
+                <PopoverPanel className={"ml-6 md:ml-0 absolute z-40 origin-top-left bg-white border duration-100 shadow-lg p-2 data-[closed]:scale-95 data-[closed]:opacity-0 transition"}
                   transition
-                  anchor={"bottom end"}>
+                  anchor={"bottom start"}>
                   <form onSubmit={(e) => {
                     e.preventDefault();
                     addSection()
@@ -209,7 +218,7 @@ const Dashboard = () => {
                     <div className="flex justify-center w-full">
                       <Button type="submit"
                         disabled={buttonState === 'waiting'}
-                        className="mt-3 w-44 inline-flex text-sm justify-center disabled:bg-[#8d0509] disabled:cursor-default">
+                        className="transition-opacity mt-3 w-44 inline-flex text-sm justify-center disabled:opacity-75 disabled:cursor-default">
                         {buttonState === 'waiting'
                           ? <LoadingCircle className={"text-white"}></LoadingCircle>
                           : "Track this section"}
@@ -219,9 +228,12 @@ const Dashboard = () => {
                 </PopoverPanel>
               </Popover>
 
+              <SearchDialog />
+
               <button hidden={pageState === 'LOADING'} onClick={() => setIsEditMode(!isEditMode)}
-                className="pl-4 z-10 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                Edit
+                className="z-10 py-2 focus:outline-none flex hover:underline items-center focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                <PencilSquareIcon className="w-4 mr-1" />
+                <p className="text-sm font-medium text-aggiered">Edit</p>
               </button>
             </div>}
         </div>
