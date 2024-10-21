@@ -15,6 +15,8 @@
     "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.1",
     "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-hover-card": "^1.1.2",
+    "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@tanstack/react-table": "^8.20.5",
