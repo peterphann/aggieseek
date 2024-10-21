@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../components/Table";
+} from "../components/ui/table";
 import {
   Popover,
   PopoverButton,
@@ -19,7 +19,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../components/Pagination"
+} from "../components/ui/pagination"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getDatabase, onValue, ref, remove, set } from "firebase/database";

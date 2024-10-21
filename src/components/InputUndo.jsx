@@ -1,4 +1,4 @@
-import {Input} from "./Input.jsx";
+import {Input} from "./ui/Input.jsx";
 import {ArrowTurnDownLeftIcon} from "@heroicons/react/24/outline";
 import {motion, AnimatePresence} from "framer-motion";
 
