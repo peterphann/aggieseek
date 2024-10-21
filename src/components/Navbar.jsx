@@ -251,8 +251,8 @@ export default function Navbar() {
             </div>
           </div>
 
-          <DisclosurePanel className="sm:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2">
+          <DisclosurePanel className="sm:hidden bg-white">
+            <div className="px-2 py-3">
               {navigation.filter((item) => (!item.private || isUser) && !(item.hideWhenLoggedIn && isUser)).map((item) => (
                 <DisclosureButton
                   key={item.name}
