@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { getAuth } from 'firebase/auth'
 import { getDatabase, onValue, ref, remove } from "firebase/database";
-import DebugPane from "./DebugPane.jsx";
 
 const navigation = [
   { name: 'Home', href: '/', private: false, hideWhenLoggedIn: true },
