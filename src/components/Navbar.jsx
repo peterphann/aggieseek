@@ -1,18 +1,18 @@
 import { Fragment, useEffect, useState } from 'react'
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems} from '@headlessui/react'
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon, ArrowLongRightIcon } from '@heroicons/react/24/outline'
 import Logo from './Logo'
 import anonymous from '../assets/profile.webp'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { getAuth } from 'firebase/auth'
-import {getDatabase, onValue, ref, remove} from "firebase/database";
+import { getDatabase, onValue, ref, remove } from "firebase/database";
 import DebugPane from "./DebugPane.jsx";
 
 const navigation = [
-  { name: 'Home', href: '/', private: false, hideWhenLoggedIn: true},
-  { name: 'Dashboard', href: '/dashboard', private: true},
-  { name: 'Settings', href: '/settings', private: true}
+  { name: 'Home', href: '/', private: false, hideWhenLoggedIn: true },
+  { name: 'Dashboard', href: '/dashboard', private: true },
+  { name: 'Settings', href: '/settings', private: true }
 ]
 
 function classNames(...classes) {
@@ -24,6 +24,7 @@ export default function Navbar() {
   const [isUser, setIsUser] = useState(null)
   const [notifications, setNotifications] = useState([])
   const [viewed, setViewed] = useState(false)
+  const [actualProfilePic, setActualProfilePic] = useState('');
 
   const clearNotifications = () => {
     setViewed(true)
@@ -71,6 +72,15 @@ export default function Navbar() {
     }
   }
 
+  const retrieveProfilePicture = () => {
+    const uid = getAuth().currentUser.uid;
+    const dbRef = ref(getDatabase(), 'users/' + uid + '/profilePicUrl/');
+    onValue(dbRef, (snapshot) => {
+      const data = snapshot.val();
+      setActualProfilePic(data);
+    });
+  }
+
   useEffect(() => {
     getAuth().onAuthStateChanged(user => {
       setIsUser(user)
@@ -79,6 +89,9 @@ export default function Navbar() {
           .then(data => {
             setNotifications(data)
           })
+        retrieveProfilePicture()
+      } else {
+        setActualProfilePic('');
       }
     })
   }, [])
@@ -88,7 +101,7 @@ export default function Navbar() {
   }
 
   return (
-    <Disclosure as="nav" className="bg-transparent shadow-sm">
+    <Disclosure as="nav" className="bg-transparent shadow-sm fixed top-0 left-0 right-0 z-50">
       {({ open }) => (
         <>
           <div className="px-2 sm:px-6 lg:px-8">
@@ -115,13 +128,13 @@ export default function Navbar() {
                   <div className="flex space-x-4">
                     {navigation.filter((item) => (!item.private || isUser) && !(item.hideWhenLoggedIn && isUser)).map((item) => (
                       <Link
-                      key={item.name}
-                      to={item.href}
-                      className={classNames(
-                        (currentPage === item.href) ? ' text-[#8d0509]' : ' text-black ',
-                        'rounded-md px-3 py-2 text-sm font-semibold transition-transform ease-in-out duration-100 hover:-translate-y-0.5'
-                      )}
-                      aria-current={(currentPage === item.href) ? 'page' : undefined}
+                        key={item.name}
+                        to={item.href}
+                        className={classNames(
+                          (currentPage === item.href) ? ' text-[#8d0509]' : ' text-black ',
+                          'rounded-md px-3 py-2 text-sm font-semibold transition-transform ease-in-out duration-100 hover:-translate-y-0.5'
+                        )}
+                        aria-current={(currentPage === item.href) ? 'page' : undefined}
                       >
                         {item.name}
                       </Link>
@@ -130,55 +143,55 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="flex items-center pr-2 sm:ml-6 sm:pr-0">
-                 {isUser &&
+                {isUser &&
                   <Menu as="div" className="relative inline-block text-left">
 
                     <MenuButton
-                        className="transition-opacity duration-100 relative inline-flex text-gray-600 opacity-80 hover:opacity-100 justify-center w-full px-2 py-2 text-sm font-medium hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                      className="transition-opacity duration-100 relative inline-flex text-gray-600 opacity-80 hover:opacity-100 justify-center w-full px-2 py-2 text-sm font-medium hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
                       {notifications.length > 0 && !viewed && (
-                          <p className={"text-sm scale-75 text-white flex justify-center items-center absolute left-0 top-0 rounded-full bg-red-500 w-6 h-6"}>{notifications.length <= 9 ? notifications.length : '9+'}</p>
+                        <p className={"text-sm scale-75 text-white flex justify-center items-center absolute left-0 top-0 rounded-full bg-red-500 w-6 h-6"}>{notifications.length <= 9 ? notifications.length : '9+'}</p>
                       )}
                     </MenuButton>
 
                     <MenuItems anchor="bottom end"
-                               transition
-                               onFocus={clearNotifications}
-                               className="origin-top-right transition duration-100 ease-out data-[closed]:scale-95 data-[closed]:opacity-0
+                      transition
+                      onFocus={clearNotifications}
+                      className="origin-top-right transition duration-100 ease-out data-[closed]:scale-95 data-[closed]:opacity-0
                                           z-30 absolute right-0 w-64 sm:w-80 mt-2 bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="px-1 py-1">
-                      <MenuItem className="bg-[#A8292F]">
-                        <div className='p-2'>
-                          <p className='font-bold text-white'>
-                            Notifications
-                          </p>
-                        </div>
-                      </MenuItem>
-                      <div className={"overflow-y-auto max-h-64"}>
-                        {notifications.length > 0 ? (
-                        notifications.map((notification, index) => (
-                          <MenuItem key={index}>
-                            <div className='p-2'>
-                              <div className='flex justify-between'>
-                                <p className='text'><span className='font-bold'>{notification.title}</span><span className='text-xs text-gray-400 font-bold'> {notification.crn}</span></p>
-                                <p className='text'><span className='text-xs font-bold'> {notification.message}</span></p>
-                              </div>
-                              <div className='flex justify-between'>
-                                <p className='text-xs'><span className='text-gray-500'>{getTimeString(notification.timestamp)}</span></p>
-                                <p className='text-xs flex items-center'>{notification.origSeats} <span><ArrowLongRightIcon className={"mx-1 w-4"}></ArrowLongRightIcon></span> {notification.newSeats}</p>
-                              </div>
-                            </div>
-                          </MenuItem>
-                        ))
-                      ) : (
-                        <MenuItem>
+                      <div className="px-1 py-1">
+                        <MenuItem className="bg-[#A8292F]">
                           <div className='p-2'>
-                            <p className='text'>No new notifications</p>
+                            <p className='font-bold text-white'>
+                              Notifications
+                            </p>
                           </div>
                         </MenuItem>
-                      )}
+                        <div className={"overflow-y-auto max-h-64"}>
+                          {notifications.length > 0 ? (
+                            notifications.map((notification, index) => (
+                              <MenuItem key={index}>
+                                <div className='p-2'>
+                                  <div className='flex justify-between'>
+                                    <p className='text'><span className='font-bold'>{notification.title}</span><span className='text-xs text-gray-400 font-bold'> {notification.crn}</span></p>
+                                    <p className='text'><span className='text-xs font-bold'> {notification.message}</span></p>
+                                  </div>
+                                  <div className='flex justify-between'>
+                                    <p className='text-xs'><span className='text-gray-500'>{getTimeString(notification.timestamp)}</span></p>
+                                    <p className='text-xs flex items-center'>{notification.origSeats} <span><ArrowLongRightIcon className={"mx-1 w-4"}></ArrowLongRightIcon></span> {notification.newSeats}</p>
+                                  </div>
+                                </div>
+                              </MenuItem>
+                            ))
+                          ) : (
+                            <MenuItem>
+                              <div className='p-2'>
+                                <p className='text'>No new notifications</p>
+                              </div>
+                            </MenuItem>
+                          )}
+                        </div>
                       </div>
-                    </div>
                     </MenuItems>
 
                   </Menu>
@@ -192,45 +205,45 @@ export default function Navbar() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src={anonymous}
+                        src={actualProfilePic ? actualProfilePic : anonymous}
                         alt=""
                       />
                     </MenuButton>
                   </div>
 
                   <MenuItems
-                      anchor="bottom end"
-                               transition
-                               className="origin-top-right transition duration-100 ease-out data-[closed]:scale-95 data-[closed]:opacity-0
+                    anchor="bottom end"
+                    transition
+                    className="origin-top-right transition duration-100 ease-out data-[closed]:scale-95 data-[closed]:opacity-0
                                           absolute right-0 z-20 mt-2 w-48 bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     {!isUser && <MenuItem>
                       <Link
-                          to="/signin"
-                          className={'block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100'}
-                        >
-                          Sign In
-                        </Link>
+                        to="/signin"
+                        className={'block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100'}
+                      >
+                        Sign In
+                      </Link>
                     </MenuItem>}
 
                     {isUser && <>
-                    <MenuItem>
-                      <Link
-                        to="/profile"
-                        className={'block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100'}
-                      >
-                        Profile
-                      </Link>
-                    </MenuItem>
+                      <MenuItem>
+                        <Link
+                          to="/profile"
+                          className={'block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100'}
+                        >
+                          Profile
+                        </Link>
+                      </MenuItem>
 
-                    <MenuItem>
-                      <Link
-                        to="/"
-                        onClick={() => signOut()}
-                        className={'block px-4 py-2 font-semibold text-sm text-gray-700 hover:bg-gray-100'}
-                      >
-                        Sign Out
-                      </Link>
-                    </MenuItem>
+                      <MenuItem>
+                        <Link
+                          to="/"
+                          onClick={() => signOut()}
+                          className={'block px-4 py-2 font-semibold text-sm text-gray-700 hover:bg-gray-100'}
+                        >
+                          Sign Out
+                        </Link>
+                      </MenuItem>
                     </>}
                   </MenuItems>
                 </Menu>
@@ -248,10 +261,10 @@ export default function Navbar() {
                   aria-current={(currentPage === item.href) ? 'page' : undefined}
                 >
                   <Link to={item.href}
-                  className={classNames(
-                    (currentPage === item.href) ? ' text-[#8d0509]' : 'text-black',
-                    'block rounded-md px-3 py-2 text-base font-medium'
-                  )}>
+                    className={classNames(
+                      (currentPage === item.href) ? ' text-[#8d0509]' : 'text-black',
+                      'block rounded-md px-3 py-2 text-base font-medium'
+                    )}>
                     {item.name}
                   </Link>
                 </DisclosureButton>

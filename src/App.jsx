@@ -19,6 +19,7 @@ function App() {
       <BrowserRouter>
       <Navbar></Navbar>
       <Popup></Popup>
+      <div className="pb-16"></div>
       <Routes>
         <Route index path="/" element={<Home></Home>}></Route>
         <Route path="home" element={<Home></Home>}></Route>
