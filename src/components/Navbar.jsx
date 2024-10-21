@@ -101,7 +101,7 @@ export default function Navbar() {
   }
 
   return (
-    <Disclosure as="nav" className="bg-transparent shadow-sm fixed top-0 left-0 right-0 z-50">
+    <Disclosure as="nav" className="bg-transparent shadow-sm fixed top-0 left-0 right-0 z-30">
       {({ open }) => (
         <>
           <div className="px-2 sm:px-6 lg:px-8">
@@ -215,7 +215,7 @@ export default function Navbar() {
                     anchor="bottom end"
                     transition
                     className="origin-top-right transition duration-100 ease-out data-[closed]:scale-95 data-[closed]:opacity-0
-                                          absolute right-0 z-20 mt-2 w-48 bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                          absolute right-0 z-40 mt-2 w-48 bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     {!isUser && <MenuItem>
                       <Link
                         to="/signin"

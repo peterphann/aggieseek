@@ -171,7 +171,7 @@ const Profile = () => {
           <h2 className="text-3xl font-bold">Profile</h2>
         </div>
 
-        {!isLoading && <>
+        {!isLoading &&
           <div className="flex justify-between mt-5">
             <div className="flex flex-col w-full">
 
@@ -191,56 +191,58 @@ const Profile = () => {
                     actual={actualLast} setValue={setInputLast} value={inputLast}
                     onChange={(e) => setInputLast(e.target.value)} placeholder="Doe" />
                 </div>
-
-                <p className="text-md font-medium mt-2">Email</p>
-                <div className={"flex items-center"}>
-                  <InputUndo type={"email"} disabled
-                    actual={actualEmail} setValue={setInputEmail} value={inputEmail}
-                    onChange={(e) => setInputEmail(e.target.value)}
-                    placeholder="example@gmail.com" />
-                </div>
-
-                <div className={"mt-8"}>
-                  <Button onClick={() => updateAllSettings()}>Save Changes</Button>
-                </div>
-
-                <hr className={"my-8 border-black"}></hr>
-
-                {/* Profile Picture Section */}
-                <div className="mb-4">
-                  <p className="font-bold text-xl">Profile Picture</p>
-                  <img
-                    src={inputProfilePic ? URL.createObjectURL(inputProfilePic) : actualProfilePic ? actualProfilePic : anonymous}
-                    alt="Profile"
-                    className="shadow-md hover:cursor-pointer w-16 h-16 rounded-full mt-2 object-cover"
-                    onClick={() => document.getElementById('profilePicInput').click()}
-                  />
-
-                  <input id="profilePicInput" type="file" accept="image/*" onChange={handleImageChange} className="mt-4 hidden" />
-
-                  <Button className={"mt-3"} onClick={() => getAuth().onAuthStateChanged(user => uploadProfilePicture(user.uid))}>
-                    Upload Profile Picture
-                  </Button>
-                </div>
-
-                <hr className={"my-8 border-black"}></hr>
-
-                <p className="font-bold text-xl">Security</p>
-
-                <div className={"flex"}>
-                  <Button disabled className={"mt-3 opacity-70"}>
-                    Change Password
-                  </Button>
-
-                  <Button disabled className={"mt-3 ml-6 opacity-70"}>
-                    Delete Account
-                  </Button>
-
-                </div>
               </div>
+
+              <p className="text-md font-medium mt-2">Email</p>
+              <div className={"flex items-center"}>
+                <InputUndo type={"email"} disabled
+                  actual={actualEmail} setValue={setInputEmail} value={inputEmail}
+                  onChange={(e) => setInputEmail(e.target.value)}
+                  placeholder="example@gmail.com" />
+              </div>
+
+              <div className={"mt-8"}>
+                <Button onClick={() => updateAllSettings()}>Save Changes</Button>
+              </div>
+
+              <hr className={"my-8 border-black"}></hr>
+
+              {/* Profile Picture Section */}
+              <div className="mb-4">
+                <p className="font-bold text-xl">Profile Picture</p>
+                <img
+                  src={inputProfilePic ? URL.createObjectURL(inputProfilePic) : actualProfilePic ? actualProfilePic : anonymous}
+                  alt="Profile"
+                  className="transition-transform shadow-md hover:scale-95 hover:cursor-pointer w-16 h-16 rounded-full mt-2 object-cover"
+                  onClick={() => document.getElementById('profilePicInput').click()}
+                />
+
+                <input id="profilePicInput" type="file" accept="image/*" onChange={handleImageChange} className="mt-4 hidden" />
+
+                <Button className={"mt-3"} onClick={() => getAuth().onAuthStateChanged(user => uploadProfilePicture(user.uid))}>
+                  Upload Profile Picture
+                </Button>
+              </div>
+
+              {/* TODO: Add account management stuff */}
+
+              {/* <hr className={"my-8 border-black"}></hr>
+
+              <p className="font-bold text-xl">Security</p>
+
+              <div className={"flex"}>
+                <Button disabled className={"mt-3 opacity-70"}>
+                  Change Password
+                </Button>
+
+                <Button disabled className={"mt-3 ml-6 opacity-70"}>
+                  Delete Account
+                </Button>
+
+              </div> */}
             </div>
           </div>
-        </>}
+        }
 
         {isLoading &&
           <div className="flex flex-row justify-center mt-8">
