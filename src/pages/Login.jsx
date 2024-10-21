@@ -19,7 +19,6 @@ const Login = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    document.title = 'Log In / AggieSeek'
     getAuth().onAuthStateChanged(user => {
       if (user) {
         navigate("/dashboard")
