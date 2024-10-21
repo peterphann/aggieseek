@@ -103,8 +103,8 @@ export default function Navbar() {
     <Disclosure as="nav" className="bg-transparent shadow-sm fixed top-0 left-0 right-0 z-30">
       {({ open }) => (
         <>
-          <div className="px-2 sm:px-6 lg:px-8">
-            <div className="relative flex h-16 items-center justify-between">
+          <div className="px-2 sm:px-6 bg-white lg:px-8">
+            <div className="relative flex  h-16 items-center justify-between">
               <div className="flex items-center sm:hidden">
                 {/* Mobile menu button*/}
                 <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -252,7 +252,7 @@ export default function Navbar() {
           </div>
 
           <DisclosurePanel className="sm:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2">
+            <div className="space-y-1 px-2 pb-3 pt-2 bg-white shadow-lg">
               {navigation.filter((item) => (!item.private || isUser) && !(item.hideWhenLoggedIn && isUser)).map((item) => (
                 <DisclosureButton
                   key={item.name}
