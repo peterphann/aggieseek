@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 .DS_Store
 .env
+__pycache__
 
 # Devcontainers
 .devcontainer
