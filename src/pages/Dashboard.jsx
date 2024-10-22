@@ -28,8 +28,9 @@ import LoadingCircle from "../components/LoadingCircle";
 import { ExclamationTriangleIcon, PencilSquareIcon, PlusIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
 import Button from "../components/Button.jsx";
 import { usePopup } from "../contexts/PopupContext.jsx";
-import SearchDialog from "../components/SearchDialog";
+import SearchDialog from "../components/dialog/SearchDialog";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import AddDialog from "../components/dialog/AddDialog";
 
 const API_URL = import.meta.env.VITE_API_URL
 const CURRENT_TERM = import.meta.env.VITE_CURRENT_TERM
@@ -46,13 +47,6 @@ const Dashboard = () => {
   const [page, setPage] = useState(0);
   const [buttonState, setButtonState] = useState('normal')
   const [pageState, setPageState] = useState('LOADING');
-
-  const handleCRNInput = (e) => {
-    setButtonState('normal')
-    if (isNaN(parseInt(e.target.value)) && e.target.value !== '') return;
-
-    setCrnInput(e.target.value)
-  }
 
   function chunkArray(array) {
     const newArray = []
@@ -109,43 +103,6 @@ const Dashboard = () => {
 
   }
 
-  const addSection = () => {
-    const userInput = crnInput;
-    if (userInput === '') return;
-
-    if (sections.length >= MAXIMUM_SECTIONS) {
-      setPopup("You've reached the maximum number of sections!")
-      return;
-    }
-
-    setButtonState('waiting')
-    fetch(`${API_URL}/classes/${CURRENT_TERM}/${userInput}/`)
-      .then((data) => {
-        console.log(data)
-        if (data.status === 400) {
-          setButtonState('invalid')
-          setPopup(`CRN ${userInput} does not exist!`)
-          return;
-        }
-
-        const uid = getAuth().currentUser.uid;
-        const dbRef = ref(getDatabase(), `users/${uid}/sections/${CURRENT_TERM}/${userInput}`);
-        const sectionDbRef = ref(getDatabase(), `sections/${CURRENT_TERM}/${userInput}/users/${uid}`);
-        set(dbRef, true);
-        set(sectionDbRef, true);
-
-        updateDatabase();
-        setPopup(`CRN ${userInput} has been added!`)
-        setCrnInput("");
-        setButtonState('normal')
-      })
-      .catch((error) => {
-        console.log(error);
-        setButtonState('normal');
-        setPopup('An error occurred while adding the section. Please try again.');
-      })
-  };
-
   const removeSection = (crn) => {
     const uid = getAuth().currentUser.uid
     const dbRef = ref(getDatabase(), `users/${uid}/sections/${CURRENT_TERM}/${crn}`);
@@ -196,44 +153,12 @@ const Dashboard = () => {
           {pageState !== 'INACTIVE' &&
             <div className="flex flex-row sm:justify-start md:justify-end"> {/* Container for right-aligned items */}
 
-              <Popover as="div" className="inline-block">
-                <PopoverButton hidden={pageState === 'LOADING'} className="justify-center hover:underline flex items-center w-full py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                  <PlusIcon className="w-4 mr-1" />
-                  <p className="text-sm font-medium text-aggiered">Add Section</p>
-                </PopoverButton>
-
-                <PopoverPanel className={"ml-6 md:ml-0 absolute z-40 origin-top-left bg-white border duration-100 shadow-lg p-2 data-[closed]:scale-95 data-[closed]:opacity-0 transition"}
-                  transition
-                  anchor={"bottom start"}>
-                  <form onSubmit={(e) => {
-                    e.preventDefault();
-                    addSection()
-                  }} className={"p-2"}>
-                    <label className="block text-sm font-medium text-gray-700">Enter CRN</label>
-                    <input value={crnInput} onChange={(e) => handleCRNInput(e)}
-                      disabled={buttonState === 'waiting'}
-                      onClick={(e) => e.stopPropagation()} name="crn" id="crn"
-                      placeholder="CRN" autoComplete="off" maxLength={5} inputMode={"numeric"}
-                      className={`mt-2 block w-full h-8 rounded-md border ${buttonState === 'invalid' && "bg-red-50"} sm:text-sm px-2`} />
-                    <div className="flex justify-center w-full">
-                      <Button type="submit"
-                        disabled={buttonState === 'waiting'}
-                        className="transition-opacity font-medium mt-3 w-44 inline-flex text-sm justify-center disabled:opacity-75 disabled:cursor-default">
-                        {buttonState === 'waiting'
-                          ? <LoadingCircle className={"text-white"}></LoadingCircle>
-                          : "Track this section"}
-                      </Button>
-                    </div>
-                  </form>
-                </PopoverPanel>
-              </Popover>
-
-              <SearchDialog />
+              <AddDialog sections={sections} updateDatabase={updateDatabase} />
 
               <button hidden={pageState === 'LOADING'} onClick={() => setIsEditMode(!isEditMode)}
                 className="z-10 py-2 focus:outline-none flex hover:underline items-center focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                 <PencilSquareIcon className="w-4 mr-1" />
-                <p className="text-sm font-medium text-aggiered">Edit</p>
+                <p className="text-sm font-medium text-aggiered">Edit Sections</p>
               </button>
             </div>}
         </div>
@@ -244,13 +169,13 @@ const Dashboard = () => {
           <div className="flex justify-center w-full max-w-7xl px-4 origin-top-left">
             <Table containerClassName="shadow-xl">
               <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[10%]">CRN</TableHead>
-                  <TableHead className="w-[15%]">Term</TableHead>
-                  <TableHead className="w-[15%]">Course</TableHead>
-                  <TableHead className="w-[35%]">Title</TableHead>
-                  <TableHead className="w-[25%]">Professor</TableHead>
-                  <TableHead className="w-[10%] text-right">Seats</TableHead>
+                <TableRow className="bg-aggiered">
+                  <TableHead className="w-[10%] text-white">CRN</TableHead>
+                  <TableHead className="w-[15%] text-white">Term</TableHead>
+                  <TableHead className="w-[15%] text-white">Course</TableHead>
+                  <TableHead className="w-[35%] text-white">Title</TableHead>
+                  <TableHead className="w-[25%] text-white">Professor</TableHead>
+                  <TableHead className="w-[10%] text-white text-right">Seats</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
