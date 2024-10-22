@@ -5,10 +5,11 @@ import { Button } from "./ui/button"
 import { useEffect, useState } from "react"
 import { Label } from "./ui/label"
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "./ui/command"
-import { ChevronsUpDown, Check } from "lucide-react"
+import { ChevronsUpDown, Check, SendHorizonal } from "lucide-react"
 import { cn } from "@/lib/utils"
 import LoadingCircle from "./LoadingCircle"
-import SelectDialog from "./SelectDialog"
+import { DataTable } from "@/table/data-table"
+import { columns } from "@/table/columns"
 
 const API_URL = import.meta.env.VITE_API_URL
 const CURRENT_TERM = import.meta.env.VITE_CURRENT_TERM
@@ -17,11 +18,14 @@ const SearchDialog = () => {
 
   const [subjects, setSubjects] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [sections, setSections] = useState([])
+
   const [subjectOpen, setSubjectOpen] = useState(false)
   const [courseOpen, setCourseOpen] = useState(false)
 
   const [subjectState, setSubjectState] = useState('IDLE')
   const [courseState, setCourseState] = useState('IDLE')
+  const [sectionState, setSectionState] = useState('IDLE')
 
   const [selectedSubject, setSelectedSubject] = useState(null)
   const [selectedCourse, setSelectedCourse] = useState(null)
@@ -57,15 +61,35 @@ const SearchDialog = () => {
       })
   }
 
+  const fetchSections = (subject, course) => {
+    setSectionState('LOADING')
+    fetch(`${API_URL}/subjects/${CURRENT_TERM}/${subject}/${course}`)
+      .then(data => {
+        return data.json()
+      }).then(json => {
+        setSectionState('IDLE')
+        setSections(json.SECTIONS)
+      }).catch(e => {
+        setSectionState('ERROR')
+        setSections([])
+        console.log(e)
+      })
+  }
+
   useEffect(() => {
     fetchSubjects()
   }, [])
 
   useEffect(() => {
     setCourses([])
+    setSections([])
     setSelectedCourse(null)
     fetchCourses(selectedSubject)
   }, [selectedSubject])
+
+  useEffect(() => {
+    setSections([])
+  }, [selectedCourse])
 
   return (
     <Dialog>
@@ -73,7 +97,7 @@ const SearchDialog = () => {
         <MagnifyingGlassIcon className="w-4 mr-1" />
         <p className="text-sm font-medium text-aggiered hover:underline ">Search Sections</p>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="w-[1000px]">
         <DialogHeader>
           <DialogTitle>Search Sections</DialogTitle>
           <DialogDescription>
@@ -103,7 +127,7 @@ const SearchDialog = () => {
                 <CommandList>
                   <CommandEmpty>{
                     subjectState === "IDLE"
-                      ? "No sections found."
+                      ? "No subjects found."
                       : subjectState === "LOADING"
                         ? <LoadingCircle />
                         : "An error has occurred."
@@ -154,7 +178,7 @@ const SearchDialog = () => {
               <PopoverContent side="bottom" align="start" className="w-[400px] p-0" >
                 <Command>
                   <CommandInput placeholder="Search course..." />
-                  <CommandList className={"max-h-40"}>
+                  <CommandList>
                     <CommandEmpty>{
                       courseState === "IDLE"
                         ? "No courses found."
@@ -188,8 +212,20 @@ const SearchDialog = () => {
               </PopoverContent>
             </Popover>
 
-            <SelectDialog enabled={selectedCourse != null} subject={selectedSubject} course={selectedCourse}/>
+            {selectedCourse != null &&
+              <button
+                onClick={() => fetchSections(selectedSubject, selectedCourse)}
+                className="transition-colors hover:cursor-pointer w-10 h-10 flex justify-center items-center border rounded-md ml-2 hover:bg-slate-100">
+                <SendHorizonal className="w-5 opacity-50" />
+              </button>}
           </div>
+
+          <Label className={"mt-5 mb-3"}>Sections</Label>
+
+          <div>
+            <DataTable columns={columns} data={sections} fetchState={sectionState} />
+          </div>
+
         </div>
       </DialogContent>
     </Dialog>
