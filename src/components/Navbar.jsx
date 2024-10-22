@@ -158,12 +158,10 @@ export default function Navbar() {
                       onFocus={clearNotifications}
                       className="origin-top-right transition duration-100 ease-out data-[closed]:scale-95 data-[closed]:opacity-0
                                           z-30 absolute right-0 w-64 sm:w-80 mt-2 bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <div className="px-1 py-1">
-                        <MenuItem className="bg-[#A8292F]">
-                          <div className='p-2'>
-                            <p className='font-bold text-white'>
-                              Notifications
-                            </p>
+                      <div className="">
+                        <MenuItem className="bg-aggiered">
+                          <div className='py-2 px-4 font-semibold text-white'>
+                            Notifications
                           </div>
                         </MenuItem>
                         <div className={"overflow-y-auto max-h-64"}>
@@ -184,8 +182,8 @@ export default function Navbar() {
                             ))
                           ) : (
                             <MenuItem>
-                              <div className='p-2'>
-                                <p className='text'>No new notifications</p>
+                              <div className='py-4 text-center'>
+                                <p className='text-sm'>No new notifications</p>
                               </div>
                             </MenuItem>
                           )}
