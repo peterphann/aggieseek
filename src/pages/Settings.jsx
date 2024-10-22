@@ -150,7 +150,7 @@ const Settings = () => {
                   <p className="flex items-center text-md font-medium mt-2">Discord Webhook
                     <Dialog>
                       <DialogTrigger><Info className="transition-opacity w-4 ml-2 opacity-50 hover:cursor-pointer hover:opacity-100" /></DialogTrigger>
-                      <DialogContent>
+                      <DialogContent className={"w-screen md:w-[500px]"}>
                         <DialogHeader>
                           <DialogTitle className="flex">Using Discord Webhooks
                             <img src={discord} className="w-6 ml-2 object-contain"></img>
