@@ -209,17 +209,16 @@ const Dashboard = () => {
                     e.preventDefault();
                     addSection()
                   }} className={"p-2"}>
-                    <label className="block text-sm font-medium text-center text-gray-700">Enter your desired
-                      CRN</label>
+                    <label className="block text-sm font-medium text-gray-700">Enter CRN</label>
                     <input value={crnInput} onChange={(e) => handleCRNInput(e)}
                       disabled={buttonState === 'waiting'}
                       onClick={(e) => e.stopPropagation()} name="crn" id="crn"
                       placeholder="CRN" autoComplete="off" maxLength={5} inputMode={"numeric"}
-                      className={`mt-2 block w-full h-8 rounded-md border ${buttonState === 'invalid' && "bg-red-50"} shadow-sm sm:text-sm px-2`} />
+                      className={`mt-2 block w-full h-8 rounded-md border ${buttonState === 'invalid' && "bg-red-50"} sm:text-sm px-2`} />
                     <div className="flex justify-center w-full">
                       <Button type="submit"
                         disabled={buttonState === 'waiting'}
-                        className="transition-opacity mt-3 w-44 inline-flex text-sm justify-center disabled:opacity-75 disabled:cursor-default">
+                        className="transition-opacity font-medium mt-3 w-44 inline-flex text-sm justify-center disabled:opacity-75 disabled:cursor-default">
                         {buttonState === 'waiting'
                           ? <LoadingCircle className={"text-white"}></LoadingCircle>
                           : "Track this section"}
@@ -319,18 +318,18 @@ const Dashboard = () => {
 
       {pageState === 'LOADING' &&
         <div className="flex flex-row justify-center mt-8">
-          <LoadingCircle></LoadingCircle>
+          <LoadingCircle />
         </div>}
 
       {pageState === 'ERROR' &&
         <div className="flex flex-col items-center justify-center mt-8">
-          <ExclamationTriangleIcon className={"w-12 mr-2"}></ExclamationTriangleIcon>
+          <ExclamationTriangleIcon className={"w-12 mr-2"} />
           An error occurred while loading your courses.
         </div>}
 
       {pageState === 'INACTIVE' &&
         <div className="flex flex-col items-center justify-center mt-8">
-          <ExclamationTriangleIcon className={"w-12 mr-2"}></ExclamationTriangleIcon>
+          <ExclamationTriangleIcon className={"w-12 mr-2"} />
           Course registration is not open yet.
         </div>}
 
