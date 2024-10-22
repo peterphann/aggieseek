@@ -5,6 +5,7 @@ import { CheckIcon } from '@heroicons/react/24/outline'
 import { motion } from "framer-motion"
 import { useEffect } from "react"
 import { getAuth } from "firebase/auth"
+import { Check } from "lucide-react"
 
 const Home = () => {
   const navigate = useNavigate()
@@ -32,20 +33,20 @@ const Home = () => {
             initial={{'opacity': 0, translateY: '40%'}}
             animate={{'opacity': 1, translateY: '0%'}}
             transition={{type: 'spring', stiffness: 100, delay: 0.25, duration: 0.5}}>
-          <h2 className="text-2xl lg:text-4xl font-bold mt-4 mb-4">Get ahead of the game</h2>
+          <h2 className="text-2xl lg:text-4xl font-bold mt-4 mb-4">Never miss a seat!</h2>
         </motion.div>
 
         <div className="flex flex-col lg:flex-row justify-center my-2">
           <div className="text-base sm:block transform-translate ease-in-out duration-200 cursor-default hover:-translate-y-1">
-            <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
+            <Check className="inline h-8 w-8 pr-2"></Check>
             Pick what courses you want
           </div>
           <div className="text-base transform-translate ease-in-out duration-200 lg:ml-5 cursor-default hover:-translate-y-1">
-            <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
+            <Check className="inline h-8 w-8 pr-2"></Check>
             Notify you upon course openings
           </div>
           <div className="text-base transform-translate ease-in-out duration-200 lg:ml-5 cursor-default hover:-translate-y-1">
-            <CheckIcon className="inline h-8 w-8 pr-2"></CheckIcon>
+            <Check className="inline h-8 w-8 pr-2"></Check>
             Make registration easy and hassle free
           </div>
         </div>
