@@ -96,7 +96,11 @@ const CRNDialog = ({ sections, updateDatabase }) => {
       </DialogHeader>
 
       <div className="flex justify-between mt-6">
-        <div className="flex flex-col">
+        <form className="flex flex-col"
+        onSubmit={e => {
+          e.preventDefault();
+          addSection();
+        }}>
           <Label className={"mb-3"}>CRN</Label>
           <Input 
           value={crnInput} onChange={e => handleCRNInput(e)}
@@ -106,13 +110,13 @@ const CRNDialog = ({ sections, updateDatabase }) => {
             className="mt-5 w-32"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}>
-            <Button onClick={addSection} className="bg-aggiered hover:bg-aggiered w-32">
+            <Button type="submit" className="bg-aggiered hover:bg-aggiered w-32">
               {buttonState === 'WAITING'
               ? <LoadingCircle className={"text-white"} />
               : "Track"}
             </Button>
           </motion.div>
-        </div>
+        </form>
       </div>
 
     </div>
