@@ -1,4 +1,4 @@
-import { Switch } from "../components/Switch";
+import { Switch } from "../components/ui/switch";
 import { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
@@ -150,7 +150,7 @@ const Settings = () => {
                   <p className="flex items-center text-md font-medium mt-2">Discord Webhook
                     <Dialog>
                       <DialogTrigger><Info className="transition-opacity w-4 ml-2 opacity-50 hover:cursor-pointer hover:opacity-100" /></DialogTrigger>
-                      <DialogContent>
+                      <DialogContent className={"w-screen md:w-[500px]"}>
                         <DialogHeader>
                           <DialogTitle className="flex">Using Discord Webhooks
                             <img src={discord} className="w-6 ml-2 object-contain"></img>
@@ -158,7 +158,7 @@ const Settings = () => {
                           <DialogDescription>
                             <p className="mt-3">In order to receive discord notifications, you'll need to create your own discord channel along with a webhook to connect to.</p>
 
-                            <p className="mt-3">Follow the instructions <a className="underline text-blue-700" href="https://www.svix.com/resources/guides/how-to-make-webhook-discord/">here</a> to generate your own webhook URL to use with AggieSeek!</p>
+                            <p className="mt-3">Follow the instructions <a className="underline text-blue-700" target="_blank" rel="noopener noreferrer" href="https://www.svix.com/resources/guides/how-to-make-webhook-discord/">here</a> to generate your own webhook URL to use with AggieSeek!</p>
                           </DialogDescription>
                         </DialogHeader>
                       </DialogContent>

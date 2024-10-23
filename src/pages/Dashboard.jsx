@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../components/Table";
+} from "../components/ui/table";
 import {
   Popover,
   PopoverButton,
@@ -19,18 +19,22 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../components/Pagination"
+} from "../components/ui/pagination"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getDatabase, onValue, ref, remove, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import LoadingCircle from "../components/LoadingCircle";
-import { ExclamationTriangleIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
+import { ExclamationTriangleIcon, PencilSquareIcon, PlusIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
 import Button from "../components/Button.jsx";
 import { usePopup } from "../contexts/PopupContext.jsx";
+import SearchDialog from "../components/dialog/SearchDialog";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import AddDialog from "../components/dialog/AddDialog";
 
 const API_URL = import.meta.env.VITE_API_URL
 const CURRENT_TERM = import.meta.env.VITE_CURRENT_TERM
+const MAXIMUM_SECTIONS = parseInt(import.meta.env.VITE_MAXIMUM_SECTIONS)
 
 const Dashboard = () => {
 
@@ -44,13 +48,6 @@ const Dashboard = () => {
   const [buttonState, setButtonState] = useState('normal')
   const [pageState, setPageState] = useState('LOADING');
 
-  const handleCRNInput = (e) => {
-    setButtonState('normal')
-    if (isNaN(parseInt(e.target.value)) && e.target.value !== '') return;
-
-    setCrnInput(e.target.value)
-  }
-
   function chunkArray(array) {
     const newArray = []
     if (array.length === 0) return [[]]
@@ -62,82 +59,54 @@ const Dashboard = () => {
     return newArray
   }
 
-  const fetchCrnFromDatabase = (uid) => {
+  const fetchUserCRNs = (uid) => {
     return new Promise((resolve, reject) => {
-      const dbRef = ref(getDatabase(), 'users/' + uid + '/sections');
-      onValue(dbRef, (snapshot) => {
+      const dbRef = ref(getDatabase(), `users/${uid}/sections/${CURRENT_TERM}`);
+      onValue(dbRef, snapshot => {
         const data = snapshot.val();
         if (data === null) {
           resolve([]);
           return;
         }
-        const crnArray = Object.keys(data).map(key => parseInt(key));
-        resolve(crnArray);
+        resolve(data);
       }, (error) => {
         reject(error);
       })
     })
   };
 
-  const fetchSectionData = async (crns) => {
+  const fetchSectionData = async crns => {
+    crns = Object.keys(crns)
+
     try {
       let responses = await Promise.all(
-        crns.map(async (crn) => {
-          const response = await fetch(`https://api.aggieseek.net/sections/202431/${crn}/`);
+        crns.map(async crn => {
+          const response = await fetch(`${API_URL}/classes/${CURRENT_TERM}/${crn}/`);
           return response.json();
         })
-      );
+      )
 
-      responses = responses.filter((response) => response.status === 200);
+      responses = responses.filter(response => response.STATUS === 200);
 
       responses.sort((a, b) => {
-        if (a.course < b.course) return -1;
-        if (a.course > b.course) return 1;
+        if (a.COURSE_NAME < b.COURSE_NAME) return -1;
+        if (a.COURSE_NAME > b.COURSE_NAME) return 1;
         return 0;
       });
 
       setSections(responses);
-      setPageState('LOADED');
+      setPageState("LOADED");
     } catch (e) {
-      setPageState('ERROR');
+      console.log(e);
+      setPageState("ERROR")
     }
-  };
 
-  const addSection = () => {
-    const userInput = crnInput;
-    if (userInput === '') return;
-    setButtonState('waiting')
-
-    fetch(`https://api.aggieseek.net/sections/202431/${userInput}/`)
-      .then((data) => {
-        console.log(data)
-        if (data.status === 400) {
-          setButtonState('invalid')
-          setPopup(`CRN ${userInput} does not exist!`)
-          return;
-        }
-
-        const uid = getAuth().currentUser.uid;
-        const dbRef = ref(getDatabase(), 'users/' + uid + '/sections/' + userInput);
-        const sectionDbRef = ref(getDatabase(), 'sections/' + userInput + '/users/' + uid + '/');
-        set(dbRef, true);
-        set(sectionDbRef, true);
-
-        updateDatabase();
-        setPopup(`CRN ${userInput} has been added!`)
-        setCrnInput("");
-        setButtonState('normal')
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  };
-
+  }
 
   const removeSection = (crn) => {
     const uid = getAuth().currentUser.uid
-    const dbRef = ref(getDatabase(), 'users/' + uid + '/sections/' + crn);
-    const sectionUsersRef = ref(getDatabase(), 'sections/' + crn + '/users/' + uid + '/');
+    const dbRef = ref(getDatabase(), `users/${uid}/sections/${CURRENT_TERM}/${crn}`);
+    const sectionUsersRef = ref(getDatabase(), `sections/${CURRENT_TERM}/${crn}/users/${uid}`);
     setSections(sections.filter(course => course.crn !== crn))
     remove(dbRef)
       .then(() => {
@@ -148,8 +117,9 @@ const Dashboard = () => {
       });
   }
 
+
   const updateDatabase = () => {
-    fetchCrnFromDatabase(getAuth().currentUser.uid)
+    fetchUserCRNs(getAuth().currentUser.uid)
       .then((data) => {
         fetchSectionData(data);
       })
@@ -182,41 +152,13 @@ const Dashboard = () => {
 
           {pageState !== 'INACTIVE' &&
             <div className="flex flex-row sm:justify-start md:justify-end"> {/* Container for right-aligned items */}
-              <Popover as="div" className="inline-block">
-                <PopoverButton hidden={pageState === 'LOADING'} className="justify-center w-full px-0 md:px-4 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                  Add New Section
-                </PopoverButton>
 
-                <PopoverPanel className={"ml-6 md:ml-0 absolute z-40 origin-top-right bg-white border duration-100 shadow-lg p-2 data-[closed]:scale-95 data-[closed]:opacity-0 transition"}
-                  transition
-                  anchor={"bottom end"}>
-                  <form onSubmit={(e) => {
-                    e.preventDefault();
-                    addSection()
-                  }} className={"p-2"}>
-                    <label className="block text-sm font-medium text-center text-gray-700">Enter your desired
-                      CRN</label>
-                    <input value={crnInput} onChange={(e) => handleCRNInput(e)}
-                      disabled={buttonState === 'waiting'}
-                      onClick={(e) => e.stopPropagation()} name="crn" id="crn"
-                      placeholder="CRN" autoComplete="off" maxLength={5} inputMode={"numeric"}
-                      className={`mt-2 block w-full h-8 rounded-md border ${buttonState === 'invalid' && "bg-red-50"} shadow-sm sm:text-sm px-2`} />
-                    <div className="flex justify-center w-full">
-                      <Button type="submit"
-                        disabled={buttonState === 'waiting'}
-                        className="mt-3 w-44 inline-flex text-sm justify-center disabled:bg-[#8d0509] disabled:cursor-default">
-                        {buttonState === 'waiting'
-                          ? <LoadingCircle className={"text-white"}></LoadingCircle>
-                          : "Track this section"}
-                      </Button>
-                    </div>
-                  </form>
-                </PopoverPanel>
-              </Popover>
+              <AddDialog sections={sections} updateDatabase={updateDatabase} />
 
               <button hidden={pageState === 'LOADING'} onClick={() => setIsEditMode(!isEditMode)}
-                className="pl-4 z-10 py-2 text-sm font-medium text-[#8d0509] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                Edit
+                className="z-10 py-2 focus:outline-none flex hover:underline items-center focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                <PencilSquareIcon className="w-4 mr-1" />
+                <p className="text-sm font-medium text-aggiered">Edit Sections</p>
               </button>
             </div>}
         </div>
@@ -225,32 +167,43 @@ const Dashboard = () => {
       {pageState === 'LOADED' &&
         <div className="mt-5 mb-10 px-2 sm:px-6 lg:px-8 flex justify-center">
           <div className="flex justify-center w-full max-w-7xl px-4 origin-top-left">
-            <Table>
+            <Table containerClassName="shadow-xl">
               <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[10%]">CRN</TableHead>
-                  <TableHead className="w-[15%]">Term</TableHead>
-                  <TableHead className="w-[15%]">Course</TableHead>
-                  <TableHead className="w-[35%]">Title</TableHead>
-                  <TableHead className="w-[25%]">Professor</TableHead>
-                  <TableHead className="w-[10%] text-right">Seats</TableHead>
+                <TableRow className="bg-aggiered">
+                  <TableHead className="w-[10%] text-white">CRN</TableHead>
+                  <TableHead className="w-[15%] text-white">Term</TableHead>
+                  <TableHead className="w-[15%] text-white">Course</TableHead>
+                  <TableHead className="w-[35%] text-white">Title</TableHead>
+                  <TableHead className="w-[25%] text-white">Professor</TableHead>
+                  <TableHead className="w-[10%] text-white text-right">Seats</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {
                   chunkArray(sections)[sections.length === 0 ? 0 : Math.min(page, Math.floor((sections.length - 1) / 8))].map((section) => (
-                    <TableRow key={section.crn} className={"transition-colors duration-100 hover:bg-muted/50"}>
+                    <TableRow key={section.CRN} className={"transition-colors duration-100 hover:bg-muted/50"}>
                       <TableCell className="font-medium relative">
-                        {section.crn}
-                        {isEditMode && <button onClick={() => removeSection(section.crn)}>
+                        {section.CRN}
+                        {isEditMode && <button onClick={() => removeSection(section.CRN)}>
                           <XMarkIcon className={"w-6 transition-all absolute top-1/2 -translate-y-1/2 text-red-600 hover:scale-95 active:scale-90 hover:text-red-700"}></XMarkIcon>
                         </button>}
                       </TableCell>
-                      <TableCell>{section.term}</TableCell>
-                      <TableCell>{section.course}</TableCell>
-                      <TableCell>{section.title}</TableCell>
-                      <TableCell>{section.professor}</TableCell>
-                      <TableCell className={`text-right flex justify-end items-center`}>{section.seats.remaining}</TableCell>
+                      <TableCell>{section.TERM_CODE}</TableCell>
+                      <TableCell>{section.COURSE_NAME}</TableCell>
+                      <TableCell>{section.COURSE_TITLE}</TableCell>
+                      <TableCell>{section.INSTRUCTOR}</TableCell>
+                      <TableCell className={`text-right flex justify-end items-center`}>
+                        <HoverCard closeDelay={200}>
+                          <HoverCardTrigger>
+                            {section.SEATS.REMAINING}
+                          </HoverCardTrigger>
+                          <HoverCardContent className="items-start w-60 flex-col flex">  
+                            <p>Current: {section.SEATS.ACTUAL}</p>
+                            <p>Remaining: {section.SEATS.REMAINING}</p>
+                            <p>Capacity: {section.SEATS.CAPACITY}</p>
+                          </HoverCardContent>
+                        </HoverCard>
+                      </TableCell>
                     </TableRow>
                   ))
                 }
@@ -290,18 +243,18 @@ const Dashboard = () => {
 
       {pageState === 'LOADING' &&
         <div className="flex flex-row justify-center mt-8">
-          <LoadingCircle></LoadingCircle>
+          <LoadingCircle />
         </div>}
 
       {pageState === 'ERROR' &&
         <div className="flex flex-col items-center justify-center mt-8">
-          <ExclamationTriangleIcon className={"w-12 mr-2"}></ExclamationTriangleIcon>
+          <ExclamationTriangleIcon className={"w-12 mr-2"} />
           An error occurred while loading your courses.
         </div>}
 
       {pageState === 'INACTIVE' &&
         <div className="flex flex-col items-center justify-center mt-8">
-          <ExclamationTriangleIcon className={"w-12 mr-2"}></ExclamationTriangleIcon>
+          <ExclamationTriangleIcon className={"w-12 mr-2"} />
           Course registration is not open yet.
         </div>}
 

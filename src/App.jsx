@@ -11,6 +11,7 @@ import pyramids from "./assets/pyramids.svg"
 import "./firebase"
 import {PopupProvider} from "./contexts/PopupContext.jsx";
 import Popup from "./components/Popup.jsx";
+import { Toaster } from "./components/ui/toaster"
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
     <PopupProvider>
       <BrowserRouter>
       <Navbar></Navbar>
+      <Toaster />
       <Popup></Popup>
       <div className="pb-16"></div>
       <Routes>

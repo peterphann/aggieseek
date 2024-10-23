@@ -103,8 +103,8 @@ export default function Navbar() {
     <Disclosure as="nav" className="bg-transparent shadow-sm fixed top-0 left-0 right-0 z-30">
       {({ open }) => (
         <>
-          <div className="px-2 sm:px-6 lg:px-8">
-            <div className="relative flex h-16 items-center justify-between">
+          <div className="px-2 sm:px-6 bg-white lg:px-8">
+            <div className="relative flex  h-16 items-center justify-between">
               <div className="flex items-center sm:hidden">
                 {/* Mobile menu button*/}
                 <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -158,12 +158,10 @@ export default function Navbar() {
                       onFocus={clearNotifications}
                       className="origin-top-right transition duration-100 ease-out data-[closed]:scale-95 data-[closed]:opacity-0
                                           z-30 absolute right-0 w-64 sm:w-80 mt-2 bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <div className="px-1 py-1">
-                        <MenuItem className="bg-[#A8292F]">
-                          <div className='p-2'>
-                            <p className='font-bold text-white'>
-                              Notifications
-                            </p>
+                      <div className="">
+                        <MenuItem className="bg-aggiered">
+                          <div className='py-2 px-4 font-semibold text-white'>
+                            Notifications
                           </div>
                         </MenuItem>
                         <div className={"overflow-y-auto max-h-64"}>
@@ -184,8 +182,8 @@ export default function Navbar() {
                             ))
                           ) : (
                             <MenuItem>
-                              <div className='p-2'>
-                                <p className='text'>No new notifications</p>
+                              <div className='py-4 text-center'>
+                                <p className='text-sm'>No new notifications</p>
                               </div>
                             </MenuItem>
                           )}
@@ -251,8 +249,8 @@ export default function Navbar() {
             </div>
           </div>
 
-          <DisclosurePanel className="sm:hidden bg-white">
-            <div className="px-2 py-3">
+          <DisclosurePanel className="sm:hidden">
+            <div className="space-y-1 px-2 pb-3 pt-2 bg-white shadow-lg">
               {navigation.filter((item) => (!item.private || isUser) && !(item.hideWhenLoggedIn && isUser)).map((item) => (
                 <DisclosureButton
                   key={item.name}

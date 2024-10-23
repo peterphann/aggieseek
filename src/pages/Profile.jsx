@@ -1,4 +1,4 @@
-import { Switch } from "../components/Switch";
+import { Switch } from "../components/ui/switch";
 import { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { getDatabase, ref, onValue, set } from "firebase/database";
