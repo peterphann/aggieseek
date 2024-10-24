@@ -4,7 +4,6 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { motion } from "framer-motion"
 import { useState } from "react"
-import { usePopup } from "../../contexts/PopupContext"
 import { getAuth } from "firebase/auth"
 import { ref, getDatabase, set } from "firebase/database"
 import LoadingCircle from "../LoadingCircle"
@@ -18,8 +17,6 @@ const CRNDialog = ({ sections, updateDatabase }) => {
 
   const [crnInput, setCRNInput] = useState("")
   const [buttonState, setButtonState] = useState("IDLE")
-
-  const { setPopup } = usePopup()
 
   const handleCRNInput = (e) => {
     setButtonState('IDLE')
@@ -82,7 +79,6 @@ const CRNDialog = ({ sections, updateDatabase }) => {
           title: "Error occuurred",
           description: `CRN ${userInput} has been added!`,
         })
-        setPopup('Please try again.');
       })
   };
 

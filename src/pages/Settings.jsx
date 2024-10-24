@@ -4,13 +4,13 @@ import { getAuth } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
 import LoadingCircle from "../components/LoadingCircle";
 import Button from "../components/Button.jsx";
-import { usePopup } from "../contexts/PopupContext.jsx";
 import InputUndo from "../components/InputUndo.jsx";
 import useUpdate from "../hooks/useUpdate.jsx";
 import validator from 'validator'
 import { Info } from "lucide-react";
 import discord from '../assets/discord-mark-blue.png'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "../components/ui/dialog";
+import { toast } from "@/hooks/use-toast";
 
 const Settings = () => {
 
@@ -27,7 +27,6 @@ const Settings = () => {
   const [isUsingDiscord, setUsingDiscord] = useState(false)
   const [invalidPhone, setInvalidPhone] = useState(false)
 
-  const { setPopup } = usePopup()
   const { updateSetting } = useUpdate()
 
   const validateNumber = (number) => {
@@ -36,7 +35,10 @@ const Settings = () => {
 
   const updateAllSettings = () => {
     if (!validateNumber(inputPhone)) {
-      setPopup('Invalid phone number!')
+      toast({
+        title: "Error",
+        description: `Invalid phone number.`,
+      })
       setInvalidPhone(true)
       return;
     }
@@ -46,9 +48,15 @@ const Settings = () => {
       updateSetting('/methods/email/value', inputEmail, setActualEmail),
       updateSetting('/methods/discord/value', inputDiscord, setActualDiscord)
     ])
-      .then(() => setPopup('Changes saved!'))
+      .then(() => toast({
+        title: "Success!",
+        description: `Your changes have been saved.`,
+      }))
       .catch((error) => {
-        setPopup('An error has occurred.')
+        toast({
+          title: "Error",
+          description: `An unknown error has occurred.`,
+        })
       })
   }
 

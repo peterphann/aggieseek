@@ -1,4 +1,3 @@
-import { Switch } from "../components/ui/switch";
 import { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { getDatabase, ref, onValue, set } from "firebase/database";
@@ -8,7 +7,7 @@ import InputUndo from "../components/InputUndo.jsx";
 import Button from "../components/Button.jsx";
 import useUpdate from "../hooks/useUpdate.jsx";
 import anonymous from '../assets/profile.webp'
-import { usePopup } from "../contexts/PopupContext.jsx";
+import { toast } from "@/hooks/use-toast"
 
 const Profile = () => {
 
@@ -24,7 +23,6 @@ const Profile = () => {
   const [inputProfilePic, setInputProfilePic] = useState(null);
 
   const { updateSetting } = useUpdate()
-  const { setPopup } = usePopup()
 
   const updateAllSettings = () => {
     getAuth().onAuthStateChanged((user) => {
@@ -51,16 +49,25 @@ const Profile = () => {
             })
             .catch((error) => {
               console.error('Failed to upload profile picture:', error);
-              setPopup('Failed to upload profile picture.');
+              toast({
+                title: "Error",
+                description: `Failed to upload profile picture.`,
+              })
             });
 
           promises.push(uploadPromise);
         }
 
         Promise.all(promises)
-          .then(() => setPopup('Changes saved!'))
+          .then(() => toast({
+            title: "Success!",
+            description: `Your changes have been saved.`,
+          }))
           .catch((error) => {
-            setPopup('An error has occurred.');
+            toast({
+              title: "Error",
+              description: `An unknown error has occurred.`,
+            })
             console.error(error);
           });
       }
@@ -110,16 +117,24 @@ const Profile = () => {
             .then(() => {
               // Only after setting the profilePicUrl in the database, update the state
               setActualProfilePic(url);  // Update local state with the image URL
-              setPopup('Profile picture updated successfully!');
+              toast({
+                title: "Success!",
+                description: `Profile picture uploaded successfully!`,
+              })
             });
         })
         .catch((error) => {
           console.error('Error occurred during file upload:', error);
-          setPopup('Failed to upload profile picture.');
+          toast({
+            title: "Error",
+            description: `Failed to upload profile picture.`,
+          })
         });
     } else {
-      setPopup('No file selected.');
-      console.error('No file selected for upload.');
+      toast({
+        title: "Error",
+        description: `No file selected for upload.`,
+      })
     }
   };
 

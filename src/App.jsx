@@ -9,32 +9,27 @@ import Profile from './pages/Profile'
 import ForgotPassword from './pages/ForgotPassword'
 import pyramids from "./assets/pyramids.svg"
 import "./firebase"
-import {PopupProvider} from "./contexts/PopupContext.jsx";
-import Popup from "./components/Popup.jsx";
 import { Toaster } from "./components/ui/toaster"
 
 function App() {
 
   return (
-    <PopupProvider>
-      <BrowserRouter>
-      <Navbar></Navbar>
-      <Toaster />
-      <Popup></Popup>
-      <div className="pb-16"></div>
-      <Routes>
-        <Route index path="/" element={<Home></Home>}></Route>
-        <Route path="home" element={<Home></Home>}></Route>
-        <Route path="signup" element={<Signup></Signup>}></Route>
-        <Route path="signin" element={<Login></Login>}></Route>
-        <Route path="dashboard" element={<Dashboard></Dashboard>}></Route>
-        <Route path="settings" element={<Settings></Settings>}></Route>
-        <Route path="profile" element={<Profile></Profile>}></Route>
-        <Route path="forgotpassword" element={<ForgotPassword></ForgotPassword>}></Route>
-      </Routes>
-      <img src={pyramids} draggable={false} alt="" className="fixed bottom-0 -z-10 w-screen"/>
-      </BrowserRouter>
-    </PopupProvider>
+    <BrowserRouter>
+    <Navbar></Navbar>
+    <Toaster />
+    <div className="pb-16"></div>
+    <Routes>
+      <Route index path="/" element={<Home></Home>}></Route>
+      <Route path="home" element={<Home></Home>}></Route>
+      <Route path="signup" element={<Signup></Signup>}></Route>
+      <Route path="signin" element={<Login></Login>}></Route>
+      <Route path="dashboard" element={<Dashboard></Dashboard>}></Route>
+      <Route path="settings" element={<Settings></Settings>}></Route>
+      <Route path="profile" element={<Profile></Profile>}></Route>
+      <Route path="forgotpassword" element={<ForgotPassword></ForgotPassword>}></Route>
+    </Routes>
+    <img src={pyramids} draggable={false} alt="" className="fixed bottom-0 -z-10 w-screen"/>
+    </BrowserRouter>
   )
 }
 

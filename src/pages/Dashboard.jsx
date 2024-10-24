@@ -8,11 +8,6 @@ import {
   TableRow,
 } from "../components/ui/table";
 import {
-  Popover,
-  PopoverButton,
-  PopoverPanel
-} from '@headlessui/react';
-import {
   Pagination,
   PaginationContent,
   PaginationItem,
@@ -25,10 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { getDatabase, onValue, ref, remove, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import LoadingCircle from "../components/LoadingCircle";
-import { ExclamationTriangleIcon, PencilSquareIcon, PlusIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
-import Button from "../components/Button.jsx";
-import { usePopup } from "../contexts/PopupContext.jsx";
-import SearchDialog from "../components/dialog/SearchDialog";
+import { ExclamationTriangleIcon, PencilSquareIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import AddDialog from "../components/dialog/AddDialog";
 
@@ -39,7 +31,6 @@ const MAXIMUM_SECTIONS = parseInt(import.meta.env.VITE_MAXIMUM_SECTIONS)
 const Dashboard = () => {
 
   const navigate = useNavigate();
-  const { setPopup } = usePopup()
 
   const [crnInput, setCrnInput] = useState("");
   const [sections, setSections] = useState([]);
