@@ -28,12 +28,11 @@ export const columns = [
     header: "CRN",
   },
   {
-    accessorKey: "SWV_CLASS_SEARCH_SUBJECT",
-    header: 'Subject'
-  },
-  {
-    accessorKey: "SWV_CLASS_SEARCH_COURSE",
-    header: 'Course'
+    accessorKey: 'SWV_CLASS_SEARCH_SUBJECT',
+    header: 'Course',
+    cell: ({ row }) => (
+      <div>{row.original.SWV_CLASS_SEARCH_SUBJECT} {row.original.SWV_CLASS_SEARCH_COURSE}</div>
+    )
   },
   {
     accessorKey: "SWV_CLASS_SEARCH_SECTION",
@@ -43,4 +42,22 @@ export const columns = [
     accessorKey: "SWV_CLASS_SEARCH_HOURS_LOW",
     header: 'Credits'
   },
+  {
+    accessorKey: 'INSTRUCTOR',
+    header: 'Instructor'
+  },
+  {
+    accessorKey: 'SWV_CLASS_SEARCH_INST_TYPE',
+    header: 'Instruction Mode'
+  },
+  {
+    accessorKey: 'SEATS',
+    header: 'Remaining',
+    cell: ({ row }) => {
+      const remainingSeats = row.original.SEATS.REMAINING;
+      return (
+        <div className={remainingSeats < 1 && "text-red-700/50"}>{remainingSeats}</div>
+      );
+    }
+  }
 ]
