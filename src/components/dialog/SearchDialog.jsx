@@ -4,20 +4,29 @@ import { Button } from "../ui/button"
 import { useEffect, useState } from "react"
 import { Label } from "../ui/label"
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "../ui/command"
-import { ChevronsUpDown, Check, SendHorizonal, Search } from "lucide-react"
+import { ChevronsUpDown, Check, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
 import LoadingCircle from "../LoadingCircle"
+import { getCoreRowModel, useReactTable } from "@tanstack/react-table"
 import { DataTable } from "@/table/data-table"
-import { columns } from "@/table/columns"
+import { fullColumns, mobileColumns } from "@/table/columns"
+import { motion } from "framer-motion"
+import { getAuth } from "firebase/auth"
+import { ref, getDatabase, set } from "firebase/database"
+import { toast } from "@/hooks/use-toast"
+import { useMediaQuery } from "@react-hook/media-query"
 
 const API_URL = import.meta.env.VITE_API_URL
 const CURRENT_TERM = import.meta.env.VITE_CURRENT_TERM
+const MAXIMUM_SECTIONS = import.meta.env.VITE_MAXIMUM_SECTIONS
 
-const SearchDialog = () => {
+const SearchDialog = ({ sections, updateDatabase }) => {
+
+  const matches = useMediaQuery('(min-width: 700px)')
 
   const [subjects, setSubjects] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [sections, setSections] = useState([])
+  const [sectionsList, setSectionsList] = useState([])
 
   const [subjectOpen, setSubjectOpen] = useState(false)
   const [courseOpen, setCourseOpen] = useState(false)
@@ -26,53 +35,119 @@ const SearchDialog = () => {
   const [courseState, setCourseState] = useState('IDLE')
   const [sectionState, setSectionState] = useState('IDLE')
 
-  const [selectedSubject, setSelectedSubject] = useState(null)
-  const [selectedCourse, setSelectedCourse] = useState(null)
+  const [selectedSubject, setSelectedSubject] = useState("")
+  const [selectedCourse, setSelectedCourse] = useState("")
 
-  const fetchSubjects = () => {
+  const [buttonState, setButtonState] = useState("IDLE")
+
+  const addSection = crn => {
+    return fetch(`${API_URL}/classes/${CURRENT_TERM}/${crn}/`)
+      .then((data) => {
+        if (data.status === 400) return 'ERROR';
+
+        const uid = getAuth().currentUser.uid;
+        const dbRef = ref(getDatabase(), `users/${uid}/sections/${CURRENT_TERM}/${crn}`);
+        const sectionDbRef = ref(getDatabase(), `sections/${CURRENT_TERM}/${crn}/users/${uid}`);
+        set(dbRef, true);
+        set(sectionDbRef, true);
+
+        updateDatabase();
+
+        return 'SUCCESS';
+      })
+      .catch((error) => {
+        console.error(error);
+        return 'ERROR';
+      })
+  };
+
+  const addSections = () => {
+    const selectedRows = table.getSelectedRowModel().rows;
+    const crns = selectedRows
+      .map(row => row.original.SWV_CLASS_SEARCH_CRN)
+      .filter(crn => !sections.some(section => section.CRN === crn))
+
+    if (crns.length != selectedRows.length) {
+      toast({
+        title: 'Error',
+        description: 'You selected a section you are already tracking!'
+      });
+      return;
+    }
+
+    if (sections.length + crns.length > MAXIMUM_SECTIONS) {
+      toast({
+        title: 'Error',
+        description: 'You cannot exceed more than 8 sections!'
+      });
+      return;
+    }
+
+    Promise.all(crns.map(crn => addSection(crn)))
+      .then(statuses => {
+        if (statuses.every(status => status == 'ERROR')) {
+          toast({
+            title: 'Error',
+            description: 'An unknown error occurred.'
+          })
+        } else {
+          toast({
+            title: 'Success!',
+            description: 'You have successfully tracked these sections!'
+          })
+        }
+      })
+  }
+
+  const fetchFromDatabase = async url => {
+    try {
+      const data = await fetch(`${API_URL}/${url}`)
+      return await data.json()
+    } catch (error) {
+      console.error(error)
+      return null
+    }
+  }
+
+  const fetchSubjects = async () => {
     setSubjectState('LOADING')
-    fetch(`${API_URL}/subjects/${CURRENT_TERM}`)
-      .then(data => {
-        return data.json()
-      }).then(json => {
-        const departments = json.DEPARTMENTS
-        setSubjectState('IDLE')
-        setSubjects(departments)
-      }).catch(e => {
-        setSubjectState('ERROR')
-        setSubjects([])
-        console.log(e)
-      })
+    try {
+      const departments = await fetchFromDatabase(`subjects/${CURRENT_TERM}`);
+      setSubjectState(departments == [] ? 'ERROR' : 'IDLE')
+      setSubjects(departments.DEPARTMENTS)
+    } catch (error) {
+      console.error(error)
+      setSubjects([])
+      setSubjectState('ERROR')
+    }
   }
 
-  const fetchCourses = subject => {
+  const fetchCourses = async subject => {
     setCourseState('LOADING')
-    fetch(`${API_URL}/subjects/${CURRENT_TERM}/${subject}`)
-      .then(data => {
-        return data.json()
-      }).then(json => {
-        setCourseState('IDLE')
-        setCourses(json.COURSES)
-      }).catch(e => {
-        setCourseState('ERROR')
-        setCourses([])
-        console.log(e)
-      })
+    try {
+      const courses = await fetchFromDatabase(`subjects/${CURRENT_TERM}/${subject}`);
+      setCourseState(courses == [] ? 'ERROR' : 'IDLE')
+      setCourses(courses.COURSES)
+    } catch (error) {
+      console.error(error)
+      setCourses([])
+      setCourseState('ERROR')
+    }
   }
 
-  const fetchSections = (subject, course) => {
+  const fetchSections = async (subject, course) => {
     setSectionState('LOADING')
-    fetch(`${API_URL}/subjects/${CURRENT_TERM}/${subject}/${course}`)
-      .then(data => {
-        return data.json()
-      }).then(json => {
-        setSectionState('IDLE')
-        setSections(json.SECTIONS)
-      }).catch(e => {
-        setSectionState('ERROR')
-        setSections([])
-        console.log(e)
-      })
+    const code = course.substring(0, 3)
+    try {
+      const sections = await fetchFromDatabase(`subjects/${CURRENT_TERM}/${subject}/${code}`);
+      setSectionState(sections == [] ? 'ERROR' : 'IDLE')
+      setSectionsList(sections.SECTIONS)
+      console.log(sections)
+    } catch (error) {
+      console.error(error)
+      setSectionsList([])
+      setSectionState('ERROR')
+    }
   }
 
   useEffect(() => {
@@ -81,19 +156,26 @@ const SearchDialog = () => {
 
   useEffect(() => {
     setCourses([])
-    setSections([])
-    setSelectedCourse(null)
-    if (selectedSubject != null) {
+    setSectionsList([])
+    setSelectedCourse("")
+    if (selectedSubject != "") {
       fetchCourses(selectedSubject)
     }
   }, [selectedSubject])
 
   useEffect(() => {
-    setSections([])
+    table.resetRowSelection();
+    setSectionsList([])
   }, [selectedCourse])
 
+  const table = useReactTable({
+    data: sectionsList,
+    columns: matches ? fullColumns : mobileColumns,
+    getCoreRowModel: getCoreRowModel(),
+  })
+
   return (
-    <div className="c">
+    <>
       <DialogHeader>
         <DialogTitle className='text-2xl'>Search Sections</DialogTitle>
         <DialogDescription>
@@ -102,7 +184,7 @@ const SearchDialog = () => {
       </DialogHeader>
 
       <div className="flex justify-between mt-6">
-        <div className="flex-col flex">
+        <div className="flex-col flex w-full">
           <Label className={"mb-3"}>Subject</Label>
           <Popover open={subjectOpen} onOpenChange={setSubjectOpen}>
             <PopoverTrigger asChild>
@@ -110,14 +192,14 @@ const SearchDialog = () => {
                 variant="outline"
                 role="combobox"
                 aria-expanded={subjectOpen}
-                className="md:w-[400px] justify-between">
+                className="w-2/3 md:w-1/3 justify-between">
                 {selectedSubject
-                  ? subjects.find((subject) => subject.SUBJECT === selectedSubject)?.DESCRIPTION
+                  ? <span className="truncate">{subjects.find((subject) => subject.SUBJECT === selectedSubject)?.DESCRIPTION}</span>
                   : "Select subject..."}
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent side="bottom" align="start" className="md:w-[400px] h-60 p-0" >
+            <PopoverContent side="bottom" style={{ width: 'var(--radix-popover-trigger-width)' }} align="start" className="w-full h-60 p-0" >
               <Command>
                 <CommandInput placeholder="Search subject..." />
                 <CommandList>
@@ -163,17 +245,17 @@ const SearchDialog = () => {
                   disabled={!courses || courses.length === 0}
                   role="combobox"
                   aria-expanded={courseOpen}
-                  className={`md:w-[400px] ${courseState === 'LOADING' ? 'justify-center' : 'justify-between'}`}>
+                  className={`w-2/3 md:w-1/3 ${courseState === 'LOADING' ? 'justify-center' : 'justify-between'}`}>
                   {selectedCourse
-                    ? courses.find((course) => course.COURSE === selectedCourse)?.DISPLAY
+                    ? <span className="truncate">{courses.find((course) => course.DISPLAY === selectedCourse)?.DISPLAY}</span>
                     : courseState === 'LOADING'
                       ? <LoadingCircle />
                       : "Select course..."}
                   {courseState !== 'LOADING' &&
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />}
+                    <ChevronsUpDown className="ml-2 relative h-4 w-4 shrink-0 opacity-50" />}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent side="bottom" align="start" className="md:w-[400px] p-0" >
+              <PopoverContent side="bottom" align="start" style={{ width: 'var(--radix-popover-trigger-width)' }} className="p-0" >
                 <Command>
                   <CommandInput placeholder="Search course..." />
                   <CommandList>
@@ -188,7 +270,7 @@ const SearchDialog = () => {
                       {courses.map((course) => (
                         <CommandItem
                           key={course.COURSE}
-                          value={course.COURSE}
+                          value={course.DISPLAY}
                           onSelect={(currentValue) => {
                             setSelectedCourse(currentValue === selectedCourse ? "" : currentValue)
                             setCourseOpen(false)
@@ -198,7 +280,7 @@ const SearchDialog = () => {
                           <Check
                             className={cn(
                               "mr-2 h-4 w-4",
-                              selectedCourse === course.COURSE ? "opacity-100" : "opacity-0"
+                              selectedCourse === course.DISPLAY ? "opacity-100" : "opacity-0"
                             )}
                           />
                           {course.DISPLAY}
@@ -209,7 +291,7 @@ const SearchDialog = () => {
                 </Command>
               </PopoverContent>
             </Popover>
-            {selectedCourse != null &&
+            {selectedCourse != "" &&
               <button
                 onClick={() => fetchSections(selectedSubject, selectedCourse)}
                 className="transition-colors hover:cursor-pointer w-10 h-10 flex justify-center items-center border rounded-md ml-2 hover:bg-slate-100">
@@ -219,13 +301,25 @@ const SearchDialog = () => {
         </div>
       </div>
 
-      <div className={"mt-5 mb-2"}>
-        <Label>Sections</Label>
+      <div className="w-full h-64">
+        <div className="flex justify-between mb-2 h-12 items-end">
+          <Label>Sections</Label>
+          {Object.keys(table.getState().rowSelection).length != 0 && <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}>
+            <Button className="bg-aggiered hover:bg-aggiered w-20 h-8 text-xs"
+              onClick={addSections}>
+              {buttonState === 'WAITING'
+                ? <LoadingCircle className={"text-white"} />
+                : "Track"}
+            </Button>
+          </motion.div>}
+        </div>
+        <div className="h-full">
+          <DataTable sections={sections} table={table} columns={fullColumns} data={sectionsList} fetchState={sectionState} />
+        </div>
       </div>
-      <div className="h-80  mb-10 overflow-y-auto">
-        <DataTable columns={columns} data={sections} fetchState={sectionState} />
-      </div>
-    </div>
+    </>
   )
 
 }
