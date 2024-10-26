@@ -20,9 +20,10 @@ import { useNavigate } from "react-router-dom";
 import { getDatabase, onValue, ref, remove, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import LoadingCircle from "../components/LoadingCircle";
-import { ExclamationTriangleIcon, PencilSquareIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
+import { ExclamationTriangleIcon, PencilSquareIcon, PlusIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import AddDialog from "../components/dialog/AddDialog";
+import { toast } from "@/hooks/use-toast";
 
 const API_URL = import.meta.env.VITE_API_URL
 const CURRENT_TERM = import.meta.env.VITE_CURRENT_TERM
@@ -32,11 +33,10 @@ const Dashboard = () => {
 
   const navigate = useNavigate();
 
-  const [crnInput, setCrnInput] = useState("");
   const [sections, setSections] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [page, setPage] = useState(0);
-  const [buttonState, setButtonState] = useState('normal')
+  const [isOpen, setOpen] = useState(false);
   const [pageState, setPageState] = useState('LOADING');
 
   function chunkArray(array) {
@@ -101,6 +101,10 @@ const Dashboard = () => {
     setSections(sections.filter(course => course.crn !== crn))
     remove(dbRef)
       .then(() => {
+        toast({
+          title: 'Success!',
+          description: `Removed CRN ${crn}.`
+        })
         return remove(sectionUsersRef);
       })
       .then(() => {
@@ -144,7 +148,7 @@ const Dashboard = () => {
           {pageState !== 'INACTIVE' &&
             <div className="flex flex-row sm:justify-start md:justify-end"> {/* Container for right-aligned items */}
 
-              <AddDialog sections={sections} updateDatabase={updateDatabase} />
+              <AddDialog open={isOpen} onOpenChange={setOpen} sections={sections} updateDatabase={updateDatabase} />
 
               <button hidden={pageState === 'LOADING'} onClick={() => setIsEditMode(!isEditMode)}
                 className="z-10 py-2 focus:outline-none flex hover:underline items-center focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
@@ -156,7 +160,7 @@ const Dashboard = () => {
       </div>
 
       {pageState === 'LOADED' &&
-        <div className="mt-5 mb-10 px-2 sm:px-6 lg:px-8 flex justify-center">
+        <div className="flex justify-center mt-5 mb-10 px-2 sm:px-6 lg:px-8">
           <div className="flex justify-center w-full max-w-7xl px-4 origin-top-left">
             <Table containerClassName="shadow-xl">
               <TableHeader>
@@ -183,12 +187,12 @@ const Dashboard = () => {
                       <TableCell>{section.COURSE_NAME}</TableCell>
                       <TableCell>{section.COURSE_TITLE}</TableCell>
                       <TableCell>{section.INSTRUCTOR}</TableCell>
-                      <TableCell className={`text-right flex justify-end items-center`}>
+                      <TableCell className="text-right">
                         <HoverCard closeDelay={200}>
                           <HoverCardTrigger>
                             {section.SEATS.REMAINING}
                           </HoverCardTrigger>
-                          <HoverCardContent className="items-start w-60 flex-col flex">  
+                          <HoverCardContent className="items-start w-60 flex-col flex">
                             <p>Current: {section.SEATS.ACTUAL}</p>
                             <p>Remaining: {section.SEATS.REMAINING}</p>
                             <p>Capacity: {section.SEATS.CAPACITY}</p>
@@ -201,8 +205,16 @@ const Dashboard = () => {
                 {
                   sections.length === 0 &&
                   <TableRow>
-                    <TableCell colSpan="6" className="text-center">Press "Add New Section" to add a
-                      section!</TableCell>
+                    <TableCell colSpan="6" className="text-center">
+                      <div className="flex justify-center">
+                        Press
+                        <span onClick={() => setOpen(true)} className="text-sm mr-2 hover:underline hover:cursor-pointer flex font-medium text-aggiered">
+                          <PlusIcon className="w-4 mr-1 ml-2" />
+                          Add Sections
+                        </span>&nbsp;to add a
+                        section!
+                      </div>
+                    </TableCell>
                   </TableRow>
                 }
               </TableBody>
@@ -246,7 +258,7 @@ const Dashboard = () => {
       {pageState === 'INACTIVE' &&
         <div className="flex flex-col items-center justify-center mt-8">
           <ExclamationTriangleIcon className={"w-12 mr-2"} />
-          Course registration is not open yet.
+          Course registration is not open.
         </div>}
 
     </div>
