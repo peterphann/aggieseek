@@ -1,4 +1,4 @@
-import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { flexRender } from "@tanstack/react-table";
 
 import {
   Table,
@@ -10,16 +10,11 @@ import {
 } from "@/components/ui/table"
 import LoadingCircle from "@/components/LoadingCircle";
 
-export function DataTable({ columns, data, fetchState }) {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  })
+export function DataTable({ table, columns, data, fetchState }) {
 
   return (
-    <div className="rounded-md border">
-      <Table>
+    <div className="rounded-md border overflow-x-auto h-full max-w-full">
+      <Table className='h-full'>
         <TableHeader className="bg-aggiered">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
@@ -29,23 +24,27 @@ export function DataTable({ columns, data, fetchState }) {
                     {header.isPlaceholder
                       ? null
                       : header.column.columnDef.id != "select" || data.length > 0
-                      ? flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )
-                    : null}
+                        ? flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )
+                        : null}
                   </TableHead>
                 )
               })}
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        <TableBody className="">
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
+            table.getRowModel().rows.map((row) => {
+              const seats = row.original.SEATS.REMAINING
+              const isFull = seats < 1
+
+              return <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                className={`${isFull ? "bg-red-50" : undefined} `}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id} className="h-12">
@@ -53,7 +52,7 @@ export function DataTable({ columns, data, fetchState }) {
                   </TableCell>
                 ))}
               </TableRow>
-            ))
+            })
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length}>
