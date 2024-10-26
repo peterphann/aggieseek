@@ -30,29 +30,26 @@ const CRNDialog = ({ sections, updateDatabase }) => {
     if (userInput === '') return;
     if (sections.length >= MAXIMUM_SECTIONS) {
       toast({
-        title: "Error occurred",
-        description: `You've reached the maximum number of sections!`,
+        title: "Error",
+        description: `You cannot exceed more than 8 sections! `,
       })
       return;
     }
     if (sections.some(section => section.CRN === userInput)) {
       toast({
-        title: "Error occurred",
+        title: "Error",
         description: `You are already tracking CRN ${userInput}!`,
       })
       return
     }
-    
-    
 
     setButtonState('WAITING')
     fetch(`${API_URL}/classes/${CURRENT_TERM}/${userInput}/`)
       .then((data) => {
-        console.log(data)
         if (data.status === 400) {
           setButtonState('ERROR')
           toast({
-            title: "Error occurred",
+            title: "Error",
             description: `CRN ${userInput} does not exist!`,
           })
           return;
@@ -106,7 +103,7 @@ const CRNDialog = ({ sections, updateDatabase }) => {
             className="mt-5 w-32"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}>
-            <Button type="submit" className="bg-aggiered hover:bg-aggiered w-32">
+            <Button type="submit" className="bg-aggiered hover:bg-aggiered w-24">
               {buttonState === 'WAITING'
               ? <LoadingCircle className={"text-white"} />
               : "Track"}
