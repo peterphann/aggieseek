@@ -142,7 +142,7 @@ const InstructorDialog = ({ sections, updateDatabase }) => {
   return (
     <>
       <DialogHeader>
-        <DialogTitle className='text-2xl'>Search Sections</DialogTitle>
+        <DialogTitle className='text-2xl'>Search Instructors</DialogTitle>
         <DialogDescription>
           Select an instructor from the dropdown to track their classes.
         </DialogDescription>
