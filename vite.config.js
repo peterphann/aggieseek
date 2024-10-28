@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/sections': 'http://api.aggieseek.net/'
+      '/sections': 'https://api.aggieseek.net/'
     }
   },
   resolve: {
