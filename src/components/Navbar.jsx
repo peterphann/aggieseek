@@ -163,7 +163,7 @@ export default function Navbar() {
                           <div className='py-2 px-4 font-semibold text-white'>
                             Notifications
                           </div>
-                        </MenuItem>
+                        </MenuItem> 
                         <div className={"overflow-y-auto max-h-64"}>
                           {notifications.length > 0 ? (
                             notifications.map((notification, index) => (
@@ -201,7 +201,7 @@ export default function Navbar() {
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
                       <img
-                        className="h-8 w-8 rounded-full"
+                        className="h-8 w-8 rounded-full object-cover"
                         src={actualProfilePic ? actualProfilePic : anonymous}
                         alt=""
                       />
