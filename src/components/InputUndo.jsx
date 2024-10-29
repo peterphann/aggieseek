@@ -5,7 +5,7 @@ import {motion, AnimatePresence} from "framer-motion";
 const InputUndo = ({actual, setValue, invalid, ...props}) => {
     return (
         <div className={'flex relative items-center'}>
-            <Input {...props} className={`${invalid && 'bg-red-100'}`}></Input>
+            <Input {...props} className={`${invalid && 'bg-red-100'} h-9`}></Input>
             <AnimatePresence>
                 {actual !== props.value && (
                     <motion.div

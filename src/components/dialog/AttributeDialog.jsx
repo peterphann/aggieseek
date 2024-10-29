@@ -19,18 +19,17 @@ const API_URL = import.meta.env.VITE_API_URL
 const CURRENT_TERM = import.meta.env.VITE_CURRENT_TERM
 const MAXIMUM_SECTIONS = import.meta.env.VITE_MAXIMUM_SECTIONS
 
-const InstructorDialog = ({ sections, updateDatabase }) => {
+const AttributeDialog = ({ sections, updateDatabase }) => {
 
-
-  const [instructors, setInstructors] = useState([]);
+  const [attributes, setAttributes] = useState([]);
   const [sectionsList, setSectionsList] = useState([])
 
-  const [instructorOpen, setInstructorOpen] = useState(false)
+  const [attributeOpen, setAttributeOpen] = useState(false)
 
-  const [instructorState, setInstructorState] = useState('IDLE')
+  const [attributeState, setAttributeState] = useState('IDLE')
   const [sectionState, setSectionState] = useState('IDLE')
 
-  const [selectedInstructor, setSelectedInstructor] = useState("")
+  const [selectedAttribute, setSelectedAttribute] = useState("")
 
   const [buttonState, setButtonState] = useState("IDLE")
 
@@ -96,24 +95,24 @@ const InstructorDialog = ({ sections, updateDatabase }) => {
     }
   }
 
-  const fetchInstructors = async () => {
-    setInstructorState('LOADING')
+  const fetchAttributes = async () => {
+    setAttributeState('LOADING')
     try {
-      const instructors = await fetchFromDatabase(`instructors`);
-      setInstructorState(instructors.INSTRUCTORS == [] ? 'ERROR' : 'IDLE')
-      setInstructors(instructors.INSTRUCTORS)
+      const attributes = await fetchFromDatabase(`attributes`);
+      setAttributeState(attributes.ATTRIBUTES == [] ? 'ERROR' : 'IDLE')
+      setAttributes(attributes.ATTRIBUTES)
     } catch (error) {
       console.error(error)
-      setInstructors([])
-      setInstructorState('ERROR')
+      setAttributes([])
+      setAttributeState('ERROR')
     }
   }
 
-  const fetchSections = async instructor => {
+  const fetchSections = async attribute => {
     setSectionState('LOADING')
 
     try {
-      const sections = await fetchFromDatabase(`instructors/${instructor}`);
+      const sections = await fetchFromDatabase(`attributes/${attribute}`);
       setSectionState(sections.SECTIONS == [] ? 'ERROR' : 'IDLE')
       setSectionsList(sections.SECTIONS)
     } catch (error) {
@@ -124,13 +123,13 @@ const InstructorDialog = ({ sections, updateDatabase }) => {
   }
 
   useEffect(() => {
-    fetchInstructors()
+    fetchAttributes()
   }, [])
 
   useEffect(() => {
     table.resetRowSelection();
     setSectionsList([])
-  }, [selectedInstructor])
+  }, [selectedAttribute])
 
   const table = useReactTable({
     data: sectionsList,
@@ -141,59 +140,59 @@ const InstructorDialog = ({ sections, updateDatabase }) => {
   return (
     <>
       <DialogHeader>
-        <DialogTitle className='text-2xl'>Search Instructors</DialogTitle>
+        <DialogTitle className='text-2xl'>Search Attributes</DialogTitle>
         <DialogDescription>
-          Select an instructor from the dropdown to track their classes.
+          Select an attribute from the dropdown to track classes with the given attribute.
         </DialogDescription>
       </DialogHeader>
 
       <div className="flex justify-between mt-6">
         <div className="flex-col flex w-full">
-          <Label className={"mb-3"}>Instructor</Label>
+          <Label className={"mb-3"}>Attribute</Label>
           
           <div className="flex">
-          <Popover open={instructorOpen} onOpenChange={setInstructorOpen}>
+          <Popover open={attributeOpen} onOpenChange={setAttributeOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
                 role="combobox"
-                aria-expanded={instructorOpen}
+                aria-expanded={attributeOpen}
                 className="w-2/3 md:w-1/3 justify-between">
-                {selectedInstructor
-                  ? <span className="truncate">{instructors.find((instructor) => instructor === selectedInstructor)}</span>
-                  : "Select instructor..."}
+                {selectedAttribute
+                  ? <span className="truncate">{attributes.find((attribute) => attribute === selectedAttribute)}</span>
+                  : "Select attribute..."}
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
             <PopoverContent side="bottom" style={{ width: 'var(--radix-popover-trigger-width)' }} align="start" className="w-full h-60 p-0" >
               <Command>
-                <CommandInput placeholder="Search instructor..." />
+                <CommandInput placeholder="Search attribute..." />
                 <CommandList>
                   <CommandEmpty>{
-                    instructorState === "IDLE"
-                      ? "No instructors found."
-                      : instructorState === "LOADING"
+                    attributeState === "IDLE"
+                      ? "No attributes found."
+                      : attributeState === "LOADING"
                         ? <LoadingCircle />
                         : "An error has occurred."
                   }</CommandEmpty>
                   <CommandGroup>
-                    {instructors.map(instructor => (
+                    {attributes.map(attribute => (
                       <CommandItem
-                        key={instructor}
-                        value={instructor}
+                        key={attribute}
+                        value={attribute}
                         onSelect={(currentValue) => {
-                          setSelectedInstructor(currentValue === selectedInstructor ? "" : currentValue)
-                          setInstructorOpen(false)
+                          setSelectedAttribute(currentValue === selectedAttribute ? "" : currentValue)
+                          setAttributeOpen(false)
                         }}
                         className={"cursor-pointer"}
                       >
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            selectedInstructor === instructor ? "opacity-100" : "opacity-0"
+                            selectedAttribute === attribute ? "opacity-100" : "opacity-0"
                           )}
                         />
-                        {instructor}
+                        {attribute}
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -202,9 +201,9 @@ const InstructorDialog = ({ sections, updateDatabase }) => {
             </PopoverContent>
           </Popover>
             
-            {selectedInstructor != "" &&
+            {selectedAttribute != "" &&
               <button
-                onClick={() => fetchSections(selectedInstructor)}
+                onClick={() => fetchSections(selectedAttribute)}
                 className="transition-colors hover:cursor-pointer w-10 h-10 flex justify-center items-center border rounded-md ml-2 hover:bg-slate-100">
                 <Search className="w-5 opacity-50" />
               </button>}
@@ -235,4 +234,4 @@ const InstructorDialog = ({ sections, updateDatabase }) => {
 
 }
 
-export default InstructorDialog
+export default AttributeDialog

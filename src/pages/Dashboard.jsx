@@ -24,6 +24,7 @@ import { ExclamationTriangleIcon, PencilSquareIcon, PlusIcon, XMarkIcon } from "
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import AddDialog from "../components/dialog/AddDialog";
 import { toast } from "@/hooks/use-toast";
+import SeatLabel from "@/components/SeatLabel";
 
 const API_URL = import.meta.env.VITE_API_URL
 const CURRENT_TERM = import.meta.env.VITE_CURRENT_TERM
@@ -72,7 +73,7 @@ const Dashboard = () => {
     try {
       let responses = await Promise.all(
         crns.map(async crn => {
-          const response = await fetch(`${API_URL}/classes/${CURRENT_TERM}/${crn}/`);
+          const response = await fetch(`${API_URL}/terms/${CURRENT_TERM}/classes/${crn}`);
           return response.json();
         })
       )
@@ -188,7 +189,8 @@ const Dashboard = () => {
                       <TableCell>{section.COURSE_TITLE}</TableCell>
                       <TableCell>{section.INSTRUCTOR}</TableCell>
                       <TableCell className="text-right">
-                        <HoverCard closeDelay={200}>
+                        <SeatLabel crn={section.CRN} />
+                        {/* <HoverCard closeDelay={200}>
                           <HoverCardTrigger>
                             {section.SEATS.REMAINING}
                           </HoverCardTrigger>
@@ -197,7 +199,7 @@ const Dashboard = () => {
                             <p>Remaining: {section.SEATS.REMAINING}</p>
                             <p>Capacity: {section.SEATS.CAPACITY}</p>
                           </HoverCardContent>
-                        </HoverCard>
+                        </HoverCard> */}
                       </TableCell>
                     </TableRow>
                   ))
