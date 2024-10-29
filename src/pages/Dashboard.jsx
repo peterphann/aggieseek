@@ -109,7 +109,7 @@ const Dashboard = () => {
         return remove(sectionUsersRef);
       })
       .then(() => {
-        updateDatabase()
+        setSections(sections.filter(section => section.CRN != crn))
       });
   }
 
