@@ -6,6 +6,7 @@ import CRNDialog from "./CRNDialog"
 import InstructorDialog from "./InstructorDialog"
 import { getAuth } from "firebase/auth"
 import { ref, getDatabase, set } from "firebase/database"
+import AttributeDialog from "./AttributeDialog"
 
 
 const API_URL = import.meta.env.VITE_API_URL
@@ -25,7 +26,7 @@ const AddDialog = ({ open, onOpenChange, sections, updateDatabase }) => {
             <TabsTrigger value="search" className="flex">Subject</TabsTrigger>
             <TabsTrigger value="crn">CRN</TabsTrigger>
             <TabsTrigger value="instructor">Instructor</TabsTrigger>
-            <TabsTrigger disabled value="attributes">Attributes</TabsTrigger>
+            <TabsTrigger value="attribute">Attributes</TabsTrigger>
           </TabsList>
           <TabsContent value="search">
             <SearchDialog sections={sections} updateDatabase={updateDatabase}  />
@@ -35,6 +36,9 @@ const AddDialog = ({ open, onOpenChange, sections, updateDatabase }) => {
           </TabsContent>
           <TabsContent value="instructor">
             <InstructorDialog sections={sections} updateDatabase={updateDatabase} />
+          </TabsContent>
+          <TabsContent value="attribute">
+            <AttributeDialog sections={sections} updateDatabase={updateDatabase} />
           </TabsContent>
         </Tabs>
       </DialogContent>
