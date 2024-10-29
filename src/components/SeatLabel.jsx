@@ -22,7 +22,7 @@ const SeatLabel = ({ crn, className }) => {
   return (
     <div className={'flex justify-end'}>
       {seats == null 
-      ? <LoadingCircle />
+      ? <LoadingCircle className={"w-4 h-4"} />
       : seats.REMAINING}
     </div>
   )

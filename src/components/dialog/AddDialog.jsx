@@ -4,19 +4,13 @@ import { Tabs, TabsList, TabsContent, TabsTrigger } from "../ui/tabs"
 import SearchDialog from "./SearchDialog"
 import CRNDialog from "./CRNDialog"
 import InstructorDialog from "./InstructorDialog"
-import { getAuth } from "firebase/auth"
-import { ref, getDatabase, set } from "firebase/database"
 import AttributeDialog from "./AttributeDialog"
 
-
-const API_URL = import.meta.env.VITE_API_URL
-const CURRENT_TERM = import.meta.env.VITE_CURRENT_TERM
-
-const AddDialog = ({ open, onOpenChange, sections, updateDatabase }) => {
+const AddDialog = ({ open, onOpenChange }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogTrigger className="mx-8 flex items-center hover:underline">
+      <DialogTrigger className="mr-8 md:mx-8 flex items-center hover:underline">
         <PlusIcon className="w-4 mr-1" />
         <p className="text-sm font-medium text-aggiered ">Add Sections</p>
       </DialogTrigger>
@@ -25,20 +19,20 @@ const AddDialog = ({ open, onOpenChange, sections, updateDatabase }) => {
           <TabsList className="grid w-full grid-cols-4 mb-4">
             <TabsTrigger value="search" className="flex">Subject</TabsTrigger>
             <TabsTrigger value="crn">CRN</TabsTrigger>
-            <TabsTrigger value="instructor">Instructor</TabsTrigger>
-            <TabsTrigger value="attribute">Attributes</TabsTrigger>
+            <TabsTrigger disabled value="instructor">Instructor</TabsTrigger>
+            <TabsTrigger disabled value="attribute">Attributes</TabsTrigger>
           </TabsList>
           <TabsContent value="search">
-            <SearchDialog sections={sections} updateDatabase={updateDatabase}  />
+            <SearchDialog  />
           </TabsContent>
           <TabsContent value="crn">
-            <CRNDialog sections={sections} updateDatabase={updateDatabase} />
+            <CRNDialog />
           </TabsContent>
           <TabsContent value="instructor">
-            <InstructorDialog sections={sections} updateDatabase={updateDatabase} />
+            <InstructorDialog />
           </TabsContent>
           <TabsContent value="attribute">
-            <AttributeDialog sections={sections} updateDatabase={updateDatabase} />
+            <AttributeDialog />
           </TabsContent>
         </Tabs>
       </DialogContent>
