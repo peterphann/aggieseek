@@ -41,7 +41,7 @@ const SearchDialog = ({ sections, updateDatabase }) => {
   const [buttonState, setButtonState] = useState("IDLE")
 
   const addSection = crn => {
-    return fetch(`${API_URL}/classes/${CURRENT_TERM}/${crn}/`)
+    return fetch(`${API_URL}/terms/${CURRENT_TERM}/classes/${crn}`)
       .then((data) => {
         if (data.status === 400) return 'ERROR';
 
@@ -101,7 +101,7 @@ const SearchDialog = ({ sections, updateDatabase }) => {
 
   const fetchFromDatabase = async url => {
     try {
-      const data = await fetch(`${API_URL}/${url}`)
+      const data = await fetch(`${API_URL}/terms/${CURRENT_TERM}/${url}`)
       return await data.json()
     } catch (error) {
       console.error(error)
@@ -112,20 +112,20 @@ const SearchDialog = ({ sections, updateDatabase }) => {
   const fetchSubjects = async () => {
     setSubjectState('LOADING')
     try {
-      const departments = await fetchFromDatabase(`subjects/${CURRENT_TERM}`);
-      setSubjectState(departments == [] ? 'ERROR' : 'IDLE')
-      setSubjects(departments.DEPARTMENTS)
+      const subjects = await fetchFromDatabase(`subjects`);
+      setSubjectState(subjects == [] ? 'ERROR' : 'IDLE')
+      setSubjects(subjects.SUBJECTS)
     } catch (error) {
       console.error(error)
       setSubjects([])
       setSubjectState('ERROR')
     }
-  }
+  } 
 
   const fetchCourses = async subject => {
     setCourseState('LOADING')
     try {
-      const courses = await fetchFromDatabase(`subjects/${CURRENT_TERM}/${subject}`);
+      const courses = await fetchFromDatabase(`subjects/${subject}`);
       setCourseState(courses == [] ? 'ERROR' : 'IDLE')
       setCourses(courses.COURSES)
     } catch (error) {
@@ -139,7 +139,7 @@ const SearchDialog = ({ sections, updateDatabase }) => {
     setSectionState('LOADING')
     const code = course.substring(0, 3)
     try {
-      const sections = await fetchFromDatabase(`subjects/${CURRENT_TERM}/${subject}/${code}`);
+      const sections = await fetchFromDatabase(`subjects/${subject}/${code}`);
       setSectionState(sections == [] ? 'ERROR' : 'IDLE')
       setSectionsList(sections.SECTIONS)
       console.log(sections)

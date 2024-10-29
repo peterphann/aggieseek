@@ -88,7 +88,7 @@ const InstructorDialog = ({ sections, updateDatabase }) => {
 
   const fetchFromDatabase = async url => {
     try {
-      const data = await fetch(`${API_URL}/${url}`)
+      const data = await fetch(`${API_URL}/terms/${CURRENT_TERM}/${url}`)
       return await data.json()
     } catch (error) {
       console.error(error)
@@ -99,9 +99,9 @@ const InstructorDialog = ({ sections, updateDatabase }) => {
   const fetchInstructors = async () => {
     setInstructorState('LOADING')
     try {
-      const instructors = await fetchFromDatabase(`instructors/${CURRENT_TERM}`);
-      setInstructorState(instructors == [] ? 'ERROR' : 'IDLE')
-      setInstructors(instructors)
+      const instructors = await fetchFromDatabase(`instructors`);
+      setInstructorState(instructors.INSTRUCTORS == [] ? 'ERROR' : 'IDLE')
+      setInstructors(instructors.INSTRUCTORS)
     } catch (error) {
       console.error(error)
       setInstructors([])
@@ -113,10 +113,9 @@ const InstructorDialog = ({ sections, updateDatabase }) => {
     setSectionState('LOADING')
 
     try {
-      const sections = await fetchFromDatabase(`instructors/${CURRENT_TERM}/${instructor}`);
-      setSectionState(sections == [] ? 'ERROR' : 'IDLE')
-      console.log(sections)
-      setSectionsList(sections)
+      const sections = await fetchFromDatabase(`instructors/${instructor}`);
+      setSectionState(sections.SECTIONS == [] ? 'ERROR' : 'IDLE')
+      setSectionsList(sections.SECTIONS)
     } catch (error) {
       console.error(error)
       setSectionsList([])

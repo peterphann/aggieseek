@@ -44,7 +44,7 @@ const CRNDialog = ({ sections, updateDatabase }) => {
     }
 
     setButtonState('WAITING')
-    fetch(`${API_URL}/classes/${CURRENT_TERM}/${userInput}/`)
+    fetch(`${API_URL}/terms/${CURRENT_TERM}/classes/${userInput}`)
       .then((data) => {
         if (data.status === 400) {
           setButtonState('ERROR')
