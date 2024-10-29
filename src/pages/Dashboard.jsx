@@ -21,35 +21,25 @@ import { getDatabase, onValue, ref, remove, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import LoadingCircle from "../components/LoadingCircle";
 import { ExclamationTriangleIcon, PencilSquareIcon, PlusIcon, XMarkIcon } from "@heroicons/react/16/solid/index.js";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import AddDialog from "../components/dialog/AddDialog";
 import { toast } from "@/hooks/use-toast";
 import SeatLabel from "@/components/SeatLabel";
+import { chunkArray, fetchSection } from "@/lib/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { removeSection, setSections } from "@/store/slice";
 
-const API_URL = import.meta.env.VITE_API_URL
 const CURRENT_TERM = import.meta.env.VITE_CURRENT_TERM
-const MAXIMUM_SECTIONS = parseInt(import.meta.env.VITE_MAXIMUM_SECTIONS)
 
 const Dashboard = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const sections = useSelector(state => state.sections);
 
-  const [sections, setSections] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [page, setPage] = useState(0);
   const [isOpen, setOpen] = useState(false);
   const [pageState, setPageState] = useState('LOADING');
-
-  function chunkArray(array) {
-    const newArray = []
-    if (array.length === 0) return [[]]
-
-    for (let i = 0; i < array.length; i += 8) {
-      newArray.push(array.slice(i, i + 8));
-    }
-
-    return newArray
-  }
 
   const fetchUserCRNs = (uid) => {
     return new Promise((resolve, reject) => {
@@ -58,70 +48,40 @@ const Dashboard = () => {
         const data = snapshot.val();
         if (data === null) {
           resolve([]);
-          return;
+        } else {
+          resolve(data);
         }
-        resolve(data);
-      }, (error) => {
+      }, error => {
         reject(error);
       })
     })
   };
 
-  const fetchSectionData = async crns => {
+  const fetchSections = async crns => {
     crns = Object.keys(crns)
-
-    try {
-      let responses = await Promise.all(
-        crns.map(async crn => {
-          const response = await fetch(`${API_URL}/terms/${CURRENT_TERM}/classes/${crn}`);
-          return response.json();
-        })
-      )
-
-      responses = responses.filter(response => response.STATUS === 200);
-
-      responses.sort((a, b) => {
-        if (a.COURSE_NAME < b.COURSE_NAME) return -1;
-        if (a.COURSE_NAME > b.COURSE_NAME) return 1;
-        return 0;
-      });
-
-      setSections(responses);
-      setPageState("LOADED");
-    } catch (e) {
-      console.log(e);
-      setPageState("ERROR")
-    }
-
+    return Promise.all(crns.map(async crn => fetchSection(crn)))
   }
 
-  const removeSection = (crn) => {
+  const handleRemove = async crn => {
     const uid = getAuth().currentUser.uid
     const dbRef = ref(getDatabase(), `users/${uid}/sections/${CURRENT_TERM}/${crn}`);
     const sectionUsersRef = ref(getDatabase(), `sections/${CURRENT_TERM}/${crn}/users/${uid}`);
-    setSections(sections.filter(course => course.crn !== crn))
-    remove(dbRef)
-      .then(() => {
-        toast({
-          title: 'Success!',
-          description: `Removed CRN ${crn}.`
-        })
-        return remove(sectionUsersRef);
-      })
-      .then(() => {
-        setSections(sections.filter(section => section.CRN != crn))
-      });
+    
+    dispatch(removeSection(crn));
+    await remove(dbRef);
+    toast({
+      title: 'Success!',
+      description: `You are no longer tracking CRN ${crn}.`
+    })
+    await remove(sectionUsersRef);
   }
 
-
-  const updateDatabase = () => {
-    fetchUserCRNs(getAuth().currentUser.uid)
-      .then((data) => {
-        fetchSectionData(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+  const updateDatabase = async () => {
+    const uid = getAuth().currentUser.uid;
+    const crns = await fetchUserCRNs(uid);
+    const response = await fetchSections(crns);
+    dispatch(setSections(response))
+    setPageState('LOADED')
   }
 
   useEffect(() => {
@@ -147,9 +107,9 @@ const Dashboard = () => {
           </div>
 
           {pageState !== 'INACTIVE' &&
-            <div className="flex flex-row sm:justify-start md:justify-end"> {/* Container for right-aligned items */}
+            <div className="flex mt-2 flex-row sm:justify-start md:justify-end"> {/* Container for right-aligned items */}
 
-              <AddDialog open={isOpen} onOpenChange={setOpen} sections={sections} updateDatabase={updateDatabase} />
+              <AddDialog open={isOpen} onOpenChange={setOpen} />
 
               <button hidden={pageState === 'LOADING'} onClick={() => setIsEditMode(!isEditMode)}
                 className="z-10 py-2 focus:outline-none flex hover:underline items-center focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
@@ -180,7 +140,7 @@ const Dashboard = () => {
                     <TableRow key={section.CRN} className={"transition-colors duration-100 hover:bg-muted/50"}>
                       <TableCell className="font-medium relative">
                         {section.CRN}
-                        {isEditMode && <button onClick={() => removeSection(section.CRN)}>
+                        {isEditMode && <button onClick={() => handleRemove(section.CRN)}>
                           <XMarkIcon className={"w-6 transition-all absolute top-1/2 -translate-y-1/2 text-red-600 hover:scale-95 active:scale-90 hover:text-red-700"}></XMarkIcon>
                         </button>}
                       </TableCell>
