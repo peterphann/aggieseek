@@ -188,39 +188,35 @@ const Profile = () => {
 
         {!isLoading &&
           <div className="flex justify-between mt-5">
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col space-y-10 md:flex-row md:space-y-0 md:space-x-32 w-full">
 
-              <p className="font-bold text-xl">Personal Information</p>
-
-              <div>
-                <p className="text-md font-medium mt-2">First Name</p>
-                <div className={"flex items-center"}>
-                  <InputUndo type={"text"}
-                    actual={actualFirst} setValue={setInputFirst} value={inputFirst}
-                    onChange={(e) => setInputFirst(e.target.value)} placeholder="John" />
+              <div className="">
+                <p className="font-bold text-xl">Personal Information</p>
+                <div>
+                  <p className="text-md font-medium mt-2">First Name</p>
+                  <div className={"flex items-center"}>
+                    <InputUndo type={"text"}
+                      actual={actualFirst} setValue={setInputFirst} value={inputFirst}
+                      onChange={(e) => setInputFirst(e.target.value)} placeholder="John" />
+                  </div>
+                  <p className="text-md font-medium mt-2">Last Name</p>
+                  <div className={"flex items-center"}>
+                    <InputUndo type={"text"}
+                      actual={actualLast} setValue={setInputLast} value={inputLast}
+                      onChange={(e) => setInputLast(e.target.value)} placeholder="Doe" />
+                  </div>
                 </div>
-
-                <p className="text-md font-medium mt-2">Last Name</p>
+                <p className="text-md font-medium mt-2">Email</p>
                 <div className={"flex items-center"}>
-                  <InputUndo type={"text"}
-                    actual={actualLast} setValue={setInputLast} value={inputLast}
-                    onChange={(e) => setInputLast(e.target.value)} placeholder="Doe" />
+                  <InputUndo type={"email"} disabled
+                    actual={actualEmail} setValue={setInputEmail} value={inputEmail}
+                    onChange={(e) => setInputEmail(e.target.value)}
+                    placeholder="example@gmail.com" />
+                </div>
+                <div className={"mt-8"}>
+                  <Button onClick={() => updateAllSettings()}>Save Changes</Button>
                 </div>
               </div>
-
-              <p className="text-md font-medium mt-2">Email</p>
-              <div className={"flex items-center"}>
-                <InputUndo type={"email"} disabled
-                  actual={actualEmail} setValue={setInputEmail} value={inputEmail}
-                  onChange={(e) => setInputEmail(e.target.value)}
-                  placeholder="example@gmail.com" />
-              </div>
-
-              <div className={"mt-8"}>
-                <Button onClick={() => updateAllSettings()}>Save Changes</Button>
-              </div>
-
-              <hr className={"my-8 border-black"}></hr>
 
               {/* Profile Picture Section */}
               <div className="mb-4">
