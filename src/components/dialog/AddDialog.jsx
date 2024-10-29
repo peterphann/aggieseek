@@ -25,8 +25,8 @@ const AddDialog = ({ open, onOpenChange, sections, updateDatabase }) => {
           <TabsList className="grid w-full grid-cols-4 mb-4">
             <TabsTrigger value="search" className="flex">Subject</TabsTrigger>
             <TabsTrigger value="crn">CRN</TabsTrigger>
-            <TabsTrigger value="instructor">Instructor</TabsTrigger>
-            <TabsTrigger value="attribute">Attributes</TabsTrigger>
+            <TabsTrigger disabled value="instructor">Instructor</TabsTrigger>
+            <TabsTrigger disabled value="attribute">Attributes</TabsTrigger>
           </TabsList>
           <TabsContent value="search">
             <SearchDialog sections={sections} updateDatabase={updateDatabase}  />
