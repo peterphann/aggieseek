@@ -11,6 +11,8 @@ import { Info } from "lucide-react";
 import discord from '../assets/discord-mark-blue.png'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "../components/ui/dialog";
 import { toast } from "@/hooks/use-toast";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 const Settings = () => {
 
@@ -26,6 +28,13 @@ const Settings = () => {
   const [isUsingEmail, setUsingEmail] = useState(false)
   const [isUsingDiscord, setUsingDiscord] = useState(false)
   const [invalidPhone, setInvalidPhone] = useState(false)
+
+  const [alertConditions, setAlertConditions] = useState({
+    'increase': false,
+    'decrease': false,
+    'open': false,
+    'close': false
+  })
 
   const { updateSetting } = useUpdate()
 
@@ -90,6 +99,10 @@ const Settings = () => {
             .then(data => {
               setActualPhone(data['value'])
               setUsingPhone(data['enabled'])
+            }),
+          fetchFromDatabase(user.uid, '/settings/notificationModes/')
+            .then(data => {
+              setAlertConditions(data)
             })
         ]).then(() => {
           setIsLoading(false)
@@ -98,6 +111,14 @@ const Settings = () => {
       }
     })
   }, []);
+
+  const updateCondition = (condition, value) => {
+    setAlertConditions(prev => ({
+      ...prev,
+      [condition]: value
+    }))
+    updateSetting(`settings/notificationModes/${condition}`, value)
+  }
 
   useEffect(() => {
     setInputPhone(actualPhone);
@@ -123,11 +144,11 @@ const Settings = () => {
             e.preventDefault();
             updateAllSettings();
           }}>
-            <div className="flex justify-between mt-5">
-              <div className="flex flex-col">
+            <div className="flex flex-col space-y-8 md:flex-row md:space-y-0 mt-5">
+              <div className="flex flex-col mr-32">
 
                 <div className={"flex"}>
-                  <p className="font-bold text-xl">Contact Information</p>
+                  <p className="font-bold text-xl">Alert Preferences</p>
                 </div>
 
                 <div className="">
@@ -184,6 +205,38 @@ const Settings = () => {
                         updateSetting('methods/discord/enabled', !isUsingDiscord)
                       }} />
                   </div>
+                </div>
+              </div>
+
+              <div className={"flex flex-col space-y-3"}>
+                <p className="font-bold text-xl">Alert Conditions</p>
+
+                <div className="flex items-center mt-4">
+                  <Label htmlFor="increase" className="mr-2 w-40">When seats increase</Label>
+                  <Switch checked={alertConditions.increase}
+                  onCheckedChange={switched => updateCondition('increase', switched)}
+                  id="increase" name="increase" />
+                </div>
+
+                <div className="flex items-center mt-4">
+                  <Label htmlFor="decrease" className="mr-2 w-40">When seats decrease</Label>
+                  <Switch checked={alertConditions.decrease}
+                  onCheckedChange={switched => updateCondition('decrease', switched)}
+                  id="decrease" name="decrease" />
+                </div>
+
+                <div className="flex items-center mt-4">
+                  <Label htmlFor="open" className="mr-2 w-40">When seats open</Label>
+                  <Switch checked={alertConditions.open}
+                  onCheckedChange={switched => updateCondition('open', switched)}
+                  id="open" name="open" />
+                </div>
+
+                <div className="flex items-center mt-4">
+                  <Label htmlFor="close" className="mr-2 w-40">When seats close</Label>
+                  <Switch checked={alertConditions.close}
+                  onCheckedChange={switched => updateCondition('close', switched)}
+                  id="close" name="close" />
                 </div>
               </div>
             </div>
