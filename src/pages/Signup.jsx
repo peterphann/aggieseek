@@ -65,6 +65,14 @@ const Signup = () => {
               value: ''
             },
           },
+          settings: {
+            notificationModes: {
+              increase: true,
+              decrease: true,
+              open: true,
+              close: true
+            }
+          },
           sections: []
         })
       })
