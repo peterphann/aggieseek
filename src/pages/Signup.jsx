@@ -19,10 +19,28 @@ const Signup = () => {
   const [password, setPassword] = useState("")
   const [confirm, setConfirm] = useState("")
   const [message, setMessage] = useState("")
+  const [isProcessing, setProcessing] = useState(false)
 
   const handleSignup = (e) => {
     e.preventDefault()
+    if (isProcessing) return;
 
+    if (first == false) {
+      setMessage("Please enter a first name.")
+      return
+    }
+
+    if (last == false) {
+      setMessage("Please enter a last name.")
+      return
+    }
+
+    if (email == false) {
+      setMessage("Please enter an email.")
+      return
+    }
+
+    setProcessing(true);
     if (password !== confirm) {
       setMessage("The passwords you entered do not match!")
       return
@@ -35,7 +53,6 @@ const Signup = () => {
         const db = getDatabase()
         const uid = getAuth().currentUser.uid
         const date = (new Date()).toISOString().slice(0, -5) + 'Z';
-
 
         set(ref(db, 'users/' + uid), {
           firstName: first,
@@ -78,6 +95,7 @@ const Signup = () => {
       })
       .catch((error) => {
         const errorCode = error.code;
+        setProcessing(false)
         setMessage(errorMessages[errorCode])
       })
   }
