@@ -3,6 +3,8 @@ import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { useNavigate } from "react-router-dom";
+import {GoogleAuthProvider} from "firebase/auth"
+import {signInWithPopup} from "firebase/auth"
 
 const errorMessages = {
   "auth/invalid-email": "The email you entered is invalid.",
@@ -40,6 +42,18 @@ const Login = () => {
       })
   }
 
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try{
+      await signInWithPopup(getAuth(),provider);
+      navigate("/dashboard");
+    }catch(error){
+      console.error("Error signing in with Google: ", error);
+      setMessage("Failed to log in with Google. Please try again.");
+    }
+  }
+
   return (
     <div className="justify-center flex mt-20 ">
 
@@ -65,6 +79,11 @@ const Login = () => {
             <Button action="submit">Login</Button>
           </div>
         </form>
+        <div className = "text-center mt-4">
+            <Button action = "button" onClick = {handleGoogleLogin}>
+              Login with Google
+            </Button>
+        </div>
       </div>
     </div>
   );
