@@ -66,7 +66,7 @@ const Dashboard = () => {
     const uid = getAuth().currentUser.uid
     const dbRef = ref(getDatabase(), `users/${uid}/sections/${CURRENT_TERM}/${crn}`);
     const sectionUsersRef = ref(getDatabase(), `sections/${CURRENT_TERM}/${crn}/users/${uid}`);
-    
+
     dispatch(removeSection(crn));
     await remove(dbRef);
     toast({
@@ -111,11 +111,11 @@ const Dashboard = () => {
 
               <AddDialog open={isOpen} onOpenChange={setOpen} />
 
-              <button hidden={pageState === 'LOADING'} onClick={() => setIsEditMode(!isEditMode)}
+              {/* <button hidden={pageState === 'LOADING'} onClick={() => setIsEditMode(!isEditMode)}
                 className="z-10 py-2 focus:outline-none flex hover:underline items-center focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                 <PencilSquareIcon className="w-4 mr-1" />
                 <p className="text-sm font-medium text-aggiered">Edit Sections</p>
-              </button>
+              </button> */}
             </div>}
         </div>
       </div>
@@ -131,7 +131,8 @@ const Dashboard = () => {
                   <TableHead className="w-[15%] text-white">Course</TableHead>
                   <TableHead className="w-[35%] text-white">Title</TableHead>
                   <TableHead className="w-[25%] text-white">Professor</TableHead>
-                  <TableHead className="w-[10%] text-white text-right">Seats</TableHead>
+                  <TableHead className="w-[5%] text-white text-right">Seats</TableHead>
+                  <TableHead className="w-[5%] text-white"></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -140,9 +141,6 @@ const Dashboard = () => {
                     <TableRow key={section.CRN} className={"transition-colors duration-100 hover:bg-muted/50"}>
                       <TableCell className="font-medium relative">
                         {section.CRN}
-                        {isEditMode && <button onClick={() => handleRemove(section.CRN)}>
-                          <XMarkIcon className={"w-6 transition-all absolute top-1/2 -translate-y-1/2 text-red-600 hover:scale-95 active:scale-90 hover:text-red-700"}></XMarkIcon>
-                        </button>}
                       </TableCell>
                       <TableCell>{section.TERM_CODE}</TableCell>
                       <TableCell>{section.COURSE_NAME}</TableCell>
@@ -160,6 +158,11 @@ const Dashboard = () => {
                             <p>Capacity: {section.SEATS.CAPACITY}</p>
                           </HoverCardContent>
                         </HoverCard> */}
+                      </TableCell>
+                      <TableCell className="flex justify-center items-center">
+                        <button onClick={() => handleRemove(section.CRN)}>
+                          <XMarkIcon className={"w-6 transition-all"}></XMarkIcon>
+                        </button>
                       </TableCell>
                     </TableRow>
                   ))

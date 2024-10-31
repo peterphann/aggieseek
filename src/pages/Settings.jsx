@@ -33,7 +33,8 @@ const Settings = () => {
     'increase': false,
     'decrease': false,
     'open': false,
-    'close': false
+    'close': false,
+    'instructors': false
   })
 
   const { updateSetting } = useUpdate()
@@ -169,7 +170,7 @@ const Settings = () => {
                     <InputUndo type={"email"} placeholder="example@domain.com" disabled
                       value={inputEmail} setValue={setInputEmail} actual={actualEmail}
                       onChange={(e) => setInputEmail(e.target.value)}></InputUndo>
-                    <Switch checked={isUsingEmail} className={"ml-6"} disabled
+                    <Switch checked={isUsingEmail} className={"ml-6"}
                       onCheckedChange={() => {
                         setUsingEmail(!isUsingEmail);
                         updateSetting('methods/email/enabled', !isUsingEmail)
@@ -237,6 +238,13 @@ const Settings = () => {
                   <Switch checked={alertConditions.close}
                   onCheckedChange={switched => updateCondition('close', switched)}
                   id="close" name="close" />
+                </div>
+
+                <div className="flex items-center mt-4">
+                  <Label htmlFor="instructors" className="mr-2 w-40">When instructors change</Label>
+                  <Switch checked={alertConditions.instructors}
+                  onCheckedChange={switched => updateCondition('instructors', switched)}
+                  id="instructors" name="instructors" />
                 </div>
               </div>
             </div>

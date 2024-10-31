@@ -10,7 +10,7 @@ const AddDialog = ({ open, onOpenChange }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogTrigger className="mr-8 md:mx-8 flex items-center hover:underline">
+      <DialogTrigger className="flex items-center hover:underline">
         <PlusIcon className="w-4 mr-1" />
         <p className="text-sm font-medium text-aggiered ">Add Sections</p>
       </DialogTrigger>
