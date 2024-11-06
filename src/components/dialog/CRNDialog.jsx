@@ -52,6 +52,8 @@ const CRNDialog = () => {
       return;
     }
 
+    const data = await fetchSection(crn);
+
     if (data.STATUS != 200) {
       toast({
         title: 'Error',
@@ -60,7 +62,6 @@ const CRNDialog = () => {
       setButtonState('ERROR')
       return
     };
-    const data = await fetchSection(crn);
     
     const uid = getAuth().currentUser.uid;
     const dbRef = ref(getDatabase(), `users/${uid}/sections/${CURRENT_TERM}/${crn}`);
