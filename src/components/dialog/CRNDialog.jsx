@@ -24,25 +24,17 @@ const CRNDialog = () => {
   const dispatch = useDispatch()
 
   const handleCRNInput = (e) => {
-    setButtonState('IDLE')
-    if (isNaN(parseInt(e.target.value)) && e.target.value !== '') return;
-
-    setCRNInput(e.target.value)
-  }
+    const value = e.target.value;
+    if (!/^\d*$/.test(value)) return;
+  
+    setButtonState('IDLE');
+    setCRNInput(value);
+  };
 
   const handleAdd = async crn => {
     if (!crn) return;
     setButtonState('LOADING')
-    const data = await fetchSection(crn);
-    console.log('test')
-    if (data.STATUS != 200) {
-      toast({
-        title: 'Error',
-        description: `CRN ${crn} doesn't exist!`
-      });
-      setButtonState('ERROR')
-      return
-    };
+    
     if (sections.length >= MAXIMUM_SECTIONS) {
       toast({
         title: 'Error',
@@ -51,7 +43,25 @@ const CRNDialog = () => {
       setButtonState('IDLE')
       return;
     }
+    if (sections.map(section => section.CRN).includes(crn)) {
+      toast({
+        title: 'Error',
+        description: `You are already tracking this section.`
+      });
+      setButtonState('IDLE')
+      return;
+    }
 
+    if (data.STATUS != 200) {
+      toast({
+        title: 'Error',
+        description: `CRN ${crn} doesn't exist!`
+      });
+      setButtonState('ERROR')
+      return
+    };
+    const data = await fetchSection(crn);
+    
     const uid = getAuth().currentUser.uid;
     const dbRef = ref(getDatabase(), `users/${uid}/sections/${CURRENT_TERM}/${crn}`);
     const sectionDbRef = ref(getDatabase(), `sections/${CURRENT_TERM}/${crn}/users/${uid}`);

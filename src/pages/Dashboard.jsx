@@ -93,7 +93,7 @@ const Dashboard = () => {
           updateDatabase();
         }
       } else {
-        navigate('/')
+        navigate('/signin')
       }
     })
   }, []);

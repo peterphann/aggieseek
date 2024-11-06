@@ -108,7 +108,8 @@ const Settings = () => {
         ]).then(() => {
           setIsLoading(false)
         })
-
+      } else {
+        
       }
     })
   }, []);
@@ -170,7 +171,7 @@ const Settings = () => {
                     <InputUndo type={"email"} placeholder="example@domain.com" disabled
                       value={inputEmail} setValue={setInputEmail} actual={actualEmail}
                       onChange={(e) => setInputEmail(e.target.value)}></InputUndo>
-                    <Switch checked={isUsingEmail} className={"ml-6"}
+                    <Switch checked={isUsingEmail} className={"ml-6"} disabled
                       onCheckedChange={() => {
                         setUsingEmail(!isUsingEmail);
                         updateSetting('methods/email/enabled', !isUsingEmail)
@@ -211,20 +212,6 @@ const Settings = () => {
 
               <div className={"flex flex-col space-y-3"}>
                 <p className="font-bold text-xl">Alert Conditions</p>
-
-                <div className="flex items-center mt-4">
-                  <Label htmlFor="increase" className="mr-2 w-40">When seats increase</Label>
-                  <Switch checked={alertConditions.increase}
-                  onCheckedChange={switched => updateCondition('increase', switched)}
-                  id="increase" name="increase" />
-                </div>
-
-                <div className="flex items-center mt-4">
-                  <Label htmlFor="decrease" className="mr-2 w-40">When seats decrease</Label>
-                  <Switch checked={alertConditions.decrease}
-                  onCheckedChange={switched => updateCondition('decrease', switched)}
-                  id="decrease" name="decrease" />
-                </div>
 
                 <div className="flex items-center mt-4">
                   <Label htmlFor="open" className="mr-2 w-40">When seats open</Label>
