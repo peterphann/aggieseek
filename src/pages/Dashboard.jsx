@@ -15,8 +15,9 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../components/ui/pagination"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getDatabase, onValue, ref, remove, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import LoadingCircle from "../components/LoadingCircle";
@@ -27,6 +28,7 @@ import SeatLabel from "@/components/SeatLabel";
 import { chunkArray, fetchSection } from "@/lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { removeSection, setSections } from "@/store/slice";
+import kofi from "../assets/kofi.png"
 
 const CURRENT_TERM = import.meta.env.VITE_CURRENT_TERM
 
@@ -102,8 +104,18 @@ const Dashboard = () => {
     <div>
       <div className="flex justify-center items-center mt-10 px-2"> {/* Fullscreen container for vertical & horizontal centering */}
         <div className="flex flex-col md:flex-row justify-between w-full max-w-7xl px-4 sm:px-6 lg:px-8"> {/* Content container */}
-          <div className="flex flex-row justify-start">
+          <div className="flex flex-row items-center justify-start space-x-4">
             <h2 className="text-3xl font-bold">Dashboard</h2> {/* Absolutely positioned to center */}
+            <HoverCard>
+              <HoverCardTrigger className="transition-transform ease-in-out hover:scale-110 hover:rotate-12">
+                <Link to={"https://ko-fi.com/aggieseek"}>
+                  <img src={kofi} className="w-6 h-6"></img>
+                </Link>
+              </HoverCardTrigger>
+              <HoverCardContent className="shadow-none font-bold border-none w-full p-0 text-center bg-transparent" side="right">
+                Support us on Ko-fi!
+              </HoverCardContent>
+            </HoverCard>
           </div>
 
           {pageState !== 'INACTIVE' &&

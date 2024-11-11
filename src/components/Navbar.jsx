@@ -119,7 +119,7 @@ export default function Navbar() {
               </div>
               <div className="flex flex-1 ml-4 sm:ml-0">
                 <div id={"logo-centered"} className="flex items-center">
-                  <Link to={isUser ? "/dashboard" : "/"}>
+                  <Link to={"/"}>
                     <Logo className="transition-all ease-in-out duration-100 h-6 object-contain cursor-pointer hover:opacity-80"></Logo>
                   </Link>
                 </div>

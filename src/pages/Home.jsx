@@ -8,16 +8,6 @@ import { getAuth } from "firebase/auth"
 import { Check } from "lucide-react"
 
 const Home = () => {
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    getAuth().onAuthStateChanged(user => {
-      if (user) {
-        navigate("/dashboard")
-      }
-    })
-  }, [])
-
   return (
     <>
       <div className="mt-20 text-center">
