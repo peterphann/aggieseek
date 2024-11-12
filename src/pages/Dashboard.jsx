@@ -109,16 +109,19 @@ const Dashboard = () => {
         <div className="flex flex-col md:flex-row justify-between w-full max-w-7xl px-4 sm:px-6 lg:px-8"> {/* Content container */}
           <div className="flex flex-row items-center justify-start space-x-4">
             <h2 className="text-3xl font-bold">Dashboard</h2> {/* Absolutely positioned to center */}
-            <HoverCard>
-              <HoverCardTrigger className="transition-transform ease-in-out hover:scale-110 hover:rotate-12">
-                <Link to={"https://ko-fi.com/aggieseek"}>
-                  <img src={kofi} className="w-6 h-6"></img>
-                </Link>
-              </HoverCardTrigger>
-              <HoverCardContent className="shadow-none font-bold border-none w-full p-0 text-center bg-transparent" side="right">
-                Support us on Ko-fi!
-              </HoverCardContent>
-            </HoverCard>
+            {pageState === 'LOADED' &&
+              <HoverCard>
+                <HoverCardTrigger className="transition-transform ease-in-out hover:scale-110 hover:rotate-12">
+                  <Link to={"https://ko-fi.com/aggieseek"}>
+                    <img src={kofi} className="w-6 h-6"></img>
+                  </Link>
+                </HoverCardTrigger>
+                <HoverCardContent className="shadow-none font-bold border-none w-full p-0 text-center bg-transparent" side="right">
+                  Support us on Ko-fi!
+                </HoverCardContent>
+              </HoverCard>
+
+            }
           </div>
 
           {pageState === 'LOADED' &&
