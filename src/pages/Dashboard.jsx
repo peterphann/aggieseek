@@ -91,6 +91,9 @@ const Dashboard = () => {
       if (user) {
         if (CURRENT_TERM === 'INACTIVE') {
           setPageState('INACTIVE')
+        } else if (CURRENT_TERM === 'MAINTENANCE') {
+          setPageState('MAINTENANCE')
+
         } else {
           updateDatabase();
         }
@@ -118,7 +121,7 @@ const Dashboard = () => {
             </HoverCard>
           </div>
 
-          {pageState !== 'INACTIVE' &&
+          {pageState === 'LOADED' &&
             <div className="flex mt-2 flex-row sm:justify-start md:justify-end"> {/* Container for right-aligned items */}
 
               <AddDialog open={isOpen} onOpenChange={setOpen} />
@@ -236,6 +239,12 @@ const Dashboard = () => {
         <div className="flex flex-col items-center justify-center mt-8">
           <ExclamationTriangleIcon className={"w-12 mr-2"} />
           Course registration is not open.
+        </div>}
+
+      {pageState === 'MAINTENANCE' &&
+        <div className="flex flex-col items-center justify-center mt-8">
+          <ExclamationTriangleIcon className={"w-12 mr-2"} />
+          AggieSeek is undergoing maintenance.
         </div>}
 
     </div>
