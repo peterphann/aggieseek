@@ -247,7 +247,7 @@ const Dashboard = () => {
       {pageState === 'MAINTENANCE' &&
         <div className="flex flex-col items-center justify-center mt-8">
           <ExclamationTriangleIcon className={"w-12 mr-2"} />
-          AggieSeek is undergoing maintenance.
+          AggieSeek is undergoing maintenance indefinitely. Thank you for using our service.
         </div>}
 
     </div>
