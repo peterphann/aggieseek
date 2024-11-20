@@ -8,6 +8,15 @@ import { getAuth } from "firebase/auth"
 import { Check } from "lucide-react"
 
 const Home = () => {
+
+  useEffect(() => {
+    getAuth().onAuthStateChanged(user =>{
+      if (user) {
+        getAuth().signOut();
+      }
+    })
+  }, [])
+
   return (
     <>
       <div className="mt-20 flex flex-col items-center">
