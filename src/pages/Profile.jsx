@@ -8,10 +8,12 @@ import Button from "../components/Button.jsx";
 import useUpdate from "../hooks/useUpdate.jsx";
 import anonymous from '../assets/profile.webp'
 import { toast } from "@/hooks/use-toast"
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
 
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const [actualFirst, setActualFirst] = useState('')
   const [actualLast, setActualLast] = useState('')
@@ -142,6 +144,9 @@ const Profile = () => {
   useEffect(() => {
     getAuth().onAuthStateChanged((user) => {
       if (user) {
+        getAuth().signOut();
+        return;
+
         Promise.all([
           fetchFromDatabase(user.uid, '/firstName/')
             .then(data => {
@@ -165,6 +170,7 @@ const Profile = () => {
 
       }
     })
+    navigate('/')
   }, []);
 
   useEffect(() => {

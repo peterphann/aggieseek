@@ -89,6 +89,9 @@ const Dashboard = () => {
   useEffect(() => {
     getAuth().onAuthStateChanged((user) => {
       if (user) {
+        getAuth().signOut();
+        return;
+
         if (CURRENT_TERM === 'INACTIVE') {
           setPageState('INACTIVE')
         } else if (CURRENT_TERM === 'MAINTENANCE') {
@@ -98,8 +101,9 @@ const Dashboard = () => {
           updateDatabase();
         }
       } else {
-        navigate('/signin')
+        // navigate('/signin')
       }
+      navigate('/')
     })
   }, []);
 

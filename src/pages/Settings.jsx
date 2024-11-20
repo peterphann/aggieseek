@@ -13,10 +13,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { toast } from "@/hooks/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
 
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const [actualPhone, setActualPhone] = useState('')
   const [actualEmail, setActualEmail] = useState('')
@@ -85,6 +87,9 @@ const Settings = () => {
   useEffect(() => {
     getAuth().onAuthStateChanged((user) => {
       if (user) {
+        getAuth().signOut();
+        return;
+
         Promise.all([
           fetchFromDatabase(user.uid, '/methods/email/')
             .then(data => {
@@ -112,6 +117,7 @@ const Settings = () => {
         
       }
     })
+    navigate('/')
   }, []);
 
   const updateCondition = (condition, value) => {

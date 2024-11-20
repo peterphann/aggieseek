@@ -19,6 +19,8 @@ const Login = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
+    navigate('/')
+    return;
     getAuth().onAuthStateChanged(user => {
       if (user) {
         navigate("/dashboard")

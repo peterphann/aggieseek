@@ -10,7 +10,7 @@ import { Check } from "lucide-react"
 const Home = () => {
   return (
     <>
-      <div className="mt-20 text-center">
+      <div className="mt-20 flex flex-col items-center">
         <motion.div className="flex flex-col items-center justify-center md:flex-row gap-4"
           initial={{'opacity': 0, translateY: '40%'}}
           animate={{'opacity': 1, translateY: '0%'}}
@@ -26,7 +26,15 @@ const Home = () => {
           <h2 className="text-2xl lg:text-4xl font-bold mt-4 mb-4">Never miss a seat!</h2>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row justify-center my-2">
+        <div className="w-11/12 md:w-2/3 lg:w-1/3 text-center">
+        Howdy! AggieSeek is currently down indefinitely. We're currently working to get back up and running by next semester.
+        </div>
+
+        <div className="w-11/12 md:w-2/3 lg:w-1/2 text-center mt-3">
+        Thank you to everyone who has supported and used our service!
+        </div>
+
+        {/* <div className="flex flex-col lg:flex-row justify-center my-2">
           <div className="text-base sm:block transform-translate ease-in-out duration-200 cursor-default hover:-translate-y-1">
             <Check className="inline h-8 w-8 pr-2"></Check>
             Pick what courses you want
@@ -47,7 +55,7 @@ const Home = () => {
 
         <Link to="/signin" className="">
           <Button>Log In</Button>
-        </Link>
+        </Link> */}
       </div>
 
 

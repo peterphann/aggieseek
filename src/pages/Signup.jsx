@@ -101,6 +101,9 @@ const Signup = () => {
   }
 
   useEffect(() => {
+    navigate('/')
+    return
+
     getAuth().onAuthStateChanged(user => {
       if (user) {
         navigate("/dashboard")
